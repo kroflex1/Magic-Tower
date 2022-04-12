@@ -12,25 +12,25 @@ namespace MagicTower.Model
 
     public class Player
     {
-        public double PosX { get; private set; }
-        public double PosY { get; private set; }
+        public int PosX { get; private set; }
+        public int PosY { get; private set; }
 
         public int CurrentHealth
         {
-            get => CurrentHealth;
+            get { return currentHealth; }
             private set
             {
-                if (value + CurrentHealth <= maxHealth)
-                    CurrentHealth += value;
-                CurrentHealth = maxHealth;
+                if (value > maxHealth)
+                    currentHealth = maxHealth;
+                currentHealth = value;
             }
         }
-
-        public double Speed { get; private set; }
+        public int Speed { get; private set; }
 
         private int maxHealth;
+        private int currentHealth;
 
-        public Player(int maxHealth, double speed)
+        public Player(int maxHealth, int speed)
         {
             this.maxHealth = maxHealth;
             CurrentHealth = maxHealth;
@@ -48,7 +48,7 @@ namespace MagicTower.Model
                     PosX -= Speed;
                     break;
                 case Directions.Up:
-                    PosY += Speed;
+                    PosY -= Speed;
                     break;
                 case Directions.Down:
                     PosY += Speed;
@@ -56,7 +56,7 @@ namespace MagicTower.Model
             }
         }
 
-        public void ChangePosition(double x, double y)
+        public void ChangePosition(int x, int y)
         {
             PosX = x;
             PosY = y;
