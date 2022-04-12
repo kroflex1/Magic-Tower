@@ -16,5 +16,10 @@ namespace MagicTower
         {
             InitializeComponent();
         }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            e.Graphics.DrawRectangle(new Pen(Color.Brown),0,0 ,40,40);
+        }
     }
 }
