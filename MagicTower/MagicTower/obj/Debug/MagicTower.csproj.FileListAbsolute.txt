@@ -1,0 +1,10 @@
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\MagicTower.exe.config
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\MagicTower.exe
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\MagicTower.pdb
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.csproj.AssemblyReference.cache
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.csproj.SuggestedBindingRedirects.cache
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.Properties.Resources.resources
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.csproj.GenerateResource.cache
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.csproj.CoreCompileInputs.cache
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.exe
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.pdb
