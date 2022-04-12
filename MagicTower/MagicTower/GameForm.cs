@@ -9,7 +9,7 @@ namespace MagicTower
     {
         private GameModel gameModel;
         private PlayerView playerView;
-        
+
         public GameForm()
         {
             gameModel = new GameModel();
@@ -41,25 +41,23 @@ namespace MagicTower
                 gameModel.Player.Move(Directions.Down);
             Invalidate();
         }
-        
     }
 
     public class PlayerView
     {
-        public Rectangle bodyPlayer;
         private Player player;
+        private Image playerSprite;
+
         public PlayerView(Player player)
         {
             this.player = player;
-            bodyPlayer = new Rectangle(player.PosX, player.PosY, 50, 50);
+            playerSprite =
+                Image.FromFile(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\player.png");
         }
-        
+
         public void Draw(Graphics e)
         {
-            bodyPlayer.X = player.PosX;
-            bodyPlayer.Y = player.PosY;
-            e.DrawRectangle(new Pen(Color.Blue), bodyPlayer);
+            e.DrawImage(playerSprite, new Point(player.PosX, player.PosY));
         }
-        
     }
 }
