@@ -52,10 +52,10 @@
         <Compile Include="GameForm.Designer.cs">
           <DependentUpon>GameForm.cs</DependentUpon>
         </Compile>
-        <Compile Include="Model\Floor.cs" />
+        <Compile Include="Model\Room.cs" />
         <Compile Include="Model\GameModel.cs" />
         <Compile Include="Model\Level.cs" />
-        <Compile Include="Model\Player.cs" />
+        <Compile Include="Model\PlayerModel.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <EmbeddedResource Include="Properties\Resources.resx">
@@ -81,6 +81,7 @@
         <None Include="App.config" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="Sprites\cursor.cur" />
       <Content Include="Sprites\player.png" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

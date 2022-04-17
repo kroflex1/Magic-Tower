@@ -2,7 +2,7 @@ using System;
 
 namespace MagicTower.Model
 {
-    public enum Directions
+    public enum Direction
     {
         Up,
         Down,
@@ -10,10 +10,11 @@ namespace MagicTower.Model
         Right
     }
 
-    public class Player
+    public class PlayerModel
     {
         public int PosX { get; private set; }
         public int PosY { get; private set; }
+        private Room currentRoom;
 
         public int CurrentHealth
         {
@@ -25,41 +26,30 @@ namespace MagicTower.Model
                 currentHealth = value;
             }
         }
+
         public int Speed { get; private set; }
 
         private int maxHealth;
         private int currentHealth;
 
-        public Player(int maxHealth, int speed)
+        public PlayerModel(int maxHealth, int speed, Room currentRoom)
         {
             this.maxHealth = maxHealth;
             CurrentHealth = maxHealth;
             Speed = speed;
+            this.currentRoom = currentRoom;
         }
 
-        public void Move(Directions direction)
+        public void Move(Direction direction)
         {
-            switch (direction)
-            {
-                case Directions.Right:
-                    PosX += Speed;
-                    break;
-                case Directions.Left:
-                    PosX -= Speed;
-                    break;
-                case Directions.Up:
-                    PosY -= Speed;
-                    break;
-                case Directions.Down:
-                    PosY += Speed;
-                    break;
-            }
-        }
-
-        public void ChangePosition(int x, int y)
-        {
-            PosX = x;
-            PosY = y;
+            if (direction == Direction.Right && CanGoTo(PosX + Speed, PosY))
+                PosX += Speed;
+            else if (direction == Direction.Left && CanGoTo(PosX - Speed, PosY))
+                PosX -= Speed;
+            else if (direction == Direction.Up && CanGoTo(PosX, PosY - Speed))
+                PosY -= Speed;
+            else if (direction == Direction.Down && CanGoTo(PosX, PosY + Speed))
+                PosY += Speed;
         }
 
         public void Heal(int amountOfHealth)
@@ -79,6 +69,13 @@ namespace MagicTower.Model
         public bool IsPlayerAlive()
         {
             return CurrentHealth > 0;
+        }
+
+        private bool CanGoTo(int x, int y)
+        {
+            if (x >= 0 && x <= currentRoom.Width && y >= 0 && y <= currentRoom.Height)
+                return true;
+            return false;
         }
     }
 }
