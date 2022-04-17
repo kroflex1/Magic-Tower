@@ -13,7 +13,7 @@ namespace MagicTower.Model
         {
             windowSize = new[] {windowWidth, windowHeight};
             SetLevels();
-            Player = new PlayerModel(10, 30, currentRoom);
+            Player = new PlayerModel(0, 0, 10, 30, currentRoom);
         }
 
         private void SetLevels()

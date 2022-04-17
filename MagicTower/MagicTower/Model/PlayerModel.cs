@@ -32,8 +32,10 @@ namespace MagicTower.Model
         private int maxHealth;
         private int currentHealth;
 
-        public PlayerModel(int maxHealth, int speed, Room currentRoom)
+        public PlayerModel(int startPosX, int startPosY, int maxHealth, int speed, Room currentRoom)
         {
+            PosX = startPosX;
+            PosY = startPosY;
             this.maxHealth = maxHealth;
             CurrentHealth = maxHealth;
             Speed = speed;
