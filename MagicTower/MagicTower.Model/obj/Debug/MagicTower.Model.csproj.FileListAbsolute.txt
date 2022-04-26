@@ -1,0 +1,6 @@
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model\bin\Debug\MagicTower.Model.dll
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model\bin\Debug\MagicTower.Model.pdb
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model\obj\Debug\MagicTower.Model.csproj.AssemblyReference.cache
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model\obj\Debug\MagicTower.Model.csproj.CoreCompileInputs.cache
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model\obj\Debug\MagicTower.Model.dll
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model\obj\Debug\MagicTower.Model.pdb

@@ -1,0 +1,11 @@
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model.Tests\bin\Debug\MagicTower.Model.Tests.dll
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model.Tests\bin\Debug\MagicTower.Model.Tests.pdb
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model.Tests\bin\Debug\MagicTower.Model.dll
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model.Tests\bin\Debug\nunit.framework.dll
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model.Tests\bin\Debug\MagicTower.Model.pdb
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model.Tests\bin\Debug\nunit.framework.xml
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model.Tests\obj\Debug\MagicTower.Model.Tests.csproj.AssemblyReference.cache
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model.Tests\obj\Debug\MagicTower.Model.Tests.csproj.CoreCompileInputs.cache
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model.Tests\obj\Debug\MagicTower.Model.Tests.csproj.CopyComplete
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model.Tests\obj\Debug\MagicTower.Model.Tests.dll
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower.Model.Tests\obj\Debug\MagicTower.Model.Tests.pdb
