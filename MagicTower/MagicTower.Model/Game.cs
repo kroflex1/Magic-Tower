@@ -2,18 +2,18 @@ using System.Collections.Generic;
 
 namespace MagicTower.Model
 {
-    public class GameModel
+    public class Game
     {
-        public PlayerModel Player { get; }
+        public Player Player { get; }
         private int[] windowSize;
         private List<Level> levels;
         private Room currentRoom;
 
-        public GameModel(int windowWidth, int windowHeight)
+        public Game(int windowWidth, int windowHeight)
         {
             windowSize = new[] {windowWidth, windowHeight};
             SetLevels();
-            Player = new PlayerModel(0, 0, 10, 30, currentRoom);
+            Player = new Player(0, 0, 10, 1, currentRoom);
         }
 
         private void SetLevels()
@@ -23,9 +23,6 @@ namespace MagicTower.Model
             currentRoom = levels[0].Rooms[0];
         }
 
-        // public void MovePlayerTo(Directions direction)
-        // {
-        //     
-        // }
     }
 }
+

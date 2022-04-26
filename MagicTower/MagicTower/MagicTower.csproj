@@ -52,10 +52,6 @@
         <Compile Include="GameForm.Designer.cs">
           <DependentUpon>GameForm.cs</DependentUpon>
         </Compile>
-        <Compile Include="Model\Room.cs" />
-        <Compile Include="Model\GameModel.cs" />
-        <Compile Include="Model\Level.cs" />
-        <Compile Include="Model\PlayerModel.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <EmbeddedResource Include="Properties\Resources.resx">
@@ -83,6 +79,12 @@
     <ItemGroup>
       <Content Include="Sprites\cursor.cur" />
       <Content Include="Sprites\player.png" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\MagicTower.Model\MagicTower.Model.csproj">
+        <Project>{375fbab4-240d-4a76-bbaa-edd1cc7cdced}</Project>
+        <Name>MagicTower.Model</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

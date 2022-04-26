@@ -2,15 +2,7 @@ using System;
 
 namespace MagicTower.Model
 {
-    public enum Direction
-    {
-        Up,
-        Down,
-        Left,
-        Right
-    }
-
-    public class PlayerModel
+    public class Player
     {
         public int PosX { get; private set; }
         public int PosY { get; private set; }
@@ -32,7 +24,7 @@ namespace MagicTower.Model
         private int maxHealth;
         private int currentHealth;
 
-        public PlayerModel(int startPosX, int startPosY, int maxHealth, int speed, Room currentRoom)
+        public Player(int startPosX, int startPosY, int maxHealth, int speed, Room currentRoom)
         {
             PosX = startPosX;
             PosY = startPosY;

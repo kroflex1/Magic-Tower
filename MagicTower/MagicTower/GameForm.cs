@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using MagicTower.Model;
@@ -7,13 +8,13 @@ namespace MagicTower
 {
     public partial class GameForm : Form
     {
-        private GameModel gameModel;
+        private Game gameModel;
         private PlayerView playerView;
 
         public GameForm()
         {
             InitializeComponent();
-            gameModel = new GameModel(500, 500);
+            gameModel = new Game(500, 500);
             playerView = new PlayerView(gameModel.Player);
         }
 
@@ -23,18 +24,24 @@ namespace MagicTower
             Text = "Magic Tower";
             DoubleBuffered = true;
         }
-        
+
         protected override void OnPaint(PaintEventArgs e)
         {
             playerView.Draw(e.Graphics);
-            Cursor.Current = new Cursor(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\cursor.cur");
+            Cursor.Current =
+                new Cursor(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\cursor.cur");
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
+            if (e.KeyCode == (Keys.A | Keys.W))
+            {
+                gameModel.Player.Move(Direction.Left);
+                gameModel.Player.Move(Direction.Up);
+            }
+
             if (e.KeyCode == Keys.A)
                 gameModel.Player.Move(Direction.Left);
-            // gameModel.MovePlayerTo(Directions.Left);
             if (e.KeyCode == Keys.D)
                 gameModel.Player.Move(Direction.Right);
             if (e.KeyCode == Keys.W)
@@ -57,13 +64,13 @@ namespace MagicTower
 
     public class PlayerView
     {
-        private PlayerModel player;
+        private Player player;
         public readonly Image playerSprite;
 
         public Direction imageDirection { get; set; }
         // private Bitmap playerBitmap;
 
-        public PlayerView(PlayerModel player)
+        public PlayerView(Player player)
         {
             this.player = player;
             playerSprite =

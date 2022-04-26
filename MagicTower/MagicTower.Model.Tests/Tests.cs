@@ -1,8 +1,7 @@
 ﻿using System;
-using MagicTower.Model;
 using NUnit.Framework;
 
-namespace Tests
+namespace MagicTower.Model.Tests
 {
     [TestFixture]
     public class Tests
@@ -17,10 +16,10 @@ namespace Tests
             Assert.AreEqual((endX, endY), (player.PosX, player.PosY));
         }
         
-        private PlayerModel CreatePlayerAndMoveTo(Direction direction, int startPosX, int startPosY)
+        private Player CreatePlayerAndMoveTo(Direction direction, int startPosX, int startPosY)
         {
             var room = new Room(10, 10);
-            var player = new PlayerModel(startPosX, startPosY ,100, 5, room);
+            var player = new Player(startPosX, startPosY ,100, 5, room);
             player.Move(direction);
             return player;
         }
