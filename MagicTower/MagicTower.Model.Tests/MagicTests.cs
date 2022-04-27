@@ -12,7 +12,7 @@ namespace MagicTower.Model.Tests
         [TestCase(0, 1)]
         [TestCase(-1, 0)]
         [TestCase(0, -1)]
-        public void CorrectSimpleDirectionVectorFromZeroPoint(double endX, double endY)
+        public void SimpleDirectionVectorFromZeroPoint(double endX, double endY)
         {
             var magic = new FireBall(0, 0, endX, endY, 1);
             Assert.AreEqual((endX, endY), magic.DirectionVector);
@@ -22,22 +22,36 @@ namespace MagicTower.Model.Tests
         [TestCase(-1, 1, -0.7, 0.7)]
         [TestCase(-1, -1, -0.7, -0.7)]
         [TestCase(1, -1, 0.7, -0.7)]
-        public void CorrectDiagonalDirectionVectorFromZeroPoint(double endX, double endY, double directionX,
+        public void DiagonalDirectionVectorFromZeroPoint(double endX, double endY, double directionX,
             double directionY)
         {
             var magic = new FireBall(0, 0, endX, endY, 1);
             Assert.AreEqual(directionX, magic.DirectionVector.X, 1e10);
+            Assert.AreEqual(directionY, magic.DirectionVector.Y, 1e10);
         }
 
 
-        [TestCase(1, 0)]
-        [TestCase(0, 1)]
-        [TestCase(-1, 0)]
-        [TestCase(0, -1)]
-        public void CorrectDirectionVectorFromZeroPoint(double endX, double endY)
+        [TestCase(1, 1, 10, 1, 1, 0)]
+        [TestCase(-2, -2, -2, 5, 0, 1)]
+        [TestCase(-5, 3, -8, 3, -1, 0)]
+        [TestCase(0, 5, 0, -5, 0, -1)]
+        public void SimpleDirectionVectorFromNotZeroPoint(double startX, double startY, double endX, double endY,
+            double directionX, double directionY)
         {
-            var magic = new FireBall(0, 0, endX, endY, 1);
-            Assert.AreEqual((endX, endY), magic.DirectionVector);
+            var magic = new FireBall(startX, startY, endX, endY, 1);
+            Assert.AreEqual((directionX, directionY), magic.DirectionVector);
+        }
+
+        [TestCase(2, 2, 8, 8, 0.7, 0.7)]
+        [TestCase(2, 2, 0, 0, -0.7, -0.7)]
+        [TestCase(2, 2, 0, 4, -0.7, 0.7)]
+        [TestCase(2, 2, 4, 0, 0.7, -0.7)]
+        public void DiagonalDirectionVectorFromNotZeroPoint(double startX, double startY, double endX, double endY,
+            double directionX, double directionY)
+        {
+            var magic = new FireBall(startX, startY, endX, endY, 1);
+            Assert.AreEqual(directionX, magic.DirectionVector.X, 1e10);
+            Assert.AreEqual(directionY, magic.DirectionVector.Y, 1e10);
         }
 
         [TestCase(1, 0)]
