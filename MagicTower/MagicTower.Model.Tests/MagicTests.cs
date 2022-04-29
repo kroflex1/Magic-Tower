@@ -12,20 +12,20 @@ namespace MagicTower.Model.Tests
         [TestCase(0, 1)]
         [TestCase(-1, 0)]
         [TestCase(0, -1)]
-        public void SimpleDirectionVectorFromZeroPoint(double endX, double endY)
+        public void DirectionVectorFromZeroPointWithSpeedOne(int endX, int endY)
         {
-            var magic = new FireBall(0, 0, endX, endY, 1);
+            var magic = CreateTestMagic(0, 0, endX, endY, 1);
             Assert.AreEqual((endX, endY), magic.DirectionVector);
         }
 
-        [TestCase(1, 1, 0.7, 0.7)]
-        [TestCase(-1, 1, -0.7, 0.7)]
-        [TestCase(-1, -1, -0.7, -0.7)]
-        [TestCase(1, -1, 0.7, -0.7)]
-        public void DiagonalDirectionVectorFromZeroPoint(double endX, double endY, double directionX,
-            double directionY)
+        [TestCase(1, 1, 1, 1)]
+        [TestCase(-1, 1, -1, 1)]
+        [TestCase(-1, -1, -1, -1)]
+        [TestCase(1, -1, 1, -1)]
+        public void DiagonalDirectionVectorFromZeroPointWithSpeedOne(int endX, int endY, int directionX,
+            int directionY)
         {
-            var magic = new FireBall(0, 0, endX, endY, 1);
+            var magic = CreateTestMagic(0, 0, endX, endY, 1);
             Assert.AreEqual(directionX, magic.DirectionVector.X, 1e10);
             Assert.AreEqual(directionY, magic.DirectionVector.Y, 1e10);
         }
@@ -35,21 +35,21 @@ namespace MagicTower.Model.Tests
         [TestCase(-2, -2, -2, 5, 0, 1)]
         [TestCase(-5, 3, -8, 3, -1, 0)]
         [TestCase(0, 5, 0, -5, 0, -1)]
-        public void SimpleDirectionVectorFromNotZeroPoint(double startX, double startY, double endX, double endY,
-            double directionX, double directionY)
+        public void DirectionVectorFromNotZeroPointWithSpeedOne(int startX, int startY, int endX, int endY,
+            int directionX, int directionY)
         {
-            var magic = new FireBall(startX, startY, endX, endY, 1);
+            var magic = CreateTestMagic(startX, startY, endX, endY, 1);
             Assert.AreEqual((directionX, directionY), magic.DirectionVector);
         }
 
-        [TestCase(2, 2, 8, 8, 0.7, 0.7)]
-        [TestCase(2, 2, 0, 0, -0.7, -0.7)]
-        [TestCase(2, 2, 0, 4, -0.7, 0.7)]
-        [TestCase(2, 2, 4, 0, 0.7, -0.7)]
-        public void DiagonalDirectionVectorFromNotZeroPoint(double startX, double startY, double endX, double endY,
-            double directionX, double directionY)
+        [TestCase(2, 2, 8, 8, 1, 1)]
+        [TestCase(2, 2, 0, 0, -1, -1)]
+        [TestCase(2, 2, 0, 4, -1, 1)]
+        [TestCase(2, 2, 4, 0, 1, -1)]
+        public void DiagonalDirectionVectorFromNotZeroPointWithSpeedOne(int startX, int startY, int endX, int endY,
+            int directionX, int directionY)
         {
-            var magic = new FireBall(startX, startY, endX, endY, 1);
+            var magic = CreateTestMagic(startX, startY, endX, endY, 1);
             Assert.AreEqual(directionX, magic.DirectionVector.X, 1e10);
             Assert.AreEqual(directionY, magic.DirectionVector.Y, 1e10);
         }
@@ -58,12 +58,43 @@ namespace MagicTower.Model.Tests
         [TestCase(0, 1)]
         [TestCase(-1, 0)]
         [TestCase(0, -1)]
-        public void DoHorizontalOrVerticalStep(int endX, int endY)
+        public void DoHorizontalOrVerticalStepWithSpeedOne(int endX, int endY)
         {
-            var magic = new FireBall(0, 0, endX, endY, 1);
-            magic.TakeStepInDirection();
+            var magic = CreateTestMagic(0, 0, endX, endY, 1);
+            magic.TakeStep();
             Assert.AreEqual(endX, magic.PosX);
             Assert.AreEqual(endY, magic.PosY);
+        }
+
+        [TestCase(1, 0, 2)]
+        [TestCase(0, 1, 2)]
+        [TestCase(-1, 0, 2)]
+        [TestCase(0, -1, 2)]
+        public void DoHorizontalOrVerticalStepsWithSpeedOne(int endX, int endY, int amountSteps)
+        {
+            var magic = CreateTestMagic(0, 0, endX, endY, 1);
+            for (int i = 0; i < amountSteps; i++)
+                magic.TakeStep();
+            Assert.AreEqual(endX * amountSteps, magic.PosX);
+            Assert.AreEqual(endY * amountSteps, magic.PosY);
+        }
+        
+        [TestCase(1, 0, 5)]
+        [TestCase(0, 1, -10)]
+        [TestCase(-1, 0, -4)]
+        [TestCase(0, -1, 5)]
+        public void DoHorizontalOrVerticalStepWithDifferentSpeeds(int endX, int endY, int speed)
+        {
+            var magic = CreateTestMagic(0, 0, endX, endY, speed);
+            magic.TakeStep();
+            Assert.AreEqual(endX*speed, magic.PosX);
+            Assert.AreEqual(endY*speed, magic.PosY);
+        }
+        
+
+        private TestMagic CreateTestMagic(int startX, int startY, int endX, int endY, int speed)
+        {
+            return new TestMagic(startX, startY, endX, endY, new Room(10, 17), speed);
         }
     }
 }

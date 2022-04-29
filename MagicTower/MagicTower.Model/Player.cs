@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MagicTower.Model
 {
@@ -6,8 +8,6 @@ namespace MagicTower.Model
     {
         public int PosX { get; private set; }
         public int PosY { get; private set; }
-        private Room currentRoom;
-
         public int CurrentHealth
         {
             get { return currentHealth; }
@@ -18,11 +18,14 @@ namespace MagicTower.Model
                 currentHealth = value;
             }
         }
-
         public int Speed { get; private set; }
 
         private int maxHealth;
         private int currentHealth;
+        private Room currentRoom;
+        private List<Magic.Magic> learnedMagic;
+        private Magic.Magic currentMagic;
+        
 
         public Player(int startPosX, int startPosY, int maxHealth, int speed, Room currentRoom)
         {
@@ -46,6 +49,16 @@ namespace MagicTower.Model
                 PosY += Speed;
         }
 
+        public void LearnNewMagic(Magic.Magic newMagic)
+        {
+            if(!learnedMagic.Any(magic => magic.GetType() == newMagic.GetType()))
+                learnedMagic.Add(newMagic);
+        }
+
+        public void ChangeCurrentMagic(int magicId)
+        {
+            currentMagic = learnedMagic[magicId];
+        }
         public void Heal(int amountOfHealth)
         {
             if (amountOfHealth < 0)

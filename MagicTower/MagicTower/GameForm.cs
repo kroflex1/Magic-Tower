@@ -68,7 +68,6 @@ namespace MagicTower
         public readonly Image playerSprite;
 
         public Direction imageDirection { get; set; }
-        // private Bitmap playerBitmap;
 
         public PlayerView(Player player)
         {
@@ -76,13 +75,11 @@ namespace MagicTower
             playerSprite =
                 Image.FromFile(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\player.png");
             imageDirection = Direction.Right;
-            // playerBitmap = new Bitmap(playerSprite, new Size(16*4, 16*7));
         }
 
         public void Draw(Graphics e)
         {
             e.DrawImage(playerSprite, new Point(player.PosX, player.PosY));
-            // e.DrawImage(playerBitmap, 100, 100);
         }
 
         public void FlipImage()
