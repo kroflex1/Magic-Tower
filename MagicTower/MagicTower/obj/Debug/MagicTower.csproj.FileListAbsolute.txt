@@ -8,3 +8,6 @@ C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.csproj.CoreCompileInputs.cache
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.exe
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.pdb
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\MagicTower.Model.dll
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\MagicTower.Model.pdb
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.csproj.CopyComplete

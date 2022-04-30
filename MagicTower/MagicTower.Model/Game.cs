@@ -1,19 +1,25 @@
 using System.Collections.Generic;
+using MagicTower.Model.Magic;
 
 namespace MagicTower.Model
 {
     public class Game
     {
         public Player Player { get; }
+        public Room currentRoom;
         private int[] windowSize;
         private List<Level> levels;
-        private Room currentRoom;
-
+        
         public Game(int windowWidth, int windowHeight)
         {
             windowSize = new[] {windowWidth, windowHeight};
             SetLevels();
-            Player = new Player(0, 0, 10, 1, currentRoom);
+            Player = new Player(0, 0, currentRoom);
+        }
+
+        public void SpawnMagic(int tagetX, int targetY)
+        {
+            currentRoom.allMagicInRoom.Add(new FireBall(Player.PosX, Player.PosY,tagetX, targetY, currentRoom));
         }
 
         private void SetLevels()

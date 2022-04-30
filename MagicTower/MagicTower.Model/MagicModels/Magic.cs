@@ -51,6 +51,8 @@ namespace MagicTower.Model.Magic
         {
             PosX += DirectionVector.X;
             PosY += DirectionVector.Y;
+            if (!room.InBounds(PosX, PosY))
+                room.beyondBoundsMagic.Add(this);
         }
 
 

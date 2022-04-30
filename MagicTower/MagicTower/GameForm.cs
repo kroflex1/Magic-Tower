@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using MagicTower.Model;
+using MagicTower.Model.Magic;
 
 namespace MagicTower
 {
@@ -10,17 +12,27 @@ namespace MagicTower
     {
         private Game gameModel;
         private PlayerView playerView;
+        private MagicView magicView;
 
         public GameForm()
         {
             InitializeComponent();
-            gameModel = new Game(500, 500);
+            Size = new Size(400, 400);
+            gameModel = new Game(Width, Height);
             playerView = new PlayerView(gameModel.Player);
+            magicView = new MagicView(gameModel.currentRoom);
+
+            var timer = new Timer();
+            timer.Interval = 33;
+            timer.Tick += (sender, args) =>
+            {
+                Invalidate();
+            };
+            timer.Start();
         }
 
         protected override void OnLoad(EventArgs e)
         {
-            WindowState = FormWindowState.Maximized;
             Text = "Magic Tower";
             DoubleBuffered = true;
         }
@@ -28,18 +40,11 @@ namespace MagicTower
         protected override void OnPaint(PaintEventArgs e)
         {
             playerView.Draw(e.Graphics);
-            Cursor.Current =
-                new Cursor(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\cursor.cur");
+            magicView.Draw(e.Graphics);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.KeyCode == (Keys.A | Keys.W))
-            {
-                gameModel.Player.Move(Direction.Left);
-                gameModel.Player.Move(Direction.Up);
-            }
-
             if (e.KeyCode == Keys.A)
                 gameModel.Player.Move(Direction.Left);
             if (e.KeyCode == Keys.D)
@@ -48,7 +53,6 @@ namespace MagicTower
                 gameModel.Player.Move(Direction.Up);
             if (e.KeyCode == Keys.S)
                 gameModel.Player.Move(Direction.Down);
-            Invalidate();
         }
 
         protected override void OnMouseMove(MouseEventArgs mouse)
@@ -60,14 +64,18 @@ namespace MagicTower
                 Invalidate();
             }
         }
+
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
+            gameModel.SpawnMagic(e.X, e.Y);
+        }
     }
 
     public class PlayerView
     {
-        private Player player;
         public readonly Image playerSprite;
-
         public Direction imageDirection { get; set; }
+        private Player player;
 
         public PlayerView(Player player)
         {
@@ -89,6 +97,36 @@ namespace MagicTower
             else
                 imageDirection = Direction.Right;
             playerSprite.RotateFlip(RotateFlipType.Rotate180FlipY);
+        }
+    }
+
+    public class MagicView
+    {
+        private Room room;
+        private Dictionary<Type, Image> imagesForMagic;
+
+        public MagicView(Room room)
+        {
+            this.room = room;
+            SetImagesForMagic();
+        }
+
+        public void Draw(Graphics e)
+        {
+            room.Update();
+            foreach (var magic in room.allMagicInRoom)
+            {
+                var pos = new Point(magic.PosX, magic.PosY);
+                e.DrawImage(imagesForMagic[magic.GetType()], pos);
+            }
+        }
+
+        private void SetImagesForMagic()
+        {
+            imagesForMagic = new Dictionary<Type, Image>();
+            imagesForMagic[typeof(FireBall)] =
+                Image.FromFile(
+                    @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\MagicSprites\FireBall.png");
         }
     }
 }

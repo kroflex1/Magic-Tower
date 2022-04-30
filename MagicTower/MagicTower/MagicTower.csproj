@@ -78,6 +78,7 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="Sprites\cursor.cur" />
+      <Content Include="Sprites\MagicSprites\FireBall.png" />
       <Content Include="Sprites\player.png" />
     </ItemGroup>
     <ItemGroup>

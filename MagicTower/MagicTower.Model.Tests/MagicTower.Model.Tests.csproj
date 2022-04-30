@@ -44,7 +44,7 @@
     <ItemGroup>
         <Compile Include="MagicTests.cs" />
         <Compile Include="TestMagic.cs" />
-        <Compile Include="Tests.cs" />
+        <Compile Include="PlayerTests.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

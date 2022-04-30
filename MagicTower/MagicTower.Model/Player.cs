@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MagicTower.Model.Magic;
 
 namespace MagicTower.Model
 {
-    public class Player
+    public class Player : IGameObject
     {
         public int PosX { get; private set; }
         public int PosY { get; private set; }
+        public int HitboxWidth { get; }
+        public int HitboxHeight { get; }
+
         public int CurrentHealth
         {
             get { return currentHealth; }
@@ -18,47 +22,74 @@ namespace MagicTower.Model
                 currentHealth = value;
             }
         }
-        public int Speed { get; private set; }
+
+        public int Speed
+        {
+            get => speed;
+            set
+            {
+                if (value > 0)
+                    speed = value;
+            }
+        }
 
         private int maxHealth;
         private int currentHealth;
+        private int speed;
         private Room currentRoom;
-        private List<Magic.Magic> learnedMagic;
-        private Magic.Magic currentMagic;
-        
+        private List<MagicType> learnedMagic;
+        private MagicType currentMagic;
 
-        public Player(int startPosX, int startPosY, int maxHealth, int speed, Room currentRoom)
+
+        public Player(int startPosX, int startPosY, Room currentRoom) : this(startPosX, startPosY, currentRoom, 10, 10)
+        {
+        }
+
+
+        public Player(int startPosX, int startPosY, Room currentRoom, int maxHealth, int speed)
         {
             PosX = startPosX;
             PosY = startPosY;
+            this.currentRoom = currentRoom;
             this.maxHealth = maxHealth;
             CurrentHealth = maxHealth;
             Speed = speed;
-            this.currentRoom = currentRoom;
+        }
+
+        public void OnCollisionEnter(IGameObject gameObject)
+        {
+            throw new NotImplementedException();
         }
 
         public void Move(Direction direction)
         {
-            if (direction == Direction.Right && CanGoTo(PosX + Speed, PosY))
+            if (direction == Direction.Right && currentRoom.InBounds(PosX + Speed, PosY))
                 PosX += Speed;
-            else if (direction == Direction.Left && CanGoTo(PosX - Speed, PosY))
+            else if (direction == Direction.Left && currentRoom.InBounds(PosX - Speed, PosY))
                 PosX -= Speed;
-            else if (direction == Direction.Up && CanGoTo(PosX, PosY - Speed))
+            else if (direction == Direction.Up && currentRoom.InBounds(PosX, PosY - speed))
                 PosY -= Speed;
-            else if (direction == Direction.Down && CanGoTo(PosX, PosY + Speed))
+            else if (direction == Direction.Down && currentRoom.InBounds(PosX, PosY + speed))
                 PosY += Speed;
         }
 
-        public void LearnNewMagic(Magic.Magic newMagic)
+        public void AttackTo(int targetX, int targetY)
         {
-            if(!learnedMagic.Any(magic => magic.GetType() == newMagic.GetType()))
-                learnedMagic.Add(newMagic);
+            var fireBall = new FireBall(PosX, PosY, targetX, targetY, currentRoom);
+            currentRoom.allMagicInRoom.Add(fireBall);
+        }
+
+        public void LearnNewMagic(MagicType newMagicType)
+        {
+            if(!learnedMagic.Contains(newMagicType))
+                learnedMagic.Add(newMagicType);
         }
 
         public void ChangeCurrentMagic(int magicId)
         {
-            currentMagic = learnedMagic[magicId];
+            currentMagic = learnedMagic[magicId - 1];
         }
+
         public void Heal(int amountOfHealth)
         {
             if (amountOfHealth < 0)
@@ -76,13 +107,6 @@ namespace MagicTower.Model
         public bool IsPlayerAlive()
         {
             return CurrentHealth > 0;
-        }
-
-        private bool CanGoTo(int x, int y)
-        {
-            if (x >= 0 && x <= currentRoom.Width && y >= 0 && y <= currentRoom.Height)
-                return true;
-            return false;
         }
     }
 }

@@ -44,6 +44,7 @@
         <Compile Include="Level.cs" />
         <Compile Include="MagicModels\FireBall.cs" />
         <Compile Include="MagicModels\Magic.cs" />
+        <Compile Include="MagicType.cs" />
         <Compile Include="Player.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Room.cs" />
