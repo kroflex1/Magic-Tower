@@ -33,6 +33,7 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="PresentationCore" />
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Xml.Linq" />
@@ -44,6 +45,7 @@
         <Reference Include="System.Net.Http" />
         <Reference Include="System.Windows.Forms" />
         <Reference Include="System.Xml" />
+        <Reference Include="WindowsBase" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="GameForm.cs">
@@ -52,6 +54,8 @@
         <Compile Include="GameForm.Designer.cs">
           <DependentUpon>GameForm.cs</DependentUpon>
         </Compile>
+        <Compile Include="MagicView.cs" />
+        <Compile Include="PlayerView.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <EmbeddedResource Include="Properties\Resources.resx">
@@ -78,8 +82,8 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="Sprites\cursor.cur" />
-      <Content Include="Sprites\MagicSprites\FireBall.png" />
       <Content Include="Sprites\player.png" />
+      <Content Include="Sprites\MagicSprites\FireBall.png" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\MagicTower.Model\MagicTower.Model.csproj">

@@ -30,9 +30,20 @@ namespace MagicTower.Model.Tests
             Assert.AreEqual((endX, endY), (player.PosX, player.PosY));
         }
 
+        [TestCase(Direction.Right, 3, 0)]
+        [TestCase(Direction.Left, 0, 0)]
+        [TestCase(Direction.Up, 0, 0)]
+        [TestCase(Direction.Down, 0, 3)]
+        public void PlayerCantGoToBeyondBounds(Direction direction, int startX, int startY)
+        {
+            var player = CreatePlayer(startX, startY);
+            player.Move(direction);
+            Assert.AreEqual((startX, startY), (player.PosX, player.PosY));
+        }
+        
         private Player CreatePlayer(int startPosX, int startPosY)
         {
-            var room = new Room(10, 10);
+            var room = new Room(3, 3);
             var player = new Player(startPosX, startPosY, room, 1, 1);
             return player;
         }

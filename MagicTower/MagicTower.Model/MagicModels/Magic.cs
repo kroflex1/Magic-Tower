@@ -2,7 +2,7 @@ using System;
 
 namespace MagicTower.Model.Magic
 {
-    public class Magic : IGameObject
+    public abstract class Magic : IGameObject
     {
         public int PosX { get; private set; }
         public int PosY { get; private set; }
