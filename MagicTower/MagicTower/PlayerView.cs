@@ -16,8 +16,11 @@ namespace MagicTower
         public PlayerView(Player player)
         {
             this.player = player;
+            var pathToImage = Path.Combine(
+                new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.FullName,
+                "Sprites\\player.png");
             playerSprite =
-                Image.FromFile(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\player.png");
+                Image.FromFile(pathToImage);
             imageDirection = Direction.Right;
         }
 

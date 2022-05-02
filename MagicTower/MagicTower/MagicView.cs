@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using MagicTower.Model;
 using MagicTower.Model.Magic;
 
@@ -32,7 +33,9 @@ namespace MagicTower
             imagesForMagic = new Dictionary<Type, Image>();
             imagesForMagic[typeof(FireBall)] =
                 Image.FromFile(
-                    @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\MagicSprites\FireBall.png");
+                    Path.Combine(
+                        new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.FullName,
+                        "Sprites\\MagicSprites\\fireBall.png"));
         }
     }
 }

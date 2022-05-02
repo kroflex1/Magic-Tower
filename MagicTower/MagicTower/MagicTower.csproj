@@ -83,7 +83,7 @@
     <ItemGroup>
       <Content Include="Sprites\cursor.cur" />
       <Content Include="Sprites\player.png" />
-      <Content Include="Sprites\MagicSprites\FireBall.png" />
+      <Content Include="Sprites\MagicSprites\fireBall.png" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\MagicTower.Model\MagicTower.Model.csproj">
