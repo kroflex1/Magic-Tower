@@ -3,3 +3,6 @@ Magic Tower  - это компьютерная игра, в которой, иг
  
 # Trello
 Доска на Trello https://trello.com/b/J0niBwlr
+
+## Итоги и замечания на 03.05
+- всё хорошо :)
