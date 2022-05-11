@@ -16,11 +16,8 @@ namespace MagicTower
         public PlayerView(Player player)
         {
             this.player = player;
-            var pathToImage = Path.Combine(
-                new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.FullName,
-                "Sprites\\player.png");
-            playerSprite =
-                Image.FromFile(pathToImage);
+            var pathToImage = @"Sprites\player.png";
+            playerSprite = Image.FromFile(pathToImage);
             imageDirection = Direction.Right;
         }
 

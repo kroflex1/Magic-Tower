@@ -11,3 +11,5 @@ C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\MagicTower.Model.dll
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\MagicTower.Model.pdb
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.csproj.CopyComplete
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\player.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\demon.png

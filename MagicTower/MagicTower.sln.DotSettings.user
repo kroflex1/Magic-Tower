@@ -11,5 +11,8 @@
     &lt;TestId&gt;NUnit3x::10E0BA06-1834-4BE9-98F7-5E968DA0805E::.NETFramework,Version=v4.8::MagicTower.Model.Tests.MagicTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::10E0BA06-1834-4BE9-98F7-5E968DA0805E::.NETFramework,Version=v4.8::MagicTower.Model.Tests.Tests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::10E0BA06-1834-4BE9-98F7-5E968DA0805E::.NETFramework,Version=v4.8::MagicTower.Model.Tests.PlayerTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::10E0BA06-1834-4BE9-98F7-5E968DA0805E::.NETFramework,Version=v4.8::MagicTower.Model.Tests.CollisionControllerTests.RectanglesIntersection&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::10E0BA06-1834-4BE9-98F7-5E968DA0805E::.NETFramework,Version=v4.8::MagicTower.Model.Tests.CollisionControllerTests.RectanglesNotIntersection&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::10E0BA06-1834-4BE9-98F7-5E968DA0805E::.NETFramework,Version=v4.8::MagicTower.Model.Tests.CollisionControllerTests.MagicShouldIntersectEnemy&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

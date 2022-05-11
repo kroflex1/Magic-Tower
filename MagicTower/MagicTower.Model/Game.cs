@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MagicTower.Model.EnemiesModels;
 using MagicTower.Model.Magic;
 
 namespace MagicTower.Model
@@ -19,7 +20,12 @@ namespace MagicTower.Model
 
         public void SpawnMagic(int tagetX, int targetY)
         {
-            currentRoom.allMagicInRoom.Add(new FireBall(Player.PosX, Player.PosY,tagetX, targetY, currentRoom));
+            currentRoom.MagicInRoom.Add(new FireBall(Player.PosX, Player.PosY,tagetX, targetY, currentRoom));
+        }
+
+        public void SpawnEnemy(int posX, int posY)
+        {
+            currentRoom.AliveEnemiesInRoom.Add(new Demon(posX, posY, currentRoom));
         }
 
         private void SetLevels()

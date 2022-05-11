@@ -20,8 +20,7 @@ namespace MagicTower
 
         public void Draw(Graphics e)
         {
-            room.Update();
-            foreach (var magic in room.allMagicInRoom)
+            foreach (var magic in room.MagicInRoom)
             {
                 var pos = new Point(magic.PosX, magic.PosY);
                 e.DrawImage(imagesForMagic[magic.GetType()], pos);

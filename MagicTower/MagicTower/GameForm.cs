@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using MagicTower.Model;
 using System.Windows.Input;
+using MagicTower.Model.EnemiesModels;
 using MagicTower.Model.Magic;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
@@ -17,6 +18,7 @@ namespace MagicTower
         private Game gameModel;
         private PlayerView playerView;
         private MagicView magicView;
+        private EnemyView enemyView;
 
 
         public GameForm()
@@ -27,10 +29,13 @@ namespace MagicTower
             gameModel = new Game(Width, Height);
             playerView = new PlayerView(gameModel.Player);
             magicView = new MagicView(gameModel.currentRoom);
+            enemyView = new EnemyView(gameModel.currentRoom);
 
+            gameModel.SpawnEnemy(200, 200);
 
             var timer = new Timer();
             timer.Interval = 33;
+            timer.Tick += (sender, args) => { gameModel.currentRoom.Update(); };
             timer.Tick += (sender, args) => { Invalidate(); };
             timer.Start();
         }
@@ -45,6 +50,7 @@ namespace MagicTower
         {
             playerView.Draw(e.Graphics);
             magicView.Draw(e.Graphics);
+            enemyView.Draw(e.Graphics);
         }
 
 

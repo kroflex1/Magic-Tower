@@ -1,4 +1,5 @@
 using System;
+using MagicTower.Model.EnemiesModels;
 
 namespace MagicTower.Model.Magic
 {
@@ -8,7 +9,7 @@ namespace MagicTower.Model.Magic
         public int PosY { get; private set; }
         public int HitboxWidth { get; }
         public int HitboxHeight { get; }
-        public (int X, int Y) DirectionVector { get; set; }
+        public (int X, int Y) DirectionVector { get; private set; }
 
         public int Speed
         {
@@ -30,16 +31,16 @@ namespace MagicTower.Model.Magic
             }
         }
 
-        public readonly Room room;
+        public readonly Room CurrentRoom;
         protected int speed;
         protected int damage;
 
-        public Magic(int startX, int startY, int endX, int endY, Room currentRoom, int hitboxWidth,
+        public Magic(int startX, int startY, int endX, int endY, Room currentCurrentRoom, int hitboxWidth,
             int hitboxHeight, int speed, int damage)
         {
             PosX = startX;
             PosY = startY;
-            room = currentRoom;
+            CurrentRoom = currentCurrentRoom;
             HitboxHeight = hitboxHeight;
             HitboxWidth = hitboxWidth;
             this.speed = speed;
@@ -51,14 +52,15 @@ namespace MagicTower.Model.Magic
         {
             PosX += DirectionVector.X;
             PosY += DirectionVector.Y;
-            if (!room.InBounds(PosX, PosY))
-                room.beyondBoundsMagic.Add(this);
+            if (!CurrentRoom.InBounds(PosX, PosY))
+                CurrentRoom.ShouldDisappearMagic.Add(this);
         }
 
 
         public void OnCollisionEnter(IGameObject gameObject)
         {
-            throw new System.NotImplementedException();
+            if (gameObject is Enemy)
+                CurrentRoom.ShouldDisappearMagic.Add(this);
         }
 
         private void CalculateDirectionVector(double startX, double startY, double endX, double endY)

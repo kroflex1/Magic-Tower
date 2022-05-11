@@ -48,6 +48,7 @@
         <Reference Include="WindowsBase" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="EnemyView.cs" />
         <Compile Include="GameForm.cs">
           <SubType>Form</SubType>
         </Compile>
@@ -82,8 +83,13 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="Sprites\cursor.cur" />
-      <Content Include="Sprites\player.png" />
+      <Content Include="Sprites\demon.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <Content Include="Sprites\MagicSprites\fireBall.png" />
+      <Content Include="Sprites\player.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\MagicTower.Model\MagicTower.Model.csproj">

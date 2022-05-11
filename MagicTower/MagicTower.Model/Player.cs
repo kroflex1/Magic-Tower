@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MagicTower.Model.EnemiesModels;
 using MagicTower.Model.Magic;
 
 namespace MagicTower.Model
@@ -17,7 +18,7 @@ namespace MagicTower.Model
             get { return currentHealth; }
             private set
             {
-                if (value > maxHealth)
+                if (value > 0)
                     currentHealth = maxHealth;
                 currentHealth = value;
             }
@@ -58,7 +59,11 @@ namespace MagicTower.Model
 
         public void OnCollisionEnter(IGameObject gameObject)
         {
-            throw new NotImplementedException();
+            if (gameObject.GetType() == typeof(Enemy))
+            {
+                Enemy enemy = gameObject as Enemy;
+                GetDamaged(enemy.Damage);
+            }
         }
 
         public void Move(Direction direction)
@@ -76,7 +81,7 @@ namespace MagicTower.Model
         public void AttackTo(int targetX, int targetY)
         {
             var fireBall = new FireBall(PosX, PosY, targetX, targetY, currentRoom);
-            currentRoom.allMagicInRoom.Add(fireBall);
+            currentRoom.MagicInRoom.Add(fireBall);
         }
 
         public void LearnNewMagic(MagicType newMagicType)
