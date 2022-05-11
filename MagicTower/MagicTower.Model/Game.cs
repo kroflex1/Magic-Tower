@@ -20,12 +20,12 @@ namespace MagicTower.Model
 
         public void SpawnMagic(int tagetX, int targetY)
         {
-            currentRoom.MagicInRoom.Add(new FireBall(Player.PosX, Player.PosY,tagetX, targetY, currentRoom));
+            currentRoom.MagicInRoom.Add(new FireBall(Player.PosX, Player.PosY,tagetX, targetY));
         }
 
         public void SpawnEnemy(int posX, int posY)
         {
-            currentRoom.AliveEnemiesInRoom.Add(new Demon(posX, posY, currentRoom));
+            currentRoom.AliveEnemiesInRoom.Add(new Demon(posX, posY));
         }
 
         private void SetLevels()

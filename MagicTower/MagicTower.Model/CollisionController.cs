@@ -5,13 +5,13 @@ namespace MagicTower.Model
 {
     public static class CollisionController
     {
-        public static void CheckForCollisions(List<Magic.Magic> magics, List<Enemy> enemies)
+        public static void CheckGameObjectsForCollisions(Room room)
         {
-            foreach (var magic in magics)
+            foreach (var magic in room.MagicInRoom)
             {
-                foreach (var enemy in enemies)
+                var magicRectangle = new Rectangle(magic.PosX, magic.PosY, magic.HitboxWidth, magic.HitboxHeight);
+                foreach (var enemy in room.AliveEnemiesInRoom)
                 {
-                    var magicRectangle = new Rectangle(magic.PosX, magic.PosY, magic.HitboxWidth, magic.HitboxHeight);
                     var enemyRectangle = new Rectangle(enemy.PosX, enemy.PosY, enemy.HitboxWidth, enemy.HitboxHeight);
                     if (IsIntersection(magicRectangle, enemyRectangle))
                     {

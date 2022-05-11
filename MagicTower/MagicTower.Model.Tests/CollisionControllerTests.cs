@@ -46,15 +46,15 @@ namespace MagicTower.Model.Tests
         public void MagicShouldIntersectEnemy(int magicPosX, int magicPosY, int enemyPosX, int enemyPosY)
         {
             var room = GetRoomPreset(magicPosX, magicPosY, enemyPosX, enemyPosY);
-            CollisionController.CheckForCollisions(room.MagicInRoom, room.AliveEnemiesInRoom);
+            CollisionController.CheckGameObjectsForCollisions(room);
             Assert.AreEqual(new List<Enemy>(), room.AliveEnemiesInRoom);
         }
 
         private Room GetRoomPreset(int magicPosX, int magicPosY, int enemyPosX, int enemyPosY)
         {
             var room = new Room(20, 20);
-            var magic = new TestMagic(magicPosX, magicPosY, 10, 0, room, 1);
-            var enemy = new TestEnemy(enemyPosX, enemyPosY, room);
+            var magic = new TestMagic(magicPosX, magicPosY, 10, 0,  1);
+            var enemy = new TestEnemy(enemyPosX, enemyPosY);
             room.MagicInRoom.Add(magic);
             room.AliveEnemiesInRoom.Add(enemy);
             return room;

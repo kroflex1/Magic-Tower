@@ -78,7 +78,7 @@ namespace MagicTower.Model.Tests
             Assert.AreEqual(endX * amountSteps, magic.PosX);
             Assert.AreEqual(endY * amountSteps, magic.PosY);
         }
-        
+
         [TestCase(1, 0, 5)]
         [TestCase(0, 1, -10)]
         [TestCase(-1, 0, -4)]
@@ -87,14 +87,14 @@ namespace MagicTower.Model.Tests
         {
             var magic = CreateTestMagic(0, 0, endX, endY, speed);
             magic.TakeStep();
-            Assert.AreEqual(endX*speed, magic.PosX);
-            Assert.AreEqual(endY*speed, magic.PosY);
+            Assert.AreEqual(endX * speed, magic.PosX);
+            Assert.AreEqual(endY * speed, magic.PosY);
         }
-        
+
 
         private TestMagic CreateTestMagic(int startX, int startY, int endX, int endY, int speed)
         {
-            return new TestMagic(startX, startY, endX, endY, new Room(10, 17), speed);
+            return new TestMagic(startX, startY, endX, endY, speed);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace MagicTower.Model.EnemiesModels
         public int PosY { get; private set; }
         public int HitboxWidth { get; private set; }
         public int HitboxHeight { get; private set; }
-        
+
         public int Speed
         {
             get => speed;
@@ -21,6 +21,7 @@ namespace MagicTower.Model.EnemiesModels
                     throw new ArgumentException("Скорость не может быть меньше нуля");
             }
         }
+
         public int Damage
         {
             get => speed;
@@ -32,25 +33,24 @@ namespace MagicTower.Model.EnemiesModels
                     throw new ArgumentException("Урон не может быть меньше нуля");
             }
         }
-        
-        
-        public readonly Room CurrentRoom;
+
+        public Condition CurrentCondition { get; private set; }
 
         private int health;
         private int speed;
         private int damage;
 
-        public Enemy(int posX, int posY, Room currentRoom, int hitboxWidth,
+        public Enemy(int posX, int posY, int hitboxWidth,
             int hitboxHeight, int health, int speed, int damage)
         {
             PosX = posX;
             PosY = posY;
-            CurrentRoom = currentRoom;
             HitboxHeight = hitboxHeight;
             HitboxWidth = hitboxWidth;
             this.health = health;
             Speed = speed;
             Damage = damage;
+            CurrentCondition = Condition.Alive;
         }
 
         public void TakeStep()
@@ -63,8 +63,8 @@ namespace MagicTower.Model.EnemiesModels
         {
             if (gameObject is Magic.Magic)
             {
-               Magic.Magic magic = gameObject as Magic.Magic;
-               GetDamaged(magic.Damage);
+                Magic.Magic magic = gameObject as Magic.Magic;
+                GetDamaged(magic.Damage);
             }
         }
 
@@ -72,7 +72,7 @@ namespace MagicTower.Model.EnemiesModels
         {
             health -= amountOfDamage;
             if (health <= 0)
-                CurrentRoom.DeadEnemiesInRoom.Add(this);
+                CurrentCondition = Condition.Destroyed;
         }
     }
 }

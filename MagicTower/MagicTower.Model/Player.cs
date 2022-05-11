@@ -78,11 +78,11 @@ namespace MagicTower.Model
                 PosY += Speed;
         }
 
-        public void AttackTo(int targetX, int targetY)
-        {
-            var fireBall = new FireBall(PosX, PosY, targetX, targetY, currentRoom);
-            currentRoom.MagicInRoom.Add(fireBall);
-        }
+        // public void AttackTo(int targetX, int targetY)
+        // {
+        //     var fireBall = new FireBall(PosX, PosY, targetX, targetY, currentRoom);
+        //     currentRoom.MagicInRoom.Add(fireBall);
+        // }
 
         public void LearnNewMagic(MagicType newMagicType)
         {

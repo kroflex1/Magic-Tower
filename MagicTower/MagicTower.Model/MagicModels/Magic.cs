@@ -23,7 +23,7 @@ namespace MagicTower.Model.Magic
 
         public int Damage
         {
-            get => speed;
+            get => damage;
             set
             {
                 if (value >= 0)
@@ -31,20 +31,21 @@ namespace MagicTower.Model.Magic
             }
         }
 
-        public readonly Room CurrentRoom;
+
+        public Condition CurrentCondition { get; private set; }
         protected int speed;
         protected int damage;
 
-        public Magic(int startX, int startY, int endX, int endY, Room currentCurrentRoom, int hitboxWidth,
+        public Magic(int startX, int startY, int endX, int endY,  int hitboxWidth,
             int hitboxHeight, int speed, int damage)
         {
             PosX = startX;
             PosY = startY;
-            CurrentRoom = currentCurrentRoom;
             HitboxHeight = hitboxHeight;
             HitboxWidth = hitboxWidth;
-            this.speed = speed;
-            this.damage = damage;
+            Speed = speed;
+            Damage= damage;
+            CurrentCondition = Condition.Alive;
             CalculateDirectionVector(startX, startY, endX, endY);
         }
 
@@ -52,23 +53,21 @@ namespace MagicTower.Model.Magic
         {
             PosX += DirectionVector.X;
             PosY += DirectionVector.Y;
-            if (!CurrentRoom.InBounds(PosX, PosY))
-                CurrentRoom.ShouldDisappearMagic.Add(this);
         }
 
 
         public void OnCollisionEnter(IGameObject gameObject)
         {
             if (gameObject is Enemy)
-                CurrentRoom.ShouldDisappearMagic.Add(this);
+                CurrentCondition = Condition.Destroyed;
         }
 
         private void CalculateDirectionVector(double startX, double startY, double endX, double endY)
         {
             var vector = (endX - startX, endY - startY);
             var vectorLength = Math.Sqrt(vector.Item1 * vector.Item1 + vector.Item2 * vector.Item2);
-            DirectionVector = ((int) Math.Round(speed * vector.Item1 / vectorLength),
-                (int) Math.Round(speed * vector.Item2 / vectorLength));
+            DirectionVector = ((int) Math.Round(Speed * vector.Item1 / vectorLength),
+                (int) Math.Round(Speed * vector.Item2 / vectorLength));
         }
     }
 }
