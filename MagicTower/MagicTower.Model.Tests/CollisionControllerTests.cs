@@ -52,7 +52,8 @@ namespace MagicTower.Model.Tests
 
         private Room GetRoomPreset(int magicPosX, int magicPosY, int enemyPosX, int enemyPosY)
         {
-            var room = new Room(20, 20);
+            var player = new Player(0, 0, 20, 20);
+            var room = new Room(20, 20, player);
             var magic = new TestMagic(magicPosX, magicPosY, 10, 0,  1);
             var enemy = new TestEnemy(enemyPosX, enemyPosY);
             room.MagicInRoom.Add(magic);

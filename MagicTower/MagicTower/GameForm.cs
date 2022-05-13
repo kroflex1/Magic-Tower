@@ -21,9 +21,8 @@ namespace MagicTower
         public GameForm()
         {
             InitializeComponent();
-            BackgroundImage =
-                Image.FromFile(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\Background.png");
-            KeyPreview = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
             gameModel = new Game(1920, 1080);
             playerView = new PlayerView(gameModel.Player);
             magicView = new MagicView(gameModel.currentRoom);

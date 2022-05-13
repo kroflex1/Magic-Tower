@@ -36,37 +36,39 @@ namespace MagicTower.Model
 
         public MovementWeight HorizontalMovement;
         public MovementWeight VerticalMovement;
-        private Room currentRoom;
         private int maxHealth;
         private int currentHealth;
         private int speed;
         private List<MagicType> learnedMagic;
         private MagicType currentMagic;
+        private int windowWidth;
+        private int windowHeight;
 
 
-        public Player(int startPosX, int startPosY, int windowWidth, int windowHeight) : this(startPosX, startPosY, 32, 56,
-            10, 10, windowWidth,  windowHeight)
+        public Player(int startPosX, int startPosY, int windowWidth, int windowHeight) : this(startPosX, startPosY, 32,
+            56, 10, 10, windowWidth, windowHeight)
         {
         }
 
 
         public Player(int startPosX, int startPosY, int hitboxWidth, int hitboxHeight, int maxHealth,
-            int speed, int windowHeight, int windowSize)
+            int speed, int windowWidth, int windowHeight)
         {
             PosX = startPosX;
             PosY = startPosY;
+
             HitboxWidth = hitboxWidth;
             HitboxHeight = hitboxHeight;
+
             this.maxHealth = maxHealth;
             CurrentHealth = maxHealth;
+
             Speed = speed;
             HorizontalMovement = MovementWeight.Neutral;
             VerticalMovement = MovementWeight.Neutral;
-        }
 
-        public void GoToNewRoom(Room room)
-        {
-            
+            this.windowWidth = windowWidth;
+            this.windowHeight = windowHeight;
         }
 
         public void OnCollisionEnter(IGameObject gameObject)
@@ -80,8 +82,11 @@ namespace MagicTower.Model
 
         public void Move()
         {
-            PosX += Speed * (int) HorizontalMovement;
-            PosY += Speed * (int) VerticalMovement;
+            if (InBounds(PosX + Speed * (int) HorizontalMovement, PosY + Speed * (int) VerticalMovement))
+            {
+                PosX += Speed * (int) HorizontalMovement;
+                PosY += Speed * (int) VerticalMovement;
+            }
         }
 
         // public void AttackTo(int targetX, int targetY)
@@ -114,6 +119,12 @@ namespace MagicTower.Model
                 throw new ArgumentException("Наносимый урон не может быть меньше нуля");
             CurrentHealth -= amountOfDamage;
         }
-        
+
+        private bool InBounds(int x, int y)
+        {
+            if (x >= 0 && x <= (windowWidth - HitboxWidth) && y >= 0 && y <= (windowHeight - HitboxWidth))
+                return true;
+            return false;
+        }
     }
 }
