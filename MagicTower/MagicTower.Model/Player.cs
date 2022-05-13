@@ -34,27 +34,39 @@ namespace MagicTower.Model
             }
         }
 
+        public MovementWeight HorizontalMovement;
+        public MovementWeight VerticalMovement;
+        private Room currentRoom;
         private int maxHealth;
         private int currentHealth;
         private int speed;
-        private Room currentRoom;
         private List<MagicType> learnedMagic;
         private MagicType currentMagic;
 
 
-        public Player(int startPosX, int startPosY, Room currentRoom) : this(startPosX, startPosY, currentRoom, 10, 10)
+        public Player(int startPosX, int startPosY, int windowWidth, int windowHeight) : this(startPosX, startPosY, 32, 56,
+            10, 10, windowWidth,  windowHeight)
         {
         }
 
 
-        public Player(int startPosX, int startPosY, Room currentRoom, int maxHealth, int speed)
+        public Player(int startPosX, int startPosY, int hitboxWidth, int hitboxHeight, int maxHealth,
+            int speed, int windowHeight, int windowSize)
         {
             PosX = startPosX;
             PosY = startPosY;
-            this.currentRoom = currentRoom;
+            HitboxWidth = hitboxWidth;
+            HitboxHeight = hitboxHeight;
             this.maxHealth = maxHealth;
             CurrentHealth = maxHealth;
             Speed = speed;
+            HorizontalMovement = MovementWeight.Neutral;
+            VerticalMovement = MovementWeight.Neutral;
+        }
+
+        public void GoToNewRoom(Room room)
+        {
+            
         }
 
         public void OnCollisionEnter(IGameObject gameObject)
@@ -66,16 +78,10 @@ namespace MagicTower.Model
             }
         }
 
-        public void Move(Direction direction)
+        public void Move()
         {
-            if (direction == Direction.Right && currentRoom.InBounds(PosX + Speed, PosY))
-                PosX += Speed;
-            else if (direction == Direction.Left && currentRoom.InBounds(PosX - Speed, PosY))
-                PosX -= Speed;
-            else if (direction == Direction.Up && currentRoom.InBounds(PosX, PosY - speed))
-                PosY -= Speed;
-            else if (direction == Direction.Down && currentRoom.InBounds(PosX, PosY + speed))
-                PosY += Speed;
+            PosX += Speed * (int) HorizontalMovement;
+            PosY += Speed * (int) VerticalMovement;
         }
 
         // public void AttackTo(int targetX, int targetY)
@@ -86,7 +92,7 @@ namespace MagicTower.Model
 
         public void LearnNewMagic(MagicType newMagicType)
         {
-            if(!learnedMagic.Contains(newMagicType))
+            if (!learnedMagic.Contains(newMagicType))
                 learnedMagic.Add(newMagicType);
         }
 
@@ -108,10 +114,6 @@ namespace MagicTower.Model
                 throw new ArgumentException("Наносимый урон не может быть меньше нуля");
             CurrentHealth -= amountOfDamage;
         }
-
-        public bool IsPlayerAlive()
-        {
-            return CurrentHealth > 0;
-        }
+        
     }
 }

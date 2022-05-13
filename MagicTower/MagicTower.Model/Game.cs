@@ -14,8 +14,8 @@ namespace MagicTower.Model
         public Game(int windowWidth, int windowHeight)
         {
             windowSize = new[] {windowWidth, windowHeight};
+            Player = new Player(0, 0, windowWidth, windowHeight);
             SetLevels();
-            Player = new Player(0, 0, currentRoom);
         }
 
         public void SpawnMagic(int tagetX, int targetY)
@@ -30,7 +30,7 @@ namespace MagicTower.Model
 
         private void SetLevels()
         {
-            var room = new Room(windowSize[0], windowSize[1]);
+            var room = new Room(windowSize[0], windowSize[1], Player);
             levels = new List<Level>() {new Level(new List<Room>() {room})};
             currentRoom = levels[0].Rooms[0];
         }

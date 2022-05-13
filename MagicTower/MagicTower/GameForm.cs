@@ -7,9 +7,6 @@ using MagicTower.Model;
 using System.Windows.Input;
 using MagicTower.Model.EnemiesModels;
 using MagicTower.Model.Magic;
-using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
-using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
-
 
 namespace MagicTower
 {
@@ -24,9 +21,10 @@ namespace MagicTower
         public GameForm()
         {
             InitializeComponent();
-            Size = new Size(1920, 1080);
+            BackgroundImage =
+                Image.FromFile(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\Background.png");
             KeyPreview = true;
-            gameModel = new Game(Width, Height);
+            gameModel = new Game(1920, 1080);
             playerView = new PlayerView(gameModel.Player);
             magicView = new MagicView(gameModel.currentRoom);
             enemyView = new EnemyView(gameModel.currentRoom);
@@ -34,7 +32,7 @@ namespace MagicTower
             gameModel.SpawnEnemy(200, 200);
 
             var timer = new Timer();
-            timer.Interval = 33;
+            timer.Interval = 10;
             timer.Tick += (sender, args) => { gameModel.currentRoom.Update(); };
             timer.Tick += (sender, args) => { Invalidate(); };
             timer.Start();
@@ -56,42 +54,26 @@ namespace MagicTower
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (Keyboard.IsKeyDown(Key.A) && Keyboard.IsKeyDown(Key.W))
-            {
-                gameModel.Player.Move(Direction.Left);
-                gameModel.Player.Move(Direction.Up);
-            }
-            else if (Keyboard.IsKeyDown(Key.D) && Keyboard.IsKeyDown(Key.W))
-            {
-                gameModel.Player.Move(Direction.Right);
-                gameModel.Player.Move(Direction.Up);
-            }
-            else if (Keyboard.IsKeyDown(Key.A) && Keyboard.IsKeyDown(Key.S))
-            {
-                gameModel.Player.Move(Direction.Left);
-                gameModel.Player.Move(Direction.Down);
-            }
-            else if (Keyboard.IsKeyDown(Key.D) && Keyboard.IsKeyDown(Key.S))
-            {
-                gameModel.Player.Move(Direction.Right);
-                gameModel.Player.Move(Direction.Down);
-            }
-            else if (Keyboard.IsKeyDown(Key.A))
-            {
-                gameModel.Player.Move(Direction.Left);
-            }
-            else if (Keyboard.IsKeyDown(Key.D))
-            {
-                gameModel.Player.Move(Direction.Right);
-            }
-            else if (Keyboard.IsKeyDown(Key.W))
-            {
-                gameModel.Player.Move(Direction.Up);
-            }
-            else if (Keyboard.IsKeyDown(Key.S))
-            {
-                gameModel.Player.Move(Direction.Down);
-            }
+            if(e.KeyCode == Keys.A)
+                gameModel.Player.HorizontalMovement = MovementWeight.Negative;
+            else if (e.KeyCode == Keys.D)
+                gameModel.Player.HorizontalMovement = MovementWeight.Positive;
+            else if (e.KeyCode == Keys.W)
+                gameModel.Player.VerticalMovement = MovementWeight.Negative;
+            else if (e.KeyCode == Keys.S)
+                gameModel.Player.VerticalMovement = MovementWeight.Positive;
+        }
+
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.A)
+                gameModel.Player.HorizontalMovement = MovementWeight.Neutral;
+            else if (e.KeyCode == Keys.D)
+                gameModel.Player.HorizontalMovement = MovementWeight.Neutral;
+            else if (e.KeyCode == Keys.W)
+                gameModel.Player.VerticalMovement = MovementWeight.Neutral;
+            else if (e.KeyCode == Keys.S)
+                gameModel.Player.VerticalMovement = MovementWeight.Neutral;
         }
 
 

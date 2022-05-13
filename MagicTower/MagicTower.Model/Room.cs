@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MagicTower.Model.EnemiesModels;
@@ -11,13 +12,16 @@ namespace MagicTower.Model
         public readonly int Height;
         public readonly List<Magic.Magic> MagicInRoom;
         public readonly List<Enemy> AliveEnemiesInRoom;
+        
+        private Player player;
         private readonly List<Magic.Magic> destroyedMagic;
         private readonly List<Enemy> destroyedEnemies;
 
-        public Room(int width, int height)
+        public Room(int width, int height, Player player)
         {
             Width = width;
             Height = height;
+            this.player = player;
             MagicInRoom = new List<Magic.Magic>();
             AliveEnemiesInRoom = new List<Enemy>();
             destroyedMagic = new List<Magic.Magic>();
@@ -41,6 +45,7 @@ namespace MagicTower.Model
 
         private void ChangeGameObjectsPosition()
         {
+            player.Move();
             foreach (var magic in MagicInRoom)
                 magic.TakeStep();
             foreach (var enemy in AliveEnemiesInRoom)
