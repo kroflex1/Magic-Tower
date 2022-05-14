@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Net.Mime;
 using System.Windows.Forms;
 using MagicTower.Model;
 using System.Windows.Input;
@@ -21,8 +22,9 @@ namespace MagicTower
         public GameForm()
         {
             InitializeComponent();
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.WindowState = FormWindowState.Maximized;
+            FormBorderStyle = FormBorderStyle.None;
+            WindowState = FormWindowState.Maximized;
+            BackgroundImage = Image.FromFile(@"C:\Users\Kroflex\Desktop\GameSprites\Tiles\Background.png");
             gameModel = new Game(1920, 1080);
             playerView = new PlayerView(gameModel.Player);
             magicView = new MagicView(gameModel.currentRoom);

@@ -80,7 +80,9 @@
         <None Include="App.config" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="Sprites\Background.png" />
+      <Content Include="..\..\..\GameSprites\Tiles\Background.png">
+        <Link>Sprites\Background.png</Link>
+      </Content>
       <Content Include="Sprites\cursor.cur" />
       <Content Include="Sprites\demon.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>

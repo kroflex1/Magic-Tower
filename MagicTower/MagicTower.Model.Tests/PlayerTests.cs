@@ -1,4 +1,5 @@
 ﻿using System;
+using MagicTower.Model.EnemiesModels;
 using NUnit.Framework;
 
 namespace MagicTower.Model.Tests
@@ -71,6 +72,15 @@ namespace MagicTower.Model.Tests
             player.VerticalMovement = verticalMovementWeight;
             player.Move();
             Assert.AreEqual((startX, startY), (player.PosX, player.PosY));
+        }
+
+        [TestCase()]
+        public void CorrectGetDamage()
+        {
+            var demon = new Demon(0,0); //damage = 
+            var player = new Player(0, 0, roomWidth, roomHeight);
+            player.OnCollisionEnter(demon);
+            Assert.AreEqual(player.CurrentHealth - demon.Damage, player.CurrentHealth);
         }
     }
 }

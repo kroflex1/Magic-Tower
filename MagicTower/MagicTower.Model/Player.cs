@@ -77,6 +77,7 @@ namespace MagicTower.Model
             {
                 Enemy enemy = gameObject as Enemy;
                 GetDamaged(enemy.Damage);
+                
             }
         }
 
@@ -113,11 +114,16 @@ namespace MagicTower.Model
             CurrentHealth += amountOfHealth;
         }
 
-        public void GetDamaged(int amountOfDamage)
+        private void GetDamaged(int amountOfDamage)
         {
             if (amountOfDamage < 0)
                 throw new ArgumentException("Наносимый урон не может быть меньше нуля");
             CurrentHealth -= amountOfDamage;
+        }
+
+        private void FindReboundTrajectory(int enemyPosX, int enemyPosY)
+        {
+            
         }
 
         private bool InBounds(int x, int y)
