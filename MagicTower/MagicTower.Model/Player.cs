@@ -73,11 +73,10 @@ namespace MagicTower.Model
 
         public void OnCollisionEnter(IGameObject gameObject)
         {
-            if (gameObject.GetType() == typeof(Enemy))
+            if (gameObject is Enemy)
             {
                 Enemy enemy = gameObject as Enemy;
                 GetDamaged(enemy.Damage);
-                
             }
         }
 
@@ -120,12 +119,7 @@ namespace MagicTower.Model
                 throw new ArgumentException("Наносимый урон не может быть меньше нуля");
             CurrentHealth -= amountOfDamage;
         }
-
-        private void FindReboundTrajectory(int enemyPosX, int enemyPosY)
-        {
-            
-        }
-
+        
         private bool InBounds(int x, int y)
         {
             if (x >= 0 && x <= (windowWidth - HitboxWidth) && y >= 0 && y <= (windowHeight - HitboxWidth))

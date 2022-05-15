@@ -12,8 +12,8 @@ namespace MagicTower.Model
         public readonly int Height;
         public readonly List<Magic.Magic> MagicInRoom;
         public readonly List<Enemy> AliveEnemiesInRoom;
-        
-        private Player player;
+        public Player Player { get;}
+       
         private readonly List<Magic.Magic> destroyedMagic;
         private readonly List<Enemy> destroyedEnemies;
 
@@ -21,7 +21,7 @@ namespace MagicTower.Model
         {
             Width = width;
             Height = height;
-            this.player = player;
+            Player = player;
             MagicInRoom = new List<Magic.Magic>();
             AliveEnemiesInRoom = new List<Enemy>();
             destroyedMagic = new List<Magic.Magic>();
@@ -35,7 +35,17 @@ namespace MagicTower.Model
             DeleteAllExcessGameObjects();
         }
 
-        public bool InBounds(int x, int y)
+        public void SpawnMagic(int tagetX, int targetY)
+        {
+            MagicInRoom.Add(new FireBall(Player.PosX, Player.PosY, tagetX, targetY));
+        }
+        
+        public void SpawnEnemy(int posX, int posY)
+        {
+            AliveEnemiesInRoom.Add(new Demon(posX, posY));
+        }
+
+        private bool InBounds(int x, int y)
         {
             if (x >= 0 && x <= Width && y >= 0 && y <= Height)
                 return true;
@@ -45,7 +55,7 @@ namespace MagicTower.Model
 
         private void ChangeGameObjectsPosition()
         {
-            player.Move();
+            Player.Move();
             foreach (var magic in MagicInRoom)
                 magic.TakeStep();
             foreach (var enemy in AliveEnemiesInRoom)

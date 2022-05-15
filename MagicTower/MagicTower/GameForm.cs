@@ -17,27 +17,45 @@ namespace MagicTower
         private PlayerView playerView;
         private MagicView magicView;
         private EnemyView enemyView;
-
-
+        
         public GameForm()
         {
             InitializeComponent();
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
             BackgroundImage = Image.FromFile(@"C:\Users\Kroflex\Desktop\GameSprites\Tiles\Background.png");
-            gameModel = new Game(1920, 1080);
-            playerView = new PlayerView(gameModel.Player);
-            magicView = new MagicView(gameModel.currentRoom);
-            enemyView = new EnemyView(gameModel.currentRoom);
 
+            gameModel = new Game(1920, 1080);
+            SetViewObjects();
             gameModel.SpawnEnemy(200, 200);
+
+            var playerHealthLabel = new Label();
+            playerHealthLabel.Location = new Point(0, 0);
+            playerHealthLabel.Size = new Size(50, 50);
+            playerHealthLabel.Text = "Player Health:" + gameModel.Player.CurrentHealth.ToString();
+            Controls.Add(playerHealthLabel);
+
 
             var timer = new Timer();
             timer.Interval = 10;
-            timer.Tick += (sender, args) => { gameModel.currentRoom.Update(); };
+            timer.Tick += (sender, args) => { gameModel.Update(); };
+            timer.Tick+=(sender, args) => { UpdateLabels(playerHealthLabel); };
             timer.Tick += (sender, args) => { Invalidate(); };
             timer.Start();
         }
+
+        private void SetViewObjects()
+        {
+            playerView = new PlayerView(gameModel.Player);
+            magicView = new MagicView(gameModel.CurrentRoom);
+            enemyView = new EnemyView(gameModel.CurrentRoom);
+        }
+
+        private void UpdateLabels(Label playerHealth)
+        {
+            playerHealth.Text = "Player Health:" + gameModel.Player.CurrentHealth.ToString();
+        }
+
 
         protected override void OnLoad(EventArgs e)
         {
@@ -51,11 +69,10 @@ namespace MagicTower
             magicView.Draw(e.Graphics);
             enemyView.Draw(e.Graphics);
         }
-
-
+        
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.A)
+            if (e.KeyCode == Keys.A)
                 gameModel.Player.HorizontalMovement = MovementWeight.Negative;
             else if (e.KeyCode == Keys.D)
                 gameModel.Player.HorizontalMovement = MovementWeight.Positive;
@@ -67,7 +84,7 @@ namespace MagicTower
 
         protected override void OnKeyUp(KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.A)
+            if (e.KeyCode == Keys.A)
                 gameModel.Player.HorizontalMovement = MovementWeight.Neutral;
             else if (e.KeyCode == Keys.D)
                 gameModel.Player.HorizontalMovement = MovementWeight.Neutral;

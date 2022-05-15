@@ -47,7 +47,6 @@
         <Compile Include="Enums\MovementWeight.cs" />
         <Compile Include="Game.cs" />
         <Compile Include="IGameObject.cs" />
-        <Compile Include="Level.cs" />
         <Compile Include="MagicModels\FireBall.cs" />
         <Compile Include="MagicModels\Magic.cs" />
         <Compile Include="Player.cs" />

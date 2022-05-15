@@ -7,34 +7,37 @@ namespace MagicTower.Model
     public class Game
     {
         public Player Player { get; }
-        public Room currentRoom;
+        public Room CurrentRoom { get; private set; }
         private int[] windowSize;
-        private List<Level> levels;
-        
+        private List<Room> rooms;
+
         public Game(int windowWidth, int windowHeight)
         {
             windowSize = new[] {windowWidth, windowHeight};
             Player = new Player(0, 0, windowWidth, windowHeight);
-            SetLevels();
+            SetRooms();
+        }
+
+        public void Update()
+        {
+            CurrentRoom.Update();
         }
 
         public void SpawnMagic(int tagetX, int targetY)
         {
-            currentRoom.MagicInRoom.Add(new FireBall(Player.PosX, Player.PosY,tagetX, targetY));
-        }
+            CurrentRoom.SpawnMagic(tagetX,targetY);
+        }   
 
         public void SpawnEnemy(int posX, int posY)
         {
-            currentRoom.AliveEnemiesInRoom.Add(new Demon(posX, posY));
+            CurrentRoom.SpawnEnemy(posX,posY);
         }
 
-        private void SetLevels()
+        private void SetRooms()
         {
             var room = new Room(windowSize[0], windowSize[1], Player);
-            levels = new List<Level>() {new Level(new List<Room>() {room})};
-            currentRoom = levels[0].Rooms[0];
+            rooms = new List<Room>() {room};
+            CurrentRoom = rooms[0];
         }
-
     }
 }
-

@@ -24,10 +24,10 @@ namespace MagicTower.Model.EnemiesModels
 
         public int Damage
         {
-            get => speed;
+            get => damage;
             set
             {
-                if (value >= 0)
+                if (value > 0)
                     damage = value;
                 else
                     throw new ArgumentException("Урон не может быть меньше нуля");

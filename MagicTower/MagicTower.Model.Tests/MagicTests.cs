@@ -15,7 +15,7 @@ namespace MagicTower.Model.Tests
         public void DirectionVectorFromZeroPointWithSpeedOne(int endX, int endY)
         {
             var magic = CreateTestMagic(0, 0, endX, endY, 1);
-            Assert.AreEqual((endX, endY), magic.DirectionVector);
+            Assert.AreEqual((endX, endY), (magic.DirectionVector.X, magic.DirectionVector.Y));
         }
 
         [TestCase(1, 1, 1, 1)]
@@ -39,7 +39,7 @@ namespace MagicTower.Model.Tests
             int directionX, int directionY)
         {
             var magic = CreateTestMagic(startX, startY, endX, endY, 1);
-            Assert.AreEqual((directionX, directionY), magic.DirectionVector);
+            Assert.AreEqual((directionX, directionY), (magic.DirectionVector.X,magic.DirectionVector.Y));
         }
 
         [TestCase(2, 2, 8, 8, 1, 1)]
@@ -80,8 +80,8 @@ namespace MagicTower.Model.Tests
         }
 
         [TestCase(1, 0, 5)]
-        [TestCase(0, 1, -10)]
-        [TestCase(-1, 0, -4)]
+        [TestCase(0, 1, 10)]
+        [TestCase(-1, 0, 4)]
         [TestCase(0, -1, 5)]
         public void DoHorizontalOrVerticalStepWithDifferentSpeeds(int endX, int endY, int speed)
         {

@@ -9,7 +9,7 @@ namespace MagicTower.Model.Magic
         public int PosY { get; private set; }
         public int HitboxWidth { get; }
         public int HitboxHeight { get; }
-        public (int X, int Y) DirectionVector { get; private set; }
+        public Vector DirectionVector { get; private set; }
 
         public int Speed
         {
@@ -62,12 +62,10 @@ namespace MagicTower.Model.Magic
                 CurrentCondition = Condition.Destroyed;
         }
 
-        private void CalculateDirectionVector(double startX, double startY, double endX, double endY)
+        private void CalculateDirectionVector(int startX, int startY, int endX, int endY)
         {
-            var vector = (endX - startX, endY - startY);
-            var vectorLength = Math.Sqrt(vector.Item1 * vector.Item1 + vector.Item2 * vector.Item2);
-            DirectionVector = ((int) Math.Round(Speed * vector.Item1 / vectorLength),
-                (int) Math.Round(Speed * vector.Item2 / vectorLength));
+            DirectionVector = new Vector(startX, startY, endX, endY);
+            DirectionVector.SetLength(Speed);
         }
     }
 }

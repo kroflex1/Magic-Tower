@@ -8,6 +8,9 @@ namespace MagicTower.Model.Tests
     [TestFixture]
     public class CollisionControllerTests
     {
+        private const int roomWidth = 1920;
+        private const int roomHeight = 1080;
+
         [TestCase]
         public void RectanglesIntersectionFromZeroPoint()
         {
@@ -45,18 +48,54 @@ namespace MagicTower.Model.Tests
         [TestCase(0, 0, 1, 0)]
         public void MagicShouldIntersectEnemy(int magicPosX, int magicPosY, int enemyPosX, int enemyPosY)
         {
-            var room = GetRoomPreset(magicPosX, magicPosY, enemyPosX, enemyPosY);
+            var room = GetRoomPresetWithEnemyAndMagic(magicPosX, magicPosY, enemyPosX, enemyPosY);
             CollisionController.CheckGameObjectsForCollisions(room);
-            Assert.AreEqual(new List<Enemy>(), room.AliveEnemiesInRoom);
+            room.Update();
+            Assert.AreEqual(0, room.MagicInRoom.Count);
         }
 
-        private Room GetRoomPreset(int magicPosX, int magicPosY, int enemyPosX, int enemyPosY)
+
+        // Enemy: width = 10, height = 10, health = 1
+        [TestCase]
+        public void PlayerShouldGetDamageAfterCollisionWithEnemy()
         {
-            var player = new Player(0, 0, 20, 20);
-            var room = new Room(20, 20, player);
-            var magic = new TestMagic(magicPosX, magicPosY, 10, 0,  1);
+            var room = GetRoomPresetWithEnemyAndPlayer(0, 0, 1, 1);
+            var playerHealthBeforeDamage = room.Player.CurrentHealth;
+            CollisionController.CheckGameObjectsForCollisions(room);
+            Assert.AreEqual(playerHealthBeforeDamage - room.AliveEnemiesInRoom[0].Damage, room.Player.CurrentHealth);
+        }
+
+        // Enemy: width = 10, height = 10
+        // Player: width = 32, height = 56, speed = 10
+        [TestCase]
+        public void PlayerShouldGetDamageAfterHorizontalMovingAndCollisionWithEnemy()
+        {
+            var room = GetRoomPresetWithEnemyAndPlayer(0, 0, 54, 0);
+            var playerHealthBeforeDamage = room.Player.CurrentHealth;
+            room.Player.Speed = room.Player.HitboxWidth;
+            room.Player.HorizontalMovement = MovementWeight.Positive;
+            room.Player.Move();
+
+            CollisionController.CheckGameObjectsForCollisions(room);
+            Assert.AreEqual(playerHealthBeforeDamage - room.AliveEnemiesInRoom[0].Damage, room.Player.CurrentHealth);
+        }
+
+        private Room GetRoomPresetWithEnemyAndMagic(int magicPosX, int magicPosY, int enemyPosX, int enemyPosY)
+        {
+            var player = new Player(1500, 900, roomWidth, roomHeight);
+            var room = new Room(roomWidth, roomHeight, player);
+            var magic = new TestMagic(magicPosX, magicPosY, 10, 0, 1);
             var enemy = new TestEnemy(enemyPosX, enemyPosY);
             room.MagicInRoom.Add(magic);
+            room.AliveEnemiesInRoom.Add(enemy);
+            return room;
+        }
+
+        private Room GetRoomPresetWithEnemyAndPlayer(int playerPosX, int playerPosY, int enemyPosX, int enemyPosY)
+        {
+            var player = new Player(playerPosX, playerPosY, roomWidth, roomHeight);
+            var room = new Room(roomWidth, roomHeight, player);
+            var enemy = new TestEnemy(enemyPosX, enemyPosY);
             room.AliveEnemiesInRoom.Add(enemy);
             return room;
         }
