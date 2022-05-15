@@ -1,13 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.Net.Mime;
 using System.Windows.Forms;
 using MagicTower.Model;
-using System.Windows.Input;
-using MagicTower.Model.EnemiesModels;
-using MagicTower.Model.Magic;
 
 namespace MagicTower
 {
@@ -17,17 +11,17 @@ namespace MagicTower
         private PlayerView playerView;
         private MagicView magicView;
         private EnemyView enemyView;
-        
+
         public GameForm()
         {
             InitializeComponent();
+            Size = Screen.PrimaryScreen.Bounds.Size;
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
             BackgroundImage = Image.FromFile(@"C:\Users\Kroflex\Desktop\GameSprites\Tiles\Background.png");
 
-            gameModel = new Game(1920, 1080);
+            gameModel = new Game(Width, Height);
             SetViewObjects();
-            gameModel.SpawnEnemy(200, 200);
 
             var playerHealthLabel = new Label();
             playerHealthLabel.Location = new Point(0, 0);
@@ -39,7 +33,7 @@ namespace MagicTower
             var timer = new Timer();
             timer.Interval = 10;
             timer.Tick += (sender, args) => { gameModel.Update(); };
-            timer.Tick+=(sender, args) => { UpdateLabels(playerHealthLabel); };
+            timer.Tick += (sender, args) => { UpdateLabels(playerHealthLabel); };
             timer.Tick += (sender, args) => { Invalidate(); };
             timer.Start();
         }
@@ -69,7 +63,7 @@ namespace MagicTower
             magicView.Draw(e.Graphics);
             enemyView.Draw(e.Graphics);
         }
-        
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.KeyCode == Keys.A)

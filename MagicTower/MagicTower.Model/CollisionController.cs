@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using MagicTower.Model.EnemiesModels;
-
 namespace MagicTower.Model
 {
     public static class CollisionController

@@ -59,7 +59,7 @@ namespace MagicTower.Model
             foreach (var magic in MagicInRoom)
                 magic.TakeStep();
             foreach (var enemy in AliveEnemiesInRoom)
-                enemy.TakeStep();
+                enemy.MoveTo(Player.PosX, Player.PosY);
         }
 
         private void DeleteAllExcessGameObjects()

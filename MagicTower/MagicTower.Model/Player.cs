@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using MagicTower.Model.EnemiesModels;
 using MagicTower.Model.Magic;
 

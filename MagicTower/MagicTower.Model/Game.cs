@@ -16,6 +16,7 @@ namespace MagicTower.Model
             windowSize = new[] {windowWidth, windowHeight};
             Player = new Player(0, 0, windowWidth, windowHeight);
             SetRooms();
+            SpawnEnemy(50, 50);
         }
 
         public void Update()
@@ -25,12 +26,12 @@ namespace MagicTower.Model
 
         public void SpawnMagic(int tagetX, int targetY)
         {
-            CurrentRoom.SpawnMagic(tagetX,targetY);
-        }   
+            CurrentRoom.SpawnMagic(tagetX, targetY);
+        }
 
         public void SpawnEnemy(int posX, int posY)
         {
-            CurrentRoom.SpawnEnemy(posX,posY);
+            CurrentRoom.SpawnEnemy(posX, posY);
         }
 
         private void SetRooms()

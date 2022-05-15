@@ -1,6 +1,3 @@
-using System;
-using System.CodeDom;
-using MagicTower.Model.Magic;
 using NUnit.Framework;
 
 namespace MagicTower.Model.Tests

@@ -53,10 +53,15 @@ namespace MagicTower.Model.EnemiesModels
             CurrentCondition = Condition.Alive;
         }
 
-        public void TakeStep()
+        public void MoveTo(int targetPosX, int targetPosY)
         {
-            PosX += speed;
-            PosY += speed;
+            if (PosX != targetPosX || PosY != targetPosY)
+            {
+                var DirectionVectorToTarget = new Vector(PosX, PosY, targetPosX, targetPosY);
+                DirectionVectorToTarget.SetLength(Speed);
+                PosX += DirectionVectorToTarget.X;
+                PosY += DirectionVectorToTarget.Y; 
+            }
         }
 
         public void OnCollisionEnter(IGameObject gameObject)

@@ -43,6 +43,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="CollisionControllerTests.cs" />
+        <Compile Include="EnemyTests.cs" />
         <Compile Include="MagicTests.cs" />
         <Compile Include="TestEnemy.cs" />
         <Compile Include="TestMagic.cs" />
