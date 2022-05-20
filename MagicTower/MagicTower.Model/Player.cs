@@ -35,15 +35,20 @@ namespace MagicTower.Model
 
         public MovementWeight HorizontalMovement;
         public MovementWeight VerticalMovement;
+        public delegate void PlayerHandler(int playerPosX, int playerPosY);
+        public event PlayerHandler OnChangePosition;
+        
         private int maxHealth;
         private int currentHealth;
         private int speed;
-        private List<MagicType> learnedMagic;
+        private List<MagicType> learnedMagic; 
         private MagicType currentMagic;
         private int windowWidth;
         private int windowHeight;
 
-
+       
+        
+            
         public Player(int startPosX, int startPosY, int windowWidth, int windowHeight) : this(startPosX, startPosY, 32,
             56, 10, 10, windowWidth, windowHeight)
         {
@@ -85,6 +90,8 @@ namespace MagicTower.Model
             {
                 PosX += Speed * (int) HorizontalMovement;
                 PosY += Speed * (int) VerticalMovement;
+                if (OnChangePosition != null)
+                    OnChangePosition(PosX, PosY);
             }
         }
 

@@ -14,7 +14,8 @@ namespace MagicTower.Model.Tests
         public void EnemyGoToVeryCloseTarget(int enemyPosX, int enemyPosY, int targetPosX, int targetPosY)
         {
             var enemy = new TestEnemy(enemyPosX, enemyPosY);
-            enemy.MoveTo(targetPosX, targetPosY);
+            enemy.UpdatePlayerPosition(targetPosX, targetPosY);
+            enemy.Move();
             Assert.AreEqual((targetPosX, targetPosY), (enemy.PosX, enemy.PosY));
         }
 
@@ -27,7 +28,8 @@ namespace MagicTower.Model.Tests
         {
             var enemy = new TestEnemy(enemyPosX, enemyPosY);
             enemy.Speed = 1;
-            enemy.MoveTo(targetPosX, targetPosY);
+            enemy.UpdatePlayerPosition(targetPosX, targetPosY);
+            enemy.Move();
             Assert.AreEqual((endPosX, endPosY), (enemy.PosX, enemy.PosY));
         }
         

@@ -9,6 +9,7 @@ namespace MagicTower.Model.EnemiesModels
         public int PosY { get; private set; }
         public int HitboxWidth { get; private set; }
         public int HitboxHeight { get; private set; }
+        
 
         public int Speed
         {
@@ -39,6 +40,8 @@ namespace MagicTower.Model.EnemiesModels
         private int health;
         private int speed;
         private int damage;
+        private int playerPosX;
+        private int playerPosY;
 
         public Enemy(int posX, int posY, int hitboxWidth,
             int hitboxHeight, int health, int speed, int damage)
@@ -53,15 +56,21 @@ namespace MagicTower.Model.EnemiesModels
             CurrentCondition = Condition.Alive;
         }
 
-        public void MoveTo(int targetPosX, int targetPosY)
+        public void Move()
         {
-            if (PosX != targetPosX || PosY != targetPosY)
+            if (PosX != playerPosX|| PosY != playerPosY)
             {
-                var DirectionVectorToTarget = new Vector(PosX, PosY, targetPosX, targetPosY);
+                var DirectionVectorToTarget = new Vector(PosX, PosY, playerPosX, playerPosY);
                 DirectionVectorToTarget.SetLength(Speed);
                 PosX += DirectionVectorToTarget.X;
                 PosY += DirectionVectorToTarget.Y; 
             }
+        }
+
+        public void UpdatePlayerPosition(int playerPosX, int playerPosY)
+        {
+            this.playerPosX = playerPosX;
+            this.playerPosY = playerPosY;
         }
 
         public void OnCollisionEnter(IGameObject gameObject)

@@ -31,7 +31,7 @@ namespace MagicTower
 
 
             var timer = new Timer();
-            timer.Interval = 10;
+            timer.Interval = 15;
             timer.Tick += (sender, args) => { gameModel.Update(); };
             timer.Tick += (sender, args) => { UpdateLabels(playerHealthLabel); };
             timer.Tick += (sender, args) => { Invalidate(); };

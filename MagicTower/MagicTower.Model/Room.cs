@@ -42,7 +42,10 @@ namespace MagicTower.Model
         
         public void SpawnEnemy(int posX, int posY)
         {
-            AliveEnemiesInRoom.Add(new Demon(posX, posY));
+            var newEnemy = new Demon(posX, posY);
+            AliveEnemiesInRoom.Add(newEnemy);
+            newEnemy.UpdatePlayerPosition(Player.PosX, Player.PosY);
+            Player.OnChangePosition += newEnemy.UpdatePlayerPosition;
         }
 
         private bool InBounds(int x, int y)
@@ -59,7 +62,7 @@ namespace MagicTower.Model
             foreach (var magic in MagicInRoom)
                 magic.TakeStep();
             foreach (var enemy in AliveEnemiesInRoom)
-                enemy.MoveTo(Player.PosX, Player.PosY);
+                enemy.Move();
         }
 
         private void DeleteAllExcessGameObjects()
@@ -69,7 +72,11 @@ namespace MagicTower.Model
             foreach (var magic in destroyedMagic)
                 MagicInRoom.Remove(magic);
             foreach (var deadEnemy in destroyedEnemies)
+            {
                 AliveEnemiesInRoom.Remove(deadEnemy);
+                Player.OnChangePosition -= deadEnemy.UpdatePlayerPosition;
+            }
+                
         }
 
         private void FindDestroydMagic()
