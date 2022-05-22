@@ -5,11 +5,11 @@ namespace MagicTower.Model.Magic
 {
     public abstract class Magic : IGameObject
     {
-        public int PosX { get; private set; }
-        public int PosY { get; private set; }
+        public int PosX { get; protected set; }
+        public int PosY { get; protected set; }
         public int HitboxWidth { get; }
         public int HitboxHeight { get; }
-        public Vector DirectionVector { get; private set; }
+        public Vector DirectionVector { get; protected set; }
 
         public int Speed
         {
@@ -49,14 +49,14 @@ namespace MagicTower.Model.Magic
             CalculateDirectionVector(startX, startY, endX, endY);
         }
 
-        public void TakeStep()
+        public virtual void TakeStep()
         {
             PosX += DirectionVector.X;
             PosY += DirectionVector.Y;
         }
 
 
-        public void OnCollisionEnter(IGameObject gameObject)
+        public virtual void OnCollisionEnter(IGameObject gameObject)
         {
             if (gameObject is Enemy)
                 CurrentCondition = Condition.Destroyed;

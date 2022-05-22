@@ -48,8 +48,10 @@ namespace MagicTower.Model.EnemiesModels
         {
             PosX = posX;
             PosY = posY;
+            
             HitboxHeight = hitboxHeight;
             HitboxWidth = hitboxWidth;
+            
             this.health = health;
             Speed = speed;
             Damage = damage;

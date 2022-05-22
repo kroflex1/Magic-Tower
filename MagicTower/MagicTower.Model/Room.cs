@@ -21,7 +21,10 @@ namespace MagicTower.Model
         {
             Width = width;
             Height = height;
+            
             Player = player;
+            Player.OnCreateNewMagic += SpawnMagic;
+            
             MagicInRoom = new List<Magic.Magic>();
             AliveEnemiesInRoom = new List<Enemy>();
             destroyedMagic = new List<Magic.Magic>();
@@ -34,10 +37,11 @@ namespace MagicTower.Model
             CollisionController.CheckGameObjectsForCollisions(this);
             DeleteAllExcessGameObjects();
         }
-
-        public void SpawnMagic(int tagetX, int targetY)
+        
+        
+        public void SpawnMagic(Magic.Magic magic)
         {
-            MagicInRoom.Add(new FireBall(Player.PosX, Player.PosY, tagetX, targetY));
+            MagicInRoom.Add(magic);
         }
         
         public void SpawnEnemy(int posX, int posY)

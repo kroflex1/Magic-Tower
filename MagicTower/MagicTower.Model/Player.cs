@@ -35,14 +35,16 @@ namespace MagicTower.Model
 
         public MovementWeight HorizontalMovement;
         public MovementWeight VerticalMovement;
-        public delegate void PlayerHandler(int playerPosX, int playerPosY);
-        public event PlayerHandler OnChangePosition;
+        public delegate void PosHandler(int playerPosX, int playerPosY);
+        public event PosHandler OnChangePosition;
+        public delegate void MagicHandler(Magic.Magic magic);
+        public event MagicHandler OnCreateNewMagic;
         
         private int maxHealth;
         private int currentHealth;
         private int speed;
-        private List<MagicType> learnedMagic; 
-        private MagicType currentMagic;
+        private List<Type> learnedMagic; 
+        private Type currentMagic;
         private int windowWidth;
         private int windowHeight;
 
@@ -71,6 +73,8 @@ namespace MagicTower.Model
             HorizontalMovement = MovementWeight.Neutral;
             VerticalMovement = MovementWeight.Neutral;
 
+            currentMagic = typeof(FireBall);
+
             this.windowWidth = windowWidth;
             this.windowHeight = windowHeight;
         }
@@ -95,13 +99,14 @@ namespace MagicTower.Model
             }
         }
 
-        // public void AttackTo(int targetX, int targetY)
-        // {
-        //     var fireBall = new FireBall(PosX, PosY, targetX, targetY, currentRoom);
-        //     currentRoom.MagicInRoom.Add(fireBall);
-        // }
+        public void AttackTo(int targetX, int targetY)
+        {
+            var newMagic = Activator.CreateInstance(currentMagic, PosX, PosY, targetX, targetY);
+            if(OnCreateNewMagic != null)
+                OnCreateNewMagic((Magic.Magic)newMagic);
+        }
 
-        public void LearnNewMagic(MagicType newMagicType)
+        public void LearnNewMagic(Type newMagicType)
         {
             if (!learnedMagic.Contains(newMagicType))
                 learnedMagic.Add(newMagicType);

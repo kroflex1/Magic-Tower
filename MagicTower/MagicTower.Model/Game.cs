@@ -26,7 +26,7 @@ namespace MagicTower.Model
 
         public void SpawnMagic(int tagetX, int targetY)
         {
-            CurrentRoom.SpawnMagic(tagetX, targetY);
+            Player.AttackTo(tagetX, targetY);
         }
 
         public void SpawnEnemy(int posX, int posY)

@@ -43,11 +43,12 @@
         <Compile Include="EnemiesModels\Enemy.cs" />
         <Compile Include="Enums\Condition.cs" />
         <Compile Include="Enums\Direction.cs" />
-        <Compile Include="Enums\MagicType.cs" />
         <Compile Include="Enums\MovementWeight.cs" />
         <Compile Include="Game.cs" />
         <Compile Include="IGameObject.cs" />
+        <Compile Include="MagicModels\DuplicateSphere.cs" />
         <Compile Include="MagicModels\FireBall.cs" />
+        <Compile Include="MagicModels\IceBall.cs" />
         <Compile Include="MagicModels\Magic.cs" />
         <Compile Include="Player.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

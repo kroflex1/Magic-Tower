@@ -28,10 +28,10 @@ namespace MagicTower
             playerHealthLabel.Size = new Size(50, 50);
             playerHealthLabel.Text = "Player Health:" + gameModel.Player.CurrentHealth.ToString();
             Controls.Add(playerHealthLabel);
-
-
+            
+            
             var timer = new Timer();
-            timer.Interval = 15;
+            timer.Interval = 25;
             timer.Tick += (sender, args) => { gameModel.Update(); };
             timer.Tick += (sender, args) => { UpdateLabels(playerHealthLabel); };
             timer.Tick += (sender, args) => { Invalidate(); };
