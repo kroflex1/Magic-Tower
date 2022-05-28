@@ -6,21 +6,17 @@ using MagicTower.Model;
 
 namespace MagicTower
 {
-    public partial class GameForm : Form
+    public partial class GameScreen : Form
     {
         private Game gameModel;
         private PlayerView playerView;
         private MagicView magicView;
         private EnemyView enemyView;
 
-        public GameForm()
+        public GameScreen()
         {
             InitializeComponent();
-            Size = Screen.PrimaryScreen.Bounds.Size;
-            FormBorderStyle = FormBorderStyle.None;
-            WindowState = FormWindowState.Maximized;
-            BackgroundImage = Image.FromFile(@"C:\Users\Kroflex\Desktop\GameSprites\Tiles\Background.png");
-
+            SetWindowConfigurations();
             gameModel = new Game(Width, Height);
             SetViewObjects();
 
@@ -30,28 +26,15 @@ namespace MagicTower
             playerHealthLabel.Text = "Player Health:" + gameModel.Player.CurrentHealth.ToString();
             Controls.Add(playerHealthLabel);
             
-            
             var timer = new Timer();
-            timer.Interval = 25;
+            timer.Interval = 30;
             timer.Tick += (sender, args) => { gameModel.Update(); };
             timer.Tick += (sender, args) => { UpdateLabels(playerHealthLabel); };
             timer.Tick += (sender, args) => { Invalidate(); };
             timer.Start();
         }
 
-        private void SetViewObjects()
-        {
-            playerView = new PlayerView(gameModel.Player);
-            magicView = new MagicView(gameModel.CurrentRoom);
-            enemyView = new EnemyView(gameModel.CurrentRoom);
-        }
-
-        private void UpdateLabels(Label playerHealth)
-        {
-            playerHealth.Text = "Player Health:" + gameModel.Player.CurrentHealth.ToString();
-        }
-
-
+        
         protected override void OnLoad(EventArgs e)
         {
             Text = "Magic Tower";
@@ -95,6 +78,8 @@ namespace MagicTower
                 gameModel.Player.VerticalMovement = MovementWeight.Neutral;
             else if (e.KeyCode == Keys.S)
                 gameModel.Player.VerticalMovement = MovementWeight.Neutral;
+            else if(e.KeyCode == Keys.Escape)
+                Hide();
         }
 
 
@@ -111,6 +96,26 @@ namespace MagicTower
         protected override void OnMouseClick(MouseEventArgs e)
         {
             gameModel.SpawnMagic(e.X, e.Y);
+        }
+        
+        private void SetViewObjects()
+        {
+            playerView = new PlayerView(gameModel.Player);
+            magicView = new MagicView(gameModel.CurrentRoom);
+            enemyView = new EnemyView(gameModel.CurrentRoom);
+        }
+
+        private void SetWindowConfigurations()
+        {
+            Size = Screen.PrimaryScreen.Bounds.Size;
+            FormBorderStyle = FormBorderStyle.None;
+            WindowState = FormWindowState.Maximized;
+            BackgroundImage = Image.FromFile(@"C:\Users\Kroflex\Desktop\GameSprites\Tiles\Background.png");
+        }
+
+        private void UpdateLabels(Label playerHealth)
+        {
+            playerHealth.Text = "Player Health:" + gameModel.Player.CurrentHealth.ToString();
         }
         
     }

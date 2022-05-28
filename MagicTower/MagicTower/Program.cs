@@ -13,7 +13,8 @@ namespace MagicTower
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GameForm());
+            var screenController = new ScreenController();
+            screenController.Run();
         }
     }
 }
