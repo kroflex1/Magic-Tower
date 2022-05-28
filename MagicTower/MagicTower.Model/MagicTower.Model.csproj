@@ -11,6 +11,7 @@
         <AssemblyName>MagicTower.Model</AssemblyName>
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
+        <LangVersion>8</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -43,9 +44,10 @@
         <Compile Include="EnemiesModels\Enemy.cs" />
         <Compile Include="Enums\Condition.cs" />
         <Compile Include="Enums\Direction.cs" />
+        <Compile Include="Enums\Effect.cs" />
         <Compile Include="Enums\MovementWeight.cs" />
         <Compile Include="Game.cs" />
-        <Compile Include="IGameObject.cs" />
+        <Compile Include="Interfaces\IGameObject.cs" />
         <Compile Include="MagicModels\DuplicateSphere.cs" />
         <Compile Include="MagicModels\FireBall.cs" />
         <Compile Include="MagicModels\IceBall.cs" />

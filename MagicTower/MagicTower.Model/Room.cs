@@ -10,11 +10,11 @@ namespace MagicTower.Model
     {
         public readonly int Width;
         public readonly int Height;
-        public readonly List<Magic.Magic> MagicInRoom;
+        public readonly List<MagicModels.Magic> MagicInRoom;
         public readonly List<Enemy> AliveEnemiesInRoom;
         public Player Player { get;}
        
-        private readonly List<Magic.Magic> destroyedMagic;
+        private readonly List<MagicModels.Magic> destroyedMagic;
         private readonly List<Enemy> destroyedEnemies;
 
         public Room(int width, int height, Player player)
@@ -25,9 +25,9 @@ namespace MagicTower.Model
             Player = player;
             Player.OnCreateNewMagic += SpawnMagic;
             
-            MagicInRoom = new List<Magic.Magic>();
+            MagicInRoom = new List<MagicModels.Magic>();
             AliveEnemiesInRoom = new List<Enemy>();
-            destroyedMagic = new List<Magic.Magic>();
+            destroyedMagic = new List<MagicModels.Magic>();
             destroyedEnemies = new List<Enemy>();
         }
 
@@ -39,9 +39,10 @@ namespace MagicTower.Model
         }
         
         
-        public void SpawnMagic(Magic.Magic magic)
+        public void SpawnMagic(MagicModels.Magic magic)
         {
             MagicInRoom.Add(magic);
+            magic.OnCreateNewMagic += SpawnMagic;
         }
         
         public void SpawnEnemy(int posX, int posY)
@@ -100,5 +101,6 @@ namespace MagicTower.Model
                     destroyedEnemies.Add(enemy);
             }
         }
+        
     }
 }

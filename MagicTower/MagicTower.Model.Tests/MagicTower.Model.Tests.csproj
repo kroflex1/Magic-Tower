@@ -12,6 +12,7 @@
         <AssemblyName>MagicTower.Model.Tests</AssemblyName>
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
+        <LangVersion>8</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,11 +45,13 @@
     <ItemGroup>
         <Compile Include="CollisionControllerTests.cs" />
         <Compile Include="EnemyTests.cs" />
+        <Compile Include="IceBallTests.cs" />
         <Compile Include="MagicTests.cs" />
         <Compile Include="TestEnemy.cs" />
         <Compile Include="TestMagic.cs" />
         <Compile Include="PlayerTests.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="VectorTests.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\MagicTower.Model\MagicTower.Model.csproj">

@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using MagicTower.Model;
 
@@ -74,6 +75,14 @@ namespace MagicTower
                 gameModel.Player.VerticalMovement = MovementWeight.Negative;
             else if (e.KeyCode == Keys.S)
                 gameModel.Player.VerticalMovement = MovementWeight.Positive;
+
+            else if ((e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9))
+            {
+                var y = e.KeyData.ToString()[1];
+                var x = y - '0';
+                gameModel.Player.ChangeCurrentMagic(x);
+            }
+            
         }
 
         protected override void OnKeyUp(KeyEventArgs e)
@@ -103,5 +112,6 @@ namespace MagicTower
         {
             gameModel.SpawnMagic(e.X, e.Y);
         }
+        
     }
 }

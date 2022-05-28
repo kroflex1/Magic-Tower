@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using MagicTower.Model.EnemiesModels;
 using MagicTower.Model.Magic;
+using MagicTower.Model.MagicModels;
 
 namespace MagicTower.Model
 {
@@ -36,9 +37,10 @@ namespace MagicTower.Model
         public MovementWeight HorizontalMovement;
         public MovementWeight VerticalMovement;
         public delegate void PosHandler(int playerPosX, int playerPosY);
+        public delegate void MagicHandler(MagicModels.Magic magic);
         public event PosHandler OnChangePosition;
-        public delegate void MagicHandler(Magic.Magic magic);
         public event MagicHandler OnCreateNewMagic;
+        
         
         private int maxHealth;
         private int currentHealth;
@@ -47,16 +49,12 @@ namespace MagicTower.Model
         private Type currentMagic;
         private int windowWidth;
         private int windowHeight;
-
-       
         
-            
         public Player(int startPosX, int startPosY, int windowWidth, int windowHeight) : this(startPosX, startPosY, 32,
             56, 10, 10, windowWidth, windowHeight)
         {
         }
-
-
+        
         public Player(int startPosX, int startPosY, int hitboxWidth, int hitboxHeight, int maxHealth,
             int speed, int windowWidth, int windowHeight)
         {
@@ -73,7 +71,8 @@ namespace MagicTower.Model
             HorizontalMovement = MovementWeight.Neutral;
             VerticalMovement = MovementWeight.Neutral;
 
-            currentMagic = typeof(FireBall);
+            SetStartLearnedMagic();
+            currentMagic = learnedMagic[0];
 
             this.windowWidth = windowWidth;
             this.windowHeight = windowHeight;
@@ -103,7 +102,7 @@ namespace MagicTower.Model
         {
             var newMagic = Activator.CreateInstance(currentMagic, PosX, PosY, targetX, targetY);
             if(OnCreateNewMagic != null)
-                OnCreateNewMagic((Magic.Magic)newMagic);
+                OnCreateNewMagic((MagicModels.Magic)newMagic);
         }
 
         public void LearnNewMagic(Type newMagicType)
@@ -114,7 +113,9 @@ namespace MagicTower.Model
 
         public void ChangeCurrentMagic(int magicId)
         {
-            currentMagic = learnedMagic[magicId - 1];
+            magicId--;
+            if(magicId >= 0 && magicId < learnedMagic.Count)
+                currentMagic = learnedMagic[magicId];
         }
 
         public void Heal(int amountOfHealth)
@@ -137,5 +138,16 @@ namespace MagicTower.Model
                 return true;
             return false;
         }
+
+        private void SetStartLearnedMagic()
+        {
+            learnedMagic = new List<Type>()
+            {
+                typeof(FireBall),
+                typeof(IceBall)
+            };
+        }
+
+        
     }
 }

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using MagicTower.Model;
 using MagicTower.Model.Magic;
+using MagicTower.Model.MagicModels;
 
 namespace MagicTower
 {

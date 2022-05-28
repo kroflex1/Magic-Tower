@@ -74,7 +74,7 @@ namespace MagicTower.Model.Tests
             Assert.AreEqual((startX, startY), (player.PosX, player.PosY));
         }
 
-        [TestCase()]
+        [Test]
         public void CorrectGetDamage()
         {
             var demon = new Demon(0,0); //damage = 

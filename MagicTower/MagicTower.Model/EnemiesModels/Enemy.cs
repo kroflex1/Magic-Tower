@@ -77,9 +77,9 @@ namespace MagicTower.Model.EnemiesModels
 
         public void OnCollisionEnter(IGameObject gameObject)
         {
-            if (gameObject is Magic.Magic)
+            if (gameObject is MagicModels.Magic)
             {
-                Magic.Magic magic = gameObject as Magic.Magic;
+                MagicModels.Magic magic = gameObject as MagicModels.Magic;
                 GetDamaged(magic.Damage);
             }
         }

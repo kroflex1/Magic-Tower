@@ -11,7 +11,7 @@ namespace MagicTower.Model.Tests
         private const int roomWidth = 1920;
         private const int roomHeight = 1080;
 
-        [TestCase]
+        [Test]
         public void RectanglesIntersectionFromZeroPoint()
         {
             var r1 = new CollisionController.Rectangle(0, 0, 5, 5);
@@ -56,7 +56,7 @@ namespace MagicTower.Model.Tests
 
 
         // Enemy: width = 10, height = 10, health = 1
-        [TestCase]
+        [Test]
         public void PlayerShouldGetDamageAfterCollisionWithEnemy()
         {
             var room = GetRoomPresetWithEnemyAndPlayer(0, 0, 1, 1);
@@ -67,7 +67,7 @@ namespace MagicTower.Model.Tests
 
         // Enemy: width = 10, height = 10
         // Player: width = 32, height = 56, speed = 10
-        [TestCase]
+        [Test]
         public void PlayerShouldGetDamageAfterHorizontalMovingAndCollisionWithEnemy()
         {
             var room = GetRoomPresetWithEnemyAndPlayer(0, 0, 54, 0);

@@ -33,7 +33,8 @@ namespace MagicTower.Model
         {
             CurrentRoom.SpawnEnemy(posX, posY);
         }
-
+        
+        
         private void SetRooms()
         {
             var room = new Room(windowSize[0], windowSize[1], Player);

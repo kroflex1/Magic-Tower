@@ -1,7 +1,7 @@
-using System;
 using MagicTower.Model.EnemiesModels;
+using MagicTower.Model.Magic;
 
-namespace MagicTower.Model.Magic
+namespace MagicTower.Model.MagicModels
 {
     public abstract class Magic : IGameObject
     {
@@ -30,13 +30,14 @@ namespace MagicTower.Model.Magic
                     damage = value;
             }
         }
+        public Condition CurrentCondition { get; protected set; }
+        public delegate void MagicHandler(Magic magic);
+        public event MagicHandler OnCreateNewMagic;
 
-
-        public Condition CurrentCondition { get; private set; }
         protected int speed;
         protected int damage;
 
-        public Magic(int startX, int startY, int endX, int endY,  int hitboxWidth,
+        public Magic(int startX, int startY, int endX, int endY, int hitboxWidth,
             int hitboxHeight, int speed, int damage)
         {
             PosX = startX;
@@ -44,7 +45,7 @@ namespace MagicTower.Model.Magic
             HitboxHeight = hitboxHeight;
             HitboxWidth = hitboxWidth;
             Speed = speed;
-            Damage= damage;
+            Damage = damage;
             CurrentCondition = Condition.Alive;
             CalculateDirectionVector(startX, startY, endX, endY);
         }
