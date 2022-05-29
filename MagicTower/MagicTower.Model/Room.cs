@@ -11,6 +11,7 @@ namespace MagicTower.Model
         public readonly int Width;
         public readonly int Height;
         public readonly List<MagicModels.Magic> MagicInRoom;
+        private readonly List<MagicModels.Magic> shouldAddToRoomMagic;
         public readonly List<Enemy> AliveEnemiesInRoom;
         public Player Player { get;}
        
@@ -26,6 +27,7 @@ namespace MagicTower.Model
             Player.OnCreateNewMagic += SpawnMagic;
             
             MagicInRoom = new List<MagicModels.Magic>();
+            shouldAddToRoomMagic = new List<MagicModels.Magic>();
             AliveEnemiesInRoom = new List<Enemy>();
             destroyedMagic = new List<MagicModels.Magic>();
             destroyedEnemies = new List<Enemy>();
@@ -33,6 +35,7 @@ namespace MagicTower.Model
 
         public void Update()
         {
+            AddShouldMagicToRoom();
             ChangeGameObjectsPosition();
             CollisionController.CheckGameObjectsForCollisions(this);
             DeleteAllExcessGameObjects();
@@ -41,7 +44,7 @@ namespace MagicTower.Model
         
         public void SpawnMagic(MagicModels.Magic magic)
         {
-            MagicInRoom.Add(magic);
+            shouldAddToRoomMagic.Add(magic);
             magic.CreateNewMagic += SpawnMagic;
         }
         
@@ -81,7 +84,12 @@ namespace MagicTower.Model
                 AliveEnemiesInRoom.Remove(deadEnemy);
                 Player.OnChangePosition -= deadEnemy.UpdatePlayerPosition;
             }
-                
+        }
+
+        private void AddShouldMagicToRoom()
+        {
+            MagicInRoom.AddRange(shouldAddToRoomMagic);
+            shouldAddToRoomMagic.Clear();
         }
 
         private void FindDestroydMagic()

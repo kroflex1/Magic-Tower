@@ -33,9 +33,15 @@ namespace MagicTower
             imagesForMagic = new Dictionary<Type, Image>();
             imagesForMagic[typeof(FireBall)] =
                 Image.FromFile(
-                    Path.Combine(
-                        new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.FullName,
-                        "Sprites\\MagicSprites\\fireBall.png"));
+                    @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\MagicSprites\fireBall.png");
+            imagesForMagic[typeof(IceBall)] =
+                Image.FromFile(
+                    @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\MagicSprites\IceBall.png");
+            imagesForMagic[typeof(IceShard)] =
+                Image.FromFile(
+                    @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\MagicSprites\IceShard.png");
+            imagesForMagic[typeof(DuplicateSphere)] = Image.FromFile(
+                @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\MagicSprites\DuplicateSphere.png");
         }
     }
 }

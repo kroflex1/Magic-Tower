@@ -20,10 +20,12 @@ namespace MagicTower
             gameModel = new Game(Width, Height);
             SetViewObjects();
 
-            var playerHealthLabel = new Label();
-            playerHealthLabel.Location = new Point(0, 0);
-            playerHealthLabel.Size = new Size(50, 50);
-            playerHealthLabel.Text = "Player Health:" + gameModel.Player.CurrentHealth.ToString();
+            var playerHealthLabel = new Label()
+            {
+                Location = new Point(0, 0),
+                Size = new Size(100, 100),
+                Text = "Player Health:" + gameModel.Player.CurrentHealth
+            };
             Controls.Add(playerHealthLabel);
             
             var timer = new Timer();
@@ -59,13 +61,8 @@ namespace MagicTower
             else if (e.KeyCode == Keys.S)
                 gameModel.Player.VerticalMovement = MovementWeight.Positive;
 
-            else if ((e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9))
-            {
-                var y = e.KeyData.ToString()[1];
-                var x = y - '0';
-                gameModel.Player.ChangeCurrentMagic(x);
-            }
-            
+            else if (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9)
+                gameModel.Player.ChangeCurrentMagic(e.KeyData.ToString()[1] - '0');
         }
 
         protected override void OnKeyUp(KeyEventArgs e)
@@ -78,8 +75,6 @@ namespace MagicTower
                 gameModel.Player.VerticalMovement = MovementWeight.Neutral;
             else if (e.KeyCode == Keys.S)
                 gameModel.Player.VerticalMovement = MovementWeight.Neutral;
-            else if(e.KeyCode == Keys.Escape)
-                Hide();
         }
 
 

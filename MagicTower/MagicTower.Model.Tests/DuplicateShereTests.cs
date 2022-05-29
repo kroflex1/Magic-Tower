@@ -15,16 +15,15 @@ namespace MagicTower.Model.Tests
         {
             var room = GetSetupRoom();
             
-            var duplicateShere = new DuplicateSphere(0, 0, 1, 1);
-            var fireBall = new FireBall(2, 2, 1, 1);
+            var duplicateShere = new DuplicateSphere(0, 0, 1, 0);
+            var fireBall = new FireBall(151, 0, 150, 0);
             
             room.SpawnMagic(duplicateShere);
             room.SpawnMagic(fireBall);
             
-            duplicateShere.OnCollisionEnter(fireBall);
-            fireBall.OnCollisionEnter(fireBall);
+            room.Update();
             
-            Assert.AreEqual(10, room.MagicInRoom.Count);
+            Assert.AreEqual(8, room.MagicInRoom.Count);
         }
 
 
@@ -43,7 +42,7 @@ namespace MagicTower.Model.Tests
             
             Assert.AreEqual(2, room.MagicInRoom.Count);
         }
-
+        
         private Room GetSetupRoom()
         {
             var player = new Player(roomWidth / 2, roomHeight / 2, roomWidth, roomHeight);

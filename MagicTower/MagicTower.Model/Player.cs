@@ -144,7 +144,8 @@ namespace MagicTower.Model
             learnedMagic = new List<Type>()
             {
                 typeof(FireBall),
-                typeof(IceBall)
+                typeof(IceBall),
+                typeof(DuplicateSphere)
             };
         }
 

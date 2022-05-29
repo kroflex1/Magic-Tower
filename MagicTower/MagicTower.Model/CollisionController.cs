@@ -4,8 +4,28 @@ namespace MagicTower.Model
     {
         public static void CheckGameObjectsForCollisions(Room room)
         {
+            FindCollisionBetweenMagicsAndMagic(room);
             FindCollisionBetweenMagicsAndEnemies(room);
             FindCollisionBetweenPlayerAndEnemies(room);
+        }
+
+        private static void FindCollisionBetweenMagicsAndMagic(Room room)
+        {
+            for (int i = 0; i < room.MagicInRoom.Count - 1; i++)
+            {
+                var firstMagicRectangle = new Rectangle(room.MagicInRoom[i].PosX, room.MagicInRoom[i].PosY,
+                    room.MagicInRoom[i].HitboxWidth, room.MagicInRoom[i].HitboxHeight);
+                for (int j = i + 1; j < room.MagicInRoom.Count; j++)
+                {
+                    var secondMagicRectangle = new Rectangle(room.MagicInRoom[j].PosX, room.MagicInRoom[j].PosY,
+                        room.MagicInRoom[j].HitboxWidth, room.MagicInRoom[j].HitboxHeight);
+                    if (IsIntersection(firstMagicRectangle, secondMagicRectangle))
+                    {
+                        room.MagicInRoom[i].OnCollisionEnter(room.MagicInRoom[j]);
+                        room.MagicInRoom[j].OnCollisionEnter(room.MagicInRoom[i]);
+                    }
+                }
+            }
         }
 
         private static void FindCollisionBetweenMagicsAndEnemies(Room room)

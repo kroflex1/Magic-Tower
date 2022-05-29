@@ -8,7 +8,7 @@ namespace MagicTower.Model.MagicModels
     {
         public override event MagicHandler CreateNewMagic;
         
-        public IceBall(int startX, int startY, int endX, int endY) : base(startX, startY, endX, endY, 48, 32, 10, 2)
+        public IceBall(int startX, int startY, int endX, int endY) : base(startX, startY, endX, endY, 48, 17, 10, 2)
         {
         }
 

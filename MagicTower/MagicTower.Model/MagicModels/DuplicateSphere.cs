@@ -9,11 +9,11 @@ namespace MagicTower.Model.MagicModels
     {
         public override event MagicHandler CreateNewMagic;
 
-        private const int degreeOfDeceleration = 1;
+        private const int DegreeOfDeceleration = 1;
         private IReadOnlyList<Type> magicAllowedForDuplication;
 
         public DuplicateSphere(int startX, int startY, int endX, int endY) : base(startX, startY, endX, endY,
-            32, 32, 10, 0)
+            150, 150, 2, 0)
         {
             SetMagicAllowedForDuplication();
         }
@@ -32,8 +32,8 @@ namespace MagicTower.Model.MagicModels
 
         public override void TakeStep()
         {
-            if (speed - degreeOfDeceleration >= 0)
-                DirectionVector.SetLength(speed - degreeOfDeceleration);
+            if (speed - DegreeOfDeceleration >= 0)
+                DirectionVector.SetLength(speed - DegreeOfDeceleration);
             PosX += DirectionVector.X;
             PosY += DirectionVector.Y;
         }
@@ -56,7 +56,8 @@ namespace MagicTower.Model.MagicModels
         {
             magicAllowedForDuplication = new List<Type>()
             {
-                typeof(FireBall)
+                typeof(FireBall),
+                typeof(IceBall)
             };
         }
     }
