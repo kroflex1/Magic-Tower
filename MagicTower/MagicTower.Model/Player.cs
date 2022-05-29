@@ -19,7 +19,7 @@ namespace MagicTower.Model
             private set
             {
                 if (value > 0)
-                    currentHealth = maxHealth;
+                    currentHealth = MaxHealth;
                 currentHealth = value;
             }
         }
@@ -36,13 +36,13 @@ namespace MagicTower.Model
 
         public MovementWeight HorizontalMovement;
         public MovementWeight VerticalMovement;
+        public int MaxHealth { get; private set; }
         public delegate void PosHandler(int playerPosX, int playerPosY);
         public delegate void MagicHandler(MagicModels.Magic magic);
         public event PosHandler OnChangePosition;
         public event MagicHandler OnCreateNewMagic;
         
         
-        private int maxHealth;
         private int currentHealth;
         private int speed;
         private List<Type> learnedMagic; 
@@ -64,7 +64,7 @@ namespace MagicTower.Model
             HitboxWidth = hitboxWidth;
             HitboxHeight = hitboxHeight;
 
-            this.maxHealth = maxHealth;
+            this.MaxHealth = maxHealth;
             CurrentHealth = maxHealth;
 
             Speed = speed;

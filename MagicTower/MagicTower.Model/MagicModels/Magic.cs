@@ -32,7 +32,7 @@ namespace MagicTower.Model.MagicModels
         }
         public Condition CurrentCondition { get; protected set; }
         public delegate void MagicHandler(Magic magic);
-        public event MagicHandler OnCreateNewMagic;
+        public abstract event MagicHandler CreateNewMagic;
 
         protected int speed;
         protected int damage;
@@ -59,7 +59,7 @@ namespace MagicTower.Model.MagicModels
 
         public virtual void OnCollisionEnter(IGameObject gameObject)
         {
-            if (gameObject is Enemy)
+            if (gameObject is Enemy || gameObject is DuplicateSphere)
                 CurrentCondition = Condition.Destroyed;
         }
 

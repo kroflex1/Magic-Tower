@@ -44,6 +44,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="CollisionControllerTests.cs" />
+        <Compile Include="DuplicateShereTests.cs" />
         <Compile Include="EnemyTests.cs" />
         <Compile Include="IceBallTests.cs" />
         <Compile Include="MagicTests.cs" />

@@ -1,11 +1,14 @@
-/*using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using MagicTower.Model.Magic;
 
-namespace MagicTower.Model.Magic
+namespace MagicTower.Model.MagicModels
 {
     public class DuplicateSphere : Magic
     {
+        public override event MagicHandler CreateNewMagic;
+
         private const int degreeOfDeceleration = 1;
         private IReadOnlyList<Type> magicAllowedForDuplication;
 
@@ -19,12 +22,13 @@ namespace MagicTower.Model.Magic
         {
             if (gameObject is Magic && magicAllowedForDuplication.Contains(gameObject.GetType()))
             {
-                Magic newMagic = (Magic) Activator.CreateInstance();
+                CurrentCondition = Condition.Destroyed;
+                foreach (var copiedMagic in CreatDuplicatesOfMagic((Magic) gameObject))
+                    if (CreateNewMagic != null)
+                        CreateNewMagic(copiedMagic);
             }
-                
         }
-        
-        public void OnCollidingMagic()
+
 
         public override void TakeStep()
         {
@@ -32,6 +36,20 @@ namespace MagicTower.Model.Magic
                 DirectionVector.SetLength(speed - degreeOfDeceleration);
             PosX += DirectionVector.X;
             PosY += DirectionVector.Y;
+        }
+
+        private IEnumerable<Magic> CreatDuplicatesOfMagic(Magic magic)
+        {
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    if (x != 0 || y != 0)
+                        yield return (Magic) Activator.CreateInstance(magic.GetType(), PosX, PosY,
+                            PosX + x * magic.Speed,
+                            PosY + y * magic.Speed);
+                }
+            }
         }
 
         private void SetMagicAllowedForDuplication()
@@ -42,4 +60,4 @@ namespace MagicTower.Model.Magic
             };
         }
     }
-}*/
+}

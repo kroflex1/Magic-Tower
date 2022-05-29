@@ -12,13 +12,17 @@ namespace MagicTower
         public ScreenController()
         {
             gameScreen = new GameScreen();
-            startScreen = new StartScreen(gameScreen);
+            startScreen = new StartScreen();
             pauseScreen = new PauseScreen(startScreen, gameScreen);
+            startScreen.Closed +=(sender, args) =>
+            {
+                gameScreen.Show();
+            };
         }
 
         public void Run()
         {
-            Application.Run(startScreen);
+            Application.Run(gameScreen);
         }
     }
 }

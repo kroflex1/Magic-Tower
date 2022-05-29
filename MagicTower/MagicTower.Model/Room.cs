@@ -42,7 +42,7 @@ namespace MagicTower.Model
         public void SpawnMagic(MagicModels.Magic magic)
         {
             MagicInRoom.Add(magic);
-            magic.OnCreateNewMagic += SpawnMagic;
+            magic.CreateNewMagic += SpawnMagic;
         }
         
         public void SpawnEnemy(int posX, int posY)

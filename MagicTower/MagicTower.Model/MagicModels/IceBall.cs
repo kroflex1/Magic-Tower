@@ -6,9 +6,8 @@ namespace MagicTower.Model.MagicModels
 {
     public class IceBall : Magic
     {
-        public delegate void MagicHandler(Magic magic);
-        public event MagicHandler OnCreateNewMagic;
-
+        public override event MagicHandler CreateNewMagic;
+        
         public IceBall(int startX, int startY, int endX, int endY) : base(startX, startY, endX, endY, 48, 32, 10, 2)
         {
         }
@@ -20,8 +19,8 @@ namespace MagicTower.Model.MagicModels
                 CurrentCondition = Condition.Destroyed;
                 var iceShards = CreateIceShards();
                 foreach (var iceShard in iceShards)
-                    if (OnCreateNewMagic != null)
-                        OnCreateNewMagic(iceShard);
+                    if (CreateNewMagic != null)
+                        CreateNewMagic(iceShard);
             }
         }
 
@@ -36,10 +35,13 @@ namespace MagicTower.Model.MagicModels
 
             return iceShards;
         }
+
+     
     }
 
     public class IceShard : Magic
     {
+        public override event MagicHandler CreateNewMagic;
         public IceShard(int startX, int startY, int endX, int endY) : base(startX, startY, endX, endY, 38, 18, 12, 1)
         {
         }

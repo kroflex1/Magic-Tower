@@ -77,10 +77,10 @@ namespace MagicTower.Model.Tests
         [Test]
         public void CorrectGetDamage()
         {
-            var demon = new Demon(0,0); //damage = 
+            var demon = new Demon(0,0); 
             var player = new Player(0, 0, roomWidth, roomHeight);
             player.OnCollisionEnter(demon);
-            Assert.AreEqual(player.CurrentHealth - demon.Damage, player.CurrentHealth);
+            Assert.AreEqual(player.MaxHealth - demon.Damage, player.CurrentHealth);
         }
     }
 }
