@@ -5,7 +5,9 @@ namespace MagicTower
 {
     public partial class PauseScreen : Form
     {
-        public PauseScreen(StartScreen startScreen, GameScreen gameScreen)
+        private GameScreen gameScreen;
+        private StartScreen startScreen;
+        public PauseScreen()
         {
             InitializeComponent();
             SetWindowConfigurations();
@@ -22,7 +24,7 @@ namespace MagicTower
 
             var backToMenuButton = new Button()
             {
-                Location = new Point(Width / 2, Height / 2),
+                Location = new Point(continueGameButton.Left, continueGameButton.Bottom + 5),
                 Text = "Menu"
             };
             backToMenuButton.Click += (sender, args) =>
@@ -30,6 +32,15 @@ namespace MagicTower
                 Hide();
                 startScreen.Show();
             };
+            
+            Controls.Add(continueGameButton);
+            Controls.Add(backToMenuButton);
+        }
+
+        public void SetStartAndGameScreen(StartScreen startScreen, GameScreen gameScreen)
+        {
+            this.startScreen = startScreen;
+            this.gameScreen = gameScreen;
         }
 
         private void SetWindowConfigurations()
@@ -39,7 +50,7 @@ namespace MagicTower
             WindowState = FormWindowState.Maximized;
             BackgroundImage =
                 Image.FromFile(
-                    @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\Backgrounds\StartScreenBackground.jpg");
+                    @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\Backgrounds\PauseBackground.jpg");
         }
     }
 }

@@ -12,7 +12,7 @@ namespace MagicTower
         private PlayerView playerView;
         private MagicView magicView;
         private EnemyView enemyView;
-
+        private PauseScreen pauseScreen;
         public GameScreen()
         {
             InitializeComponent();
@@ -36,6 +36,10 @@ namespace MagicTower
             timer.Start();
         }
 
+        public void SetPauseScreen(PauseScreen pauseScreen)
+        {
+            this.pauseScreen = pauseScreen;
+        }
         
         protected override void OnLoad(EventArgs e)
         {
@@ -60,9 +64,14 @@ namespace MagicTower
                 gameModel.Player.VerticalMovement = MovementWeight.Negative;
             else if (e.KeyCode == Keys.S)
                 gameModel.Player.VerticalMovement = MovementWeight.Positive;
-
             else if (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9)
-                gameModel.Player.ChangeCurrentMagic(e.KeyData.ToString()[1] - '0');
+                gameModel.Player.ChangeCurrentMagic(e.KeyData.ToString()[1] - '0' - 1);
+            
+            else if (e.KeyCode == Keys.Escape)
+            {
+                Hide();
+                pauseScreen.Show();
+            }
         }
 
         protected override void OnKeyUp(KeyEventArgs e)
@@ -105,7 +114,7 @@ namespace MagicTower
             Size = Screen.PrimaryScreen.Bounds.Size;
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
-            BackgroundImage = Image.FromFile(@"C:\Users\Kroflex\Desktop\GameSprites\Tiles\Background.png");
+            BackgroundImage = Image.FromFile(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\Backgrounds\GameBackground.png");
         }
 
         private void UpdateLabels(Label playerHealth)
@@ -113,5 +122,9 @@ namespace MagicTower
             playerHealth.Text = "Player Health:" + gameModel.Player.CurrentHealth.ToString();
         }
         
+        private void DrawPlayerUI()
+        {
+            
+        }
     }
 }

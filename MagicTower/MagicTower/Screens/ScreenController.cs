@@ -1,3 +1,4 @@
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -13,16 +14,22 @@ namespace MagicTower
         {
             gameScreen = new GameScreen();
             startScreen = new StartScreen();
-            pauseScreen = new PauseScreen(startScreen, gameScreen);
-            startScreen.Closed +=(sender, args) =>
-            {
-                gameScreen.Show();
-            };
+            pauseScreen = new PauseScreen();
+            ConnectScreens();
         }
 
         public void Run()
         {
             Application.Run(gameScreen);
+        }
+
+        private void ConnectScreens()
+        {
+            if (gameScreen == null || startScreen == null || pauseScreen == null)
+                throw new ArgumentException("Экраны не могут быть нулевыми");
+            startScreen.SetGameScreen(gameScreen);
+            pauseScreen.SetStartAndGameScreen(startScreen, gameScreen);
+            gameScreen.SetPauseScreen(pauseScreen);
         }
     }
 }

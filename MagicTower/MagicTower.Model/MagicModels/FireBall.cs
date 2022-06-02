@@ -4,7 +4,7 @@ namespace MagicTower.Model.MagicModels
     {
         public override event MagicHandler CreateNewMagic;
         public FireBall(int startX, int startY, int endX, int endY) : base(startX, startY,
-            endX, endY, 10, 10, 5, 1)
+            endX, endY, 10, 10, 5, 1, 0)
         {
         }
     }

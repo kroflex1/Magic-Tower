@@ -30,15 +30,29 @@ namespace MagicTower.Model.MagicModels
                     damage = value;
             }
         }
+
+        public int ManaCost
+        {
+            get => manaCost;
+            set
+            {
+                if (value >= 0)
+                    manaCost = value;
+            }
+        }
+
         public Condition CurrentCondition { get; protected set; }
+
         public delegate void MagicHandler(Magic magic);
+
         public abstract event MagicHandler CreateNewMagic;
 
         protected int speed;
         protected int damage;
+        protected int manaCost;
 
         public Magic(int startX, int startY, int endX, int endY, int hitboxWidth,
-            int hitboxHeight, int speed, int damage)
+            int hitboxHeight, int speed, int damage, int manaCost)
         {
             PosX = startX;
             PosY = startY;
@@ -46,6 +60,7 @@ namespace MagicTower.Model.MagicModels
             HitboxWidth = hitboxWidth;
             Speed = speed;
             Damage = damage;
+            ManaCost = manaCost;
             CurrentCondition = Condition.Alive;
             CalculateDirectionVector(startX, startY, endX, endY);
         }

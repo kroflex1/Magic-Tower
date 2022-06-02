@@ -13,7 +13,7 @@ namespace MagicTower.Model.MagicModels
         private IReadOnlyList<Type> magicAllowedForDuplication;
 
         public DuplicateSphere(int startX, int startY, int endX, int endY) : base(startX, startY, endX, endY,
-            150, 150, 2, 0)
+            150, 150, 2, 0, 3)
         {
             SetMagicAllowedForDuplication();
         }
@@ -46,8 +46,8 @@ namespace MagicTower.Model.MagicModels
                 {
                     if (x != 0 || y != 0)
                         yield return (Magic) Activator.CreateInstance(magic.GetType(), PosX, PosY,
-                            PosX + x * magic.Speed,
-                            PosY + y * magic.Speed);
+                            PosX + x,
+                            PosY + y);
                 }
             }
         }

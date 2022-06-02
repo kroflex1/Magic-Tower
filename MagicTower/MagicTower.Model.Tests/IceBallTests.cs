@@ -12,14 +12,17 @@ namespace MagicTower.Model.Tests
         private const int roomHeight = 1080;
 
         [Test]
-        public void ShouldCreateCorrectIceShards()
+        public void ShouldCreateIceShards()
         {
             var room = GetSetupRoom();
-            var iceBall = new IceBall(1, 1, 2, 2);
-            room.SpawnMagic(iceBall);
-            room.SpawnEnemy(2,2);
+            var iceBall = new IceBall(roomWidth/2, roomHeight / 2, roomWidth/2 + 1, roomHeight / 2);
             
-            iceBall.OnCollisionEnter(room.AliveEnemiesInRoom[0]);
+            room.SpawnMagic(iceBall);
+            room.SpawnEnemy(roomWidth/2, roomHeight / 2);
+            
+            room.Update();
+            room.Update();
+            
             Assert.AreEqual(5, room.MagicInRoom.Count);
         }
 

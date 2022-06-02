@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using MagicTower.Model.EnemiesModels;
+using MagicTower.Model.MagicModels;
 using NUnit.Framework;
 
 namespace MagicTower.Model.Tests
@@ -63,7 +65,6 @@ namespace MagicTower.Model.Tests
         [TestCase(MovementWeight.Neutral, MovementWeight.Negative, 0, 0)]
         [TestCase(MovementWeight.Negative, MovementWeight.Negative, 0, 0)]
         [TestCase(MovementWeight.Neutral, MovementWeight.Positive, 0, roomHeight)]
-        
         public void PlayerCantGoToBeyondBounds(MovementWeight horizontalMovementWeight,
             MovementWeight verticalMovementWeight, int startX, int startY)
         {
@@ -75,9 +76,38 @@ namespace MagicTower.Model.Tests
         }
 
         [Test]
+        public void PlayerCanLearnNewMagic()
+        {
+            var player = new Player(0, 0, roomWidth, roomHeight);
+            var countLearnedMagic = player.LearnedMagic.Count;
+            player.LearnNewMagic(typeof(TestMagic));
+            Assert.AreEqual(countLearnedMagic + 1, player.LearnedMagic.Count);
+        }
+
+        
+        [Test]
+        public void LastLearnMagicShouldBeLastInList()
+        {
+            var player = new Player(0, 0, roomWidth, roomHeight);
+            player.LearnNewMagic(typeof(TestMagic));
+            Assert.AreEqual(player.LearnedMagic[player.LearnedMagic.Count - 1], typeof(TestMagic));
+        }
+
+        [Test]
+        public void PlayerLosesManaWhenCreatedMagic()
+        {
+            var player = new Player(0, 0,  roomWidth, roomHeight);
+            var room = new Room(roomWidth, roomWidth, player);
+            var iceBall = new IceBall(0, 0, 1, 1);
+            player.ChangeCurrentMagic(1);
+            player.AttackTo(5, 5);
+            Assert.AreEqual(player.MaxMana  - iceBall.ManaCost, player.CurrentMana);
+        }
+
+        [Test]
         public void CorrectGetDamage()
         {
-            var demon = new Demon(0,0); 
+            var demon = new Demon(0, 0);
             var player = new Player(0, 0, roomWidth, roomHeight);
             player.OnCollisionEnter(demon);
             Assert.AreEqual(player.MaxHealth - demon.Damage, player.CurrentHealth);

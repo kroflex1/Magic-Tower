@@ -15,12 +15,21 @@ namespace MagicTower.Model
 
         public int CurrentHealth
         {
-            get { return currentHealth; }
+            get => currentHealth;
             private set
             {
                 if (value > 0)
-                    currentHealth = MaxHealth;
-                currentHealth = value;
+                    currentHealth = value;
+            }
+        }
+
+        public int CurrentMana
+        {
+            get => currentMana;
+            private set
+            {
+                if (value >= 0)
+                    currentMana = value;
             }
         }
 
@@ -37,25 +46,30 @@ namespace MagicTower.Model
         public MovementWeight HorizontalMovement;
         public MovementWeight VerticalMovement;
         public int MaxHealth { get; private set; }
+        public int MaxMana { get; private set; }
+        public List<Type> LearnedMagic { get; private set; }
+
         public delegate void PosHandler(int playerPosX, int playerPosY);
+
         public delegate void MagicHandler(MagicModels.Magic magic);
+
         public event PosHandler OnChangePosition;
         public event MagicHandler OnCreateNewMagic;
-        
-        
+
+
         private int currentHealth;
+        private int currentMana;
         private int speed;
-        private List<Type> learnedMagic; 
         private Type currentMagic;
-        private int windowWidth;
-        private int windowHeight;
-        
+        private readonly int windowWidth;
+        private readonly int windowHeight;
+
         public Player(int startPosX, int startPosY, int windowWidth, int windowHeight) : this(startPosX, startPosY, 32,
-            56, 10, 10, windowWidth, windowHeight)
+            56, 10, 10, 10, windowWidth, windowHeight)
         {
         }
-        
-        public Player(int startPosX, int startPosY, int hitboxWidth, int hitboxHeight, int maxHealth,
+
+        public Player(int startPosX, int startPosY, int hitboxWidth, int hitboxHeight, int maxHealth, int maxMana,
             int speed, int windowWidth, int windowHeight)
         {
             PosX = startPosX;
@@ -64,15 +78,18 @@ namespace MagicTower.Model
             HitboxWidth = hitboxWidth;
             HitboxHeight = hitboxHeight;
 
-            this.MaxHealth = maxHealth;
+            MaxHealth = maxHealth;
             CurrentHealth = maxHealth;
+
+            MaxMana = maxMana;
+            currentMana = maxMana;
 
             Speed = speed;
             HorizontalMovement = MovementWeight.Neutral;
             VerticalMovement = MovementWeight.Neutral;
 
             SetStartLearnedMagic();
-            currentMagic = learnedMagic[0];
+            currentMagic = LearnedMagic[0];
 
             this.windowWidth = windowWidth;
             this.windowHeight = windowHeight;
@@ -100,22 +117,24 @@ namespace MagicTower.Model
 
         public void AttackTo(int targetX, int targetY)
         {
-            var newMagic = Activator.CreateInstance(currentMagic, PosX, PosY, targetX, targetY);
-            if(OnCreateNewMagic != null)
-                OnCreateNewMagic((MagicModels.Magic)newMagic);
+            var newMagic = (MagicModels.Magic) Activator.CreateInstance(currentMagic, PosX, PosY, targetX, targetY);
+            if (CurrentMana - newMagic.ManaCost > 0 && OnCreateNewMagic != null)
+            {
+                CurrentMana -= newMagic.ManaCost;
+                OnCreateNewMagic(newMagic);
+            }
         }
 
         public void LearnNewMagic(Type newMagicType)
         {
-            if (!learnedMagic.Contains(newMagicType))
-                learnedMagic.Add(newMagicType);
+            if (!LearnedMagic.Contains(newMagicType))
+                LearnedMagic.Add(newMagicType);
         }
 
         public void ChangeCurrentMagic(int magicId)
         {
-            magicId--;
-            if(magicId >= 0 && magicId < learnedMagic.Count)
-                currentMagic = learnedMagic[magicId];
+            if (magicId >= 0 && magicId < LearnedMagic.Count)
+                currentMagic = LearnedMagic[magicId];
         }
 
         public void Heal(int amountOfHealth)
@@ -131,7 +150,7 @@ namespace MagicTower.Model
                 throw new ArgumentException("Наносимый урон не может быть меньше нуля");
             CurrentHealth -= amountOfDamage;
         }
-        
+
         private bool InBounds(int x, int y)
         {
             if (x >= 0 && x <= (windowWidth - HitboxWidth) && y >= 0 && y <= (windowHeight - HitboxWidth))
@@ -141,14 +160,12 @@ namespace MagicTower.Model
 
         private void SetStartLearnedMagic()
         {
-            learnedMagic = new List<Type>()
+            LearnedMagic = new List<Type>()
             {
                 typeof(FireBall),
                 typeof(IceBall),
                 typeof(DuplicateSphere)
             };
         }
-
-        
     }
 }

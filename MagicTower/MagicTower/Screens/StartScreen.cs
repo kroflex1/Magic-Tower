@@ -5,6 +5,7 @@ namespace MagicTower
 {
     public partial class StartScreen : Form
     {
+        private GameScreen gameScreen;
         public StartScreen()
         {
             InitializeComponent();
@@ -16,7 +17,8 @@ namespace MagicTower
             };
             startGameButton.Click += (sender, args) =>
             {
-                Close();
+                Hide();
+                gameScreen.Show();
             };
             
             
@@ -29,6 +31,11 @@ namespace MagicTower
             
             Controls.Add(startGameButton);
             Controls.Add(exitButton);
+        }
+
+        public void SetGameScreen(GameScreen gameScreen)
+        {
+            this.gameScreen = gameScreen;
         }
 
         private void SetWindowConfigurations()

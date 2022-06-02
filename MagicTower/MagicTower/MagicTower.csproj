@@ -65,6 +65,7 @@
         <Compile Include="Screens\PauseScreen.Designer.cs">
           <DependentUpon>PauseScreen.cs</DependentUpon>
         </Compile>
+        <Compile Include="Screens\PlayerUI.cs" />
         <Compile Include="Screens\ScreenController.cs" />
         <Compile Include="Screens\StartScreen.cs">
           <SubType>Form</SubType>
@@ -95,6 +96,7 @@
         <None Include="App.config" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="Sprites\Backgrounds\GameBackground.png" />
       <Content Include="Sprites\Backgrounds\PauseBackground.jpg" />
       <Content Include="Sprites\Backgrounds\StartScreenBackground.jpg" />
       <Content Include="Sprites\cursor.cur" />
