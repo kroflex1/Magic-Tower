@@ -110,6 +110,11 @@
       <Content Include="Sprites\player.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+      <Content Include="Sprites\UI\Hert\ui_heart_empty.png" />
+      <Content Include="Sprites\UI\Hert\ui_heart_full.png" />
+      <Content Include="Sprites\UI\Hert\ui_heart_half.png" />
+      <Content Include="Sprites\UI\Mana\ui_empty_mana.png" />
+      <Content Include="Sprites\UI\Mana\ui_full_mana.png" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\MagicTower.Model\MagicTower.Model.csproj">

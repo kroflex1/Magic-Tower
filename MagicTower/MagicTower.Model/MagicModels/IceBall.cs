@@ -7,7 +7,7 @@ namespace MagicTower.Model.MagicModels
     public class IceBall : Magic
     {
         public override event MagicHandler CreateNewMagic;
-        
+
         public IceBall(int startX, int startY, int endX, int endY) : base(startX, startY, endX, endY, 48, 17, 10, 2, 1)
         {
         }
@@ -22,7 +22,7 @@ namespace MagicTower.Model.MagicModels
                     if (CreateNewMagic != null)
                         CreateNewMagic(iceShard);
             }
-            else if(gameObject is DuplicateSphere)
+            else if (gameObject is DuplicateSphere)
                 CurrentCondition = Condition.Destroyed;
         }
 
@@ -37,13 +37,12 @@ namespace MagicTower.Model.MagicModels
 
             return iceShards;
         }
-
-     
     }
 
     public class IceShard : Magic
     {
         public override event MagicHandler CreateNewMagic;
+
         public IceShard(int startX, int startY, int endX, int endY) : base(startX, startY, endX, endY, 38, 18, 12, 1, 1)
         {
         }

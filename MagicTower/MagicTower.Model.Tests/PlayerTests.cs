@@ -97,11 +97,23 @@ namespace MagicTower.Model.Tests
         public void PlayerLosesManaWhenCreatedMagic()
         {
             var player = new Player(0, 0,  roomWidth, roomHeight);
-            var room = new Room(roomWidth, roomWidth, player);
+            var room = new Room(roomWidth, roomHeight, player);
             var iceBall = new IceBall(0, 0, 1, 1);
             player.ChangeCurrentMagic(1);
             player.AttackTo(5, 5);
             Assert.AreEqual(player.MaxMana  - iceBall.ManaCost, player.CurrentMana);
+        }
+
+        [Test]
+        public void PlayerLosesManaWhenCreateALotOfMagic()
+        {
+            var player = new Player(0, 0,  roomWidth, roomHeight);
+            var room = new Room(roomWidth, roomHeight, player);
+            player.ChangeCurrentMagic(1);
+            for (int i = 0; i < player.MaxMana; i++)
+                player.AttackTo(5, 5);
+            
+            Assert.AreEqual(0, player.CurrentMana);
         }
 
         [Test]

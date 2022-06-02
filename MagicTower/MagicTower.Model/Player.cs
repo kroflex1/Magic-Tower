@@ -118,7 +118,7 @@ namespace MagicTower.Model
         public void AttackTo(int targetX, int targetY)
         {
             var newMagic = (MagicModels.Magic) Activator.CreateInstance(currentMagic, PosX, PosY, targetX, targetY);
-            if (CurrentMana - newMagic.ManaCost > 0 && OnCreateNewMagic != null)
+            if (CurrentMana - newMagic.ManaCost >= 0 && OnCreateNewMagic != null)
             {
                 CurrentMana -= newMagic.ManaCost;
                 OnCreateNewMagic(newMagic);
