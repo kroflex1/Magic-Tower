@@ -22,5 +22,6 @@
     &lt;TestId&gt;NUnit3x::10E0BA06-1834-4BE9-98F7-5E968DA0805E::.NETFramework,Version=v4.8::MagicTower.Model.Tests.IceBallTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::10E0BA06-1834-4BE9-98F7-5E968DA0805E::.NETFramework,Version=v4.8::MagicTower.Model.Tests.VectorTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::10E0BA06-1834-4BE9-98F7-5E968DA0805E::.NETFramework,Version=v4.8::MagicTower.Model.Tests.DuplicateShereTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::10E0BA06-1834-4BE9-98F7-5E968DA0805E::.NETFramework,Version=v4.8::MagicTower.Model.Tests.DemonTest.DemonShouldSpawnLittleDemonsAfterDeath&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

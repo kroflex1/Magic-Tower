@@ -11,10 +11,11 @@ namespace MagicTower.Model
         public readonly int Width;
         public readonly int Height;
         public readonly List<MagicModels.Magic> MagicInRoom;
-        private readonly List<MagicModels.Magic> shouldAddToRoomMagic;
         public readonly List<Enemy> AliveEnemiesInRoom;
         public Player Player { get;}
        
+        private readonly List<MagicModels.Magic> shouldAddToRoomMagic;
+        public readonly List<Enemy> shouldAddToRoomEnemies;
         private readonly List<MagicModels.Magic> destroyedMagic;
         private readonly List<Enemy> destroyedEnemies;
 
@@ -29,18 +30,19 @@ namespace MagicTower.Model
             MagicInRoom = new List<MagicModels.Magic>();
             shouldAddToRoomMagic = new List<MagicModels.Magic>();
             AliveEnemiesInRoom = new List<Enemy>();
+            shouldAddToRoomMagic = new List<MagicModels.Magic>();
+            shouldAddToRoomEnemies = new List<Enemy>();
             destroyedMagic = new List<MagicModels.Magic>();
             destroyedEnemies = new List<Enemy>();
         }
 
         public void Update()
         {
-            AddShouldMagicToRoom();
+            AddShouldGameObjectsToRoom();
             ChangeGameObjectsPosition();
             CollisionController.CheckGameObjectsForCollisions(this);
             DeleteAllExcessGameObjects();
         }
-        
         
         public void SpawnMagic(MagicModels.Magic magic)
         {
@@ -48,12 +50,12 @@ namespace MagicTower.Model
             magic.CreateNewMagic += SpawnMagic;
         }
         
-        public void SpawnEnemy(int posX, int posY)
+        public void SpawnEnemy(Enemy enemy)
         {
-            var newEnemy = new Demon(posX, posY);
-            AliveEnemiesInRoom.Add(newEnemy);
-            newEnemy.UpdatePlayerPosition(Player.PosX, Player.PosY);
-            Player.OnChangePosition += newEnemy.UpdatePlayerPosition;
+            shouldAddToRoomEnemies.Add(enemy);
+            enemy.UpdatePlayerPosition(Player.PosX, Player.PosY);
+            enemy.CreateNewEnemy +=SpawnEnemy;
+            Player.OnChangePosition += enemy.UpdatePlayerPosition;
         }
 
         private bool InBounds(int x, int y)
@@ -63,7 +65,12 @@ namespace MagicTower.Model
             return false;
         }
 
-
+        private void AddShouldGameObjectsToRoom()
+        {
+            MoveGameObjectsFromListToAnother(shouldAddToRoomMagic, MagicInRoom);
+            MoveGameObjectsFromListToAnother(shouldAddToRoomEnemies, AliveEnemiesInRoom);
+        }
+        
         private void ChangeGameObjectsPosition()
         {
             Player.Move();
@@ -86,12 +93,12 @@ namespace MagicTower.Model
             }
         }
 
-        private void AddShouldMagicToRoom()
+        private void MoveGameObjectsFromListToAnother<T>(List<T> from, List<T> to)
         {
-            MagicInRoom.AddRange(shouldAddToRoomMagic);
-            shouldAddToRoomMagic.Clear();
+            to.AddRange(from);
+            from.Clear();
         }
-
+        
         private void FindDestroydMagic()
         {
             foreach (var magic in MagicInRoom)

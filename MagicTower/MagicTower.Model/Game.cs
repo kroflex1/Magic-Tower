@@ -31,7 +31,7 @@ namespace MagicTower.Model
 
         public void SpawnEnemy(int posX, int posY)
         {
-            CurrentRoom.SpawnEnemy(posX, posY);
+            CurrentRoom.SpawnEnemy(new Demon(100,100));
         }
         
         

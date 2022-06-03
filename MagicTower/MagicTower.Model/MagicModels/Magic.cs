@@ -42,9 +42,7 @@ namespace MagicTower.Model.MagicModels
         }
 
         public Condition CurrentCondition { get; protected set; }
-
         public delegate void MagicHandler(Magic magic);
-
         public abstract event MagicHandler CreateNewMagic;
 
         protected int speed;

@@ -31,7 +31,8 @@ namespace MagicTower
         private void SetImagesForMagic()
         {
             imagesForEnemies = new Dictionary<Type, Image>();
-            imagesForEnemies[typeof(Demon)] = Image.FromFile(@"Sprites\demon.png");
+            imagesForEnemies[typeof(Demon)] = Image.FromFile(@"Sprites/Enemies/demon.png");
+            imagesForEnemies[typeof(LittleDemon)] = Image.FromFile(@"Sprites/Enemies/littleDemon.png");
         }
     }
 }

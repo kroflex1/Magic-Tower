@@ -2,8 +2,10 @@ namespace MagicTower.Model.EnemiesModels
 {
     public class LittleDemon:Enemy
     {
-        public LittleDemon(int posX, int posY, int hitboxWidth, int hitboxHeight, int health, int speed, int damage) : base(posX, posY, hitboxWidth, hitboxHeight, health, speed, damage)
+        public override event EnemyHandler CreateNewEnemy;
+        public LittleDemon(int posX, int posY) : base(posX, posY, 32, 48, 2, 4, 1)
         {
         }
+        
     }
 }

@@ -99,8 +99,10 @@
       <Content Include="Sprites\Backgrounds\GameBackground.png" />
       <Content Include="Sprites\Backgrounds\PauseBackground.jpg" />
       <Content Include="Sprites\Backgrounds\StartScreenBackground.jpg" />
-      <Content Include="Sprites\cursor.cur" />
-      <Content Include="Sprites\demon.png">
+      <Content Include="Sprites\Enemies\littleDemon.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Sprites\Enemies\demon.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
       <Content Include="Sprites\MagicSprites\DuplicateSphere.png" />

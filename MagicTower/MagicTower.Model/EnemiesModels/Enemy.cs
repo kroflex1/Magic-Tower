@@ -10,7 +10,6 @@ namespace MagicTower.Model.EnemiesModels
         public int HitboxWidth { get; private set; }
         public int HitboxHeight { get; private set; }
         
-
         public int Speed
         {
             get => speed;
@@ -36,6 +35,8 @@ namespace MagicTower.Model.EnemiesModels
         }
 
         public Condition CurrentCondition { get; private set; }
+        public delegate void EnemyHandler(Enemy magic);
+        public abstract event EnemyHandler CreateNewEnemy;
 
         private int health;
         private int speed;
@@ -62,10 +63,10 @@ namespace MagicTower.Model.EnemiesModels
         {
             if (PosX != playerPosX|| PosY != playerPosY)
             {
-                var DirectionVectorToTarget = new Vector(PosX, PosY, playerPosX, playerPosY);
-                DirectionVectorToTarget.SetLength(Speed);
-                PosX += DirectionVectorToTarget.X;
-                PosY += DirectionVectorToTarget.Y; 
+                var directionVectorToTarget = new Vector(PosX, PosY, playerPosX, playerPosY);
+                directionVectorToTarget.SetLength(Speed);
+                PosX += directionVectorToTarget.X;
+                PosY += directionVectorToTarget.Y; 
             }
         }
 
@@ -83,12 +84,17 @@ namespace MagicTower.Model.EnemiesModels
                 GetDamaged(magic.Damage);
             }
         }
-
+        
         private void GetDamaged(int amountOfDamage)
         {
             health -= amountOfDamage;
             if (health <= 0)
-                CurrentCondition = Condition.Destroyed;
+                Die();
+        }
+        
+        protected virtual void Die()
+        {
+            CurrentCondition = Condition.Destroyed;
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Linq;
+using MagicTower.Model.EnemiesModels;
 using MagicTower.Model.Magic;
 using MagicTower.Model.MagicModels;
 using NUnit.Framework;
@@ -15,14 +16,14 @@ namespace MagicTower.Model.Tests
         public void ShouldCreateIceShards()
         {
             var room = GetSetupRoom();
-            var iceBall = new IceBall(roomWidth/2, roomHeight / 2, roomWidth/2 + 1, roomHeight / 2);
-            
+            var iceBall = new IceBall(roomWidth / 2, roomHeight / 2, roomWidth / 2 + 1, roomHeight / 2);
+
             room.SpawnMagic(iceBall);
-            room.SpawnEnemy(roomWidth/2, roomHeight / 2);
-            
+            room.SpawnEnemy(new LittleDemon(roomWidth / 2, roomHeight / 2));
+
             room.Update();
             room.Update();
-            
+
             Assert.AreEqual(5, room.MagicInRoom.Count);
         }
 
