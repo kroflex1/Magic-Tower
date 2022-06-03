@@ -110,9 +110,10 @@ namespace MagicTower.Model
             {
                 PosX += Speed * (int) HorizontalMovement;
                 PosY += Speed * (int) VerticalMovement;
-                if (OnChangePosition != null)
-                    OnChangePosition(PosX, PosY);
             }
+
+            if (OnChangePosition != null)
+                OnChangePosition(PosX, PosY);
         }
 
         public void AttackTo(int targetX, int targetY)
@@ -142,6 +143,12 @@ namespace MagicTower.Model
             if (amountOfHealth < 0)
                 throw new ArgumentException("Прибавляемое здоровье не может быть меньше нуля");
             CurrentHealth += amountOfHealth;
+        }
+
+        private void PushOffFromOpponent(Enemy enemy)
+        {
+            var differenceByX = enemy.PosX - PosX;
+            var differenceByY = enemy.PosY - PosY;
         }
 
         private void GetDamaged(int amountOfDamage)

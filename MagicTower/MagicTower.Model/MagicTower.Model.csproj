@@ -42,6 +42,7 @@
         <Compile Include="CollisionController.cs" />
         <Compile Include="EnemiesModels\Demon.cs" />
         <Compile Include="EnemiesModels\Enemy.cs" />
+        <Compile Include="EnemiesModels\LittleDemon.cs" />
         <Compile Include="Enums\Condition.cs" />
         <Compile Include="Enums\Direction.cs" />
         <Compile Include="Enums\Effect.cs" />

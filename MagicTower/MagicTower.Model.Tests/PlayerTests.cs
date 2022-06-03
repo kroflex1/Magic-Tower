@@ -75,6 +75,12 @@ namespace MagicTower.Model.Tests
             Assert.AreEqual((startX, startY), (player.PosX, player.PosY));
         }
 
+        [TestCase()]
+        public void PLayerCorrectGoToBound(int startPosX, int startPosY)
+        {
+            
+        }
+
         [Test]
         public void PlayerCanLearnNewMagic()
         {

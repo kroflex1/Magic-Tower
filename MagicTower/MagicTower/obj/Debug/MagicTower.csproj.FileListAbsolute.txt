@@ -13,3 +13,8 @@ C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\MagicTower.
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\obj\Debug\MagicTower.csproj.CopyComplete
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\player.png
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\demon.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\UI\Heart\ui_heart_empty.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\UI\Heart\ui_heart_full.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\UI\Heart\ui_heart_half.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\UI\Mana\ui_empty_mana.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\UI\Mana\ui_full_mana.png

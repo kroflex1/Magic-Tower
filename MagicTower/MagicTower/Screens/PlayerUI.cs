@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using MagicTower.Model;
 
 namespace MagicTower
@@ -30,47 +31,50 @@ namespace MagicTower
 
         private void DrawHearts(Graphics graphics)
         {
-            var currnetStartPoint = new Point(4, 4);
+            var distanceBetweenHearts = heartStatus[0].Width + heartStatus[0].Width / 4;
+            var currentStartPoint = new Point(4, 4);
             var remainsHealh = player.CurrentHealth;
             for (int i = 0; i < player.MaxHealth / 2; i++)
             {
                 if (remainsHealh >= 2)
                 {
-                    graphics.DrawImage(heartStatus[2], currnetStartPoint);
+                    graphics.DrawImage(heartStatus[2], currentStartPoint);
                     remainsHealh -= 2;
                 }
                 else if (remainsHealh == 1)
                 {
-                    graphics.DrawImage(heartStatus[1], currnetStartPoint);
+                    graphics.DrawImage(heartStatus[1], currentStartPoint);
                     remainsHealh -= 1;
                 }
                 else
-                    graphics.DrawImage(heartStatus[0], currnetStartPoint);
+                    graphics.DrawImage(heartStatus[0], currentStartPoint);
 
                 if (i == 6)
                 {
-                    currnetStartPoint.X = 64;
-                    currnetStartPoint.Y += heartStatus[0].Height + 32;
+                    currentStartPoint.X = 4;
+                    currentStartPoint.Y += heartStatus[0].Height + 32;
                 }
                 else
-                    currnetStartPoint.X += 64;
+                    currentStartPoint.X += distanceBetweenHearts;
             }
         }
 
         private void DrawMana(Graphics graphics)
         {
-            var currnetStartPoint = new Point(64, windowHeight - 64);
-            var remainsMana =  player.CurrentMana;
+            var distanceBetweenMana = manaStatus[0].Height + manaStatus[0].Height / 4;
+            var startY = heartStatus[0].Height * 2 +player.MaxMana *  distanceBetweenMana;
+            var currentStartPoint = new Point(4, startY);
+            var remainsMana = player.CurrentMana;
             for (int i = 0; i < player.MaxMana; i++)
             {
                 if (remainsMana > 0)
                 {
                     remainsMana--;
-                    graphics.DrawImage(manaStatus[1], currnetStartPoint);
+                    graphics.DrawImage(manaStatus[1], currentStartPoint);
                 }
                 else
-                    graphics.DrawImage(manaStatus[0], currnetStartPoint);
-                currnetStartPoint.Y -= 64;
+                    graphics.DrawImage(manaStatus[0], currentStartPoint);
+                currentStartPoint.Y -= distanceBetweenMana;
             }
         }
 
@@ -78,9 +82,9 @@ namespace MagicTower
         {
             var healtStatus = new Dictionary<int, Image>()
             {
-                {0, Image.FromFile(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\UI\Hert\ui_heart_empty.png")},
-                {1, Image.FromFile(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\UI\Hert\ui_heart_half.png")},
-                {2, Image.FromFile(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\UI\Hert\ui_heart_full.png")}
+                {0, Image.FromFile(@"Sprites\UI\Heart\ui_heart_empty.png")},
+                {1, Image.FromFile(@"Sprites\UI\Heart\ui_heart_half.png")},
+                {2, Image.FromFile(@"Sprites\UI\Heart\ui_heart_full.png")}
             };
             return healtStatus;
         }
@@ -89,8 +93,8 @@ namespace MagicTower
         {
             var manaStatus = new Dictionary<int, Image>()
             {
-                {0, Image.FromFile(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\UI\Mana\ui_empty_mana.png")},
-                {1, Image.FromFile(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\UI\Mana\ui_full_mana.png")}
+                {0, Image.FromFile(@"Sprites\UI\Mana\ui_empty_mana.png")},
+                {1, Image.FromFile(@"Sprites\UI\Mana\ui_full_mana.png")}
             };
             return manaStatus;
         }

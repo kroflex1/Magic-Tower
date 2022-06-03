@@ -14,7 +14,7 @@ namespace MagicTower.Model
         public Game(int windowWidth, int windowHeight)
         {
             windowSize = new[] {windowWidth, windowHeight};
-            Player = new Player(0, 0, windowWidth, windowHeight);
+            Player = new Player(600, 500, windowWidth, windowHeight);
             SetRooms();
             SpawnEnemy(50, 50);
         }
