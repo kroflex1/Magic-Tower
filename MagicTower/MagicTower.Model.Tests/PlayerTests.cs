@@ -98,7 +98,7 @@ namespace MagicTower.Model.Tests
         public void PlayerLosesManaWhenCreatedMagic()
         {
             var player = new Player(0, 0,  roomWidth, roomHeight);
-            var room = new Room(roomWidth, roomHeight, player);
+            var room = new Arena(roomWidth, roomHeight, player);
             var iceBall = new IceBall(0, 0, 1, 1);
             player.ChangeCurrentMagic(1);
             player.AttackTo(5, 5);
@@ -109,7 +109,7 @@ namespace MagicTower.Model.Tests
         public void PlayerLosesManaWhenCreateALotOfMagic()
         {
             var player = new Player(0, 0,  roomWidth, roomHeight);
-            var room = new Room(roomWidth, roomHeight, player);
+            var room = new Arena(roomWidth, roomHeight, player);
             player.ChangeCurrentMagic(1);
             for (int i = 0; i < player.MaxMana; i++)
                 player.AttackTo(5, 5);

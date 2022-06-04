@@ -8,13 +8,17 @@ namespace MagicTower
 {
     public partial class GameScreen : Form
     {
+        
+        public Timer TimerUpdate { get; private set; }
+        public Timer TimerWave { get; private set; }
+
         private Game gameModel;
         private PlayerView playerView;
         private MagicView magicView;
         private EnemyView enemyView;
         private PlayerUI playerUi;
         private PauseScreen pauseScreen;
-
+        
         public GameScreen()
         {
             InitializeComponent();
@@ -23,12 +27,15 @@ namespace MagicTower
             gameModel = new Game(Width, Height);
             playerUi = new PlayerUI(Width, Height, gameModel.Player);
             SetViewObjects();
+            
+            TimerUpdate = new Timer();
+            TimerUpdate.Interval = 35;
+            TimerUpdate.Tick += (sender, args) => gameModel.Update();
+            TimerUpdate.Tick += (sender, args) => Invalidate();
 
-            var timer = new Timer();
-            timer.Interval = 30;
-            timer.Tick += (sender, args) => gameModel.Update();
-            timer.Tick += (sender, args) => Invalidate();
-            timer.Start();
+            TimerWave = new Timer();
+            TimerWave.Interval = gameModel.IntervalBetweenWaves;
+            TimerWave.Tick += (sender, args) => gameModel.SummonWaveOfEnemies();
         }
 
         public void SetPauseScreen(PauseScreen pauseScreen)
@@ -65,6 +72,8 @@ namespace MagicTower
 
             else if (e.KeyCode == Keys.Escape)
             {
+                TimerUpdate.Stop();
+                TimerWave.Stop();
                 Hide();
                 pauseScreen.Show();
             }
@@ -98,8 +107,8 @@ namespace MagicTower
         private void SetViewObjects()
         {
             playerView = new PlayerView(gameModel.Player);
-            magicView = new MagicView(gameModel.CurrentRoom);
-            enemyView = new EnemyView(gameModel.CurrentRoom);
+            magicView = new MagicView(gameModel.Arena);
+            enemyView = new EnemyView(gameModel.Arena);
         }
 
         private void SetWindowConfigurations()

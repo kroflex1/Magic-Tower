@@ -80,10 +80,10 @@ namespace MagicTower.Model.Tests
             Assert.AreEqual(playerHealthBeforeDamage - room.AliveEnemiesInRoom[0].Damage, room.Player.CurrentHealth);
         }
 
-        private Room GetRoomPresetWithEnemyAndMagic(int magicPosX, int magicPosY, int enemyPosX, int enemyPosY)
+        private Arena GetRoomPresetWithEnemyAndMagic(int magicPosX, int magicPosY, int enemyPosX, int enemyPosY)
         {
             var player = new Player(1500, 900, roomWidth, roomHeight);
-            var room = new Room(roomWidth, roomHeight, player);
+            var room = new Arena(roomWidth, roomHeight, player);
             var magic = new TestMagic(magicPosX, magicPosY, 10, 0, 1);
             var enemy = new TestEnemy(enemyPosX, enemyPosY);
             room.MagicInRoom.Add(magic);
@@ -91,10 +91,10 @@ namespace MagicTower.Model.Tests
             return room;
         }
 
-        private Room GetRoomPresetWithEnemyAndPlayer(int playerPosX, int playerPosY, int enemyPosX, int enemyPosY)
+        private Arena GetRoomPresetWithEnemyAndPlayer(int playerPosX, int playerPosY, int enemyPosX, int enemyPosY)
         {
             var player = new Player(playerPosX, playerPosY, roomWidth, roomHeight);
-            var room = new Room(roomWidth, roomHeight, player);
+            var room = new Arena(roomWidth, roomHeight, player);
             var enemy = new TestEnemy(enemyPosX, enemyPosY);
             room.AliveEnemiesInRoom.Add(enemy);
             return room;

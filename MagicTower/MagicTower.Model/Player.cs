@@ -107,9 +107,9 @@ namespace MagicTower.Model
                 GetDamaged(enemy.Damage);
             }
 
-            else if (gameObject is Artifact)
+            else if (gameObject is Item)
             {
-                Artifact artifact = gameObject as Artifact;
+                Item item = gameObject as Item;
             }
         }
 

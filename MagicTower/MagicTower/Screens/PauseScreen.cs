@@ -20,6 +20,8 @@ namespace MagicTower
             {
                 Hide();
                 gameScreen.Show();
+                gameScreen.TimerUpdate.Start();
+                gameScreen.TimerWave.Start();   
             };
 
             var backToMenuButton = new Button()

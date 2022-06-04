@@ -3,7 +3,7 @@ using MagicTower.Model.EnemiesModels;
 
 namespace MagicTower.Model.Items
 {
-    public class Scroll :Artifact
+    public class Scroll :Item
     {
         private Type magic;
         public Scroll(int posX, int posY, Type magicType) : base(posX, posY, 32, 32)

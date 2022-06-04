@@ -20,7 +20,7 @@ namespace MagicTower
 
         public void Run()
         {
-            Application.Run(gameScreen);
+            Application.Run(startScreen);
         }
 
         private void ConnectScreens()

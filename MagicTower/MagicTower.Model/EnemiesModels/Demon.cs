@@ -10,6 +10,7 @@ namespace MagicTower.Model.EnemiesModels
         public Demon(int posX, int posY) : base(posX, posY,
             74, 89, 6, 5, 2)
         {
+            Score = 100;
         }
 
         protected override void Die()

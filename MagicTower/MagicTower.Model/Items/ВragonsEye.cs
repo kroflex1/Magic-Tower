@@ -1,6 +1,6 @@
 namespace MagicTower.Model.Items
 {
-    public class ВragonsEye:Artifact
+    public class ВragonsEye:Item
     {
 
         private const int AmountDamageBonus = 3;

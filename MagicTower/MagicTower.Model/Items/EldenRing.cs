@@ -1,6 +1,6 @@
 namespace MagicTower.Model.Items
 {
-    public class EldenRing : Artifact
+    public class EldenRing : Item
     {
         private const int AmountIncreasedMaxHealth = 4;
         private const int AmountIncreasedMaxMana = 3;

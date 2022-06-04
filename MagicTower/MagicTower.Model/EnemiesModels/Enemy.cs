@@ -35,9 +35,11 @@ namespace MagicTower.Model.EnemiesModels
             }
         }
         
+        public int Score { get; protected set; }
+        
         public delegate void EnemyHandler(Enemy magic);
         public abstract event EnemyHandler CreateNewEnemy;
-
+        
         private int health;
         private int speed;
         private int damage;

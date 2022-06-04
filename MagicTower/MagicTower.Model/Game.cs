@@ -7,39 +7,34 @@ namespace MagicTower.Model
     public class Game
     {
         public Player Player { get; }
-        public Room CurrentRoom { get; private set; }
+        public Arena Arena { get; private set; }
+        public int IntervalBetweenWaves { get; private set; }
         private int[] windowSize;
-        private List<Room> rooms;
+        private int currentDifficulty;
 
         public Game(int windowWidth, int windowHeight)
         {
             windowSize = new[] {windowWidth, windowHeight};
             Player = new Player(600, 500, windowWidth, windowHeight);
-            SetRooms();
-            SpawnEnemy(50, 50);
+            Arena = new Arena(windowSize[0], windowSize[1], Player);
+            IntervalBetweenWaves = 3000;
+            currentDifficulty = 1;
         }
 
         public void Update()
         {
-            CurrentRoom.Update();
+            Arena.Update();
         }
 
-        public void SpawnMagic(int tagetX, int targetY)
+        public void SpawnMagic(int targetX, int targetY)
         {
-            Player.AttackTo(tagetX, targetY);
+            Player.AttackTo(targetX, targetY);
         }
 
-        public void SpawnEnemy(int posX, int posY)
+        public void SummonWaveOfEnemies()
         {
-            CurrentRoom.SpawnEnemy(new Demon(100,100));
+            Arena.SpawnRandomEnemies(currentDifficulty * 2);
         }
         
-        
-        private void SetRooms()
-        {
-            var room = new Room(windowSize[0], windowSize[1], Player);
-            rooms = new List<Room>() {room};
-            CurrentRoom = rooms[0];
-        }
     }
 }

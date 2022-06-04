@@ -1,6 +1,6 @@
 namespace MagicTower.Model.Items
 {
-    public class HealingPotion : Artifact
+    public class HealingPotion : Item
     {
         private const int AmountOfHealth = 4;
 

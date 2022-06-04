@@ -23,10 +23,10 @@ namespace MagicTower.Model.Tests
             Assert.AreEqual(3, room.AliveEnemiesInRoom.Count);
         }
 
-        private Room GetRoomPreset()
+        private Arena GetRoomPreset()
         {
             var player = new Player(0, 0, roomWidth, roomHeight);
-            var room = new Room(roomWidth, roomHeight, player);
+            var room = new Arena(roomWidth, roomHeight, player);
             return room;
         }
     }

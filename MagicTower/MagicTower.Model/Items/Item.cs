@@ -2,7 +2,7 @@ using MagicTower.Model.Magic;
 
 namespace MagicTower.Model.Items
 {
-    public abstract class Artifact : IGameObject
+    public abstract class Item : IGameObject
     {
         private IGameObject _gameObjectImplementation;
         public int PosX { get; private set; }
@@ -13,7 +13,7 @@ namespace MagicTower.Model.Items
         
         public string Description { get; private set; }
 
-        public Artifact(int posX, int posY, int hitboxWidth, int hitboxHeight)
+        public Item(int posX, int posY, int hitboxWidth, int hitboxHeight)
         {
             PosX = posX;
             PosY = posY;

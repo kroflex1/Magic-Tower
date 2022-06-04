@@ -10,18 +10,18 @@ namespace MagicTower
 {
     public class MagicView
     {
-        private Room room;
+        private Arena _arena;
         private Dictionary<Type, Image> imagesForMagic;
 
-        public MagicView(Room room)
+        public MagicView(Arena arena)
         {
-            this.room = room;
+            this._arena = arena;
             SetImagesForMagic();
         }
 
         public void Draw(Graphics e)
         {
-            foreach (var magic in room.MagicInRoom)
+            foreach (var magic in _arena.MagicInRoom)
             {
                 var pos = new Point(magic.PosX, magic.PosY);
                 e.DrawImage(imagesForMagic[magic.GetType()], pos);

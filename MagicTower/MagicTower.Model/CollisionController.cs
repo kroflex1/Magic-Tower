@@ -2,38 +2,38 @@ namespace MagicTower.Model
 {
     public static class CollisionController
     {
-        public static void CheckGameObjectsForCollisions(Room room)
+        public static void CheckGameObjectsForCollisions(Arena arena)
         {
-            FindCollisionBetweenMagicsAndMagic(room);
-            FindCollisionBetweenMagicsAndEnemies(room);
-            FindCollisionBetweenPlayerAndEnemies(room);
+            FindCollisionBetweenMagicsAndMagic(arena);
+            FindCollisionBetweenMagicsAndEnemies(arena);
+            FindCollisionBetweenPlayerAndEnemies(arena);
         }
 
-        private static void FindCollisionBetweenMagicsAndMagic(Room room)
+        private static void FindCollisionBetweenMagicsAndMagic(Arena arena)
         {
-            for (int i = 0; i < room.MagicInRoom.Count - 1; i++)
+            for (int i = 0; i < arena.MagicInRoom.Count - 1; i++)
             {
-                var firstMagicRectangle = new Rectangle(room.MagicInRoom[i].PosX, room.MagicInRoom[i].PosY,
-                    room.MagicInRoom[i].HitboxWidth, room.MagicInRoom[i].HitboxHeight);
-                for (int j = i + 1; j < room.MagicInRoom.Count; j++)
+                var firstMagicRectangle = new Rectangle(arena.MagicInRoom[i].PosX, arena.MagicInRoom[i].PosY,
+                    arena.MagicInRoom[i].HitboxWidth, arena.MagicInRoom[i].HitboxHeight);
+                for (int j = i + 1; j < arena.MagicInRoom.Count; j++)
                 {
-                    var secondMagicRectangle = new Rectangle(room.MagicInRoom[j].PosX, room.MagicInRoom[j].PosY,
-                        room.MagicInRoom[j].HitboxWidth, room.MagicInRoom[j].HitboxHeight);
+                    var secondMagicRectangle = new Rectangle(arena.MagicInRoom[j].PosX, arena.MagicInRoom[j].PosY,
+                        arena.MagicInRoom[j].HitboxWidth, arena.MagicInRoom[j].HitboxHeight);
                     if (IsIntersection(firstMagicRectangle, secondMagicRectangle))
                     {
-                        room.MagicInRoom[i].OnCollisionEnter(room.MagicInRoom[j]);
-                        room.MagicInRoom[j].OnCollisionEnter(room.MagicInRoom[i]);
+                        arena.MagicInRoom[i].OnCollisionEnter(arena.MagicInRoom[j]);
+                        arena.MagicInRoom[j].OnCollisionEnter(arena.MagicInRoom[i]);
                     }
                 }
             }
         }
 
-        private static void FindCollisionBetweenMagicsAndEnemies(Room room)
+        private static void FindCollisionBetweenMagicsAndEnemies(Arena arena)
         {
-            foreach (var magic in room.MagicInRoom)
+            foreach (var magic in arena.MagicInRoom)
             {
                 var magicRectangle = new Rectangle(magic.PosX, magic.PosY, magic.HitboxWidth, magic.HitboxHeight);
-                foreach (var enemy in room.AliveEnemiesInRoom)
+                foreach (var enemy in arena.AliveEnemiesInRoom)
                 {
                     var enemyRectangle = new Rectangle(enemy.PosX, enemy.PosY, enemy.HitboxWidth, enemy.HitboxHeight);
                     if (IsIntersection(enemyRectangle, magicRectangle))
@@ -45,17 +45,17 @@ namespace MagicTower.Model
             }
         }
 
-        private static void FindCollisionBetweenPlayerAndEnemies(Room room)
+        private static void FindCollisionBetweenPlayerAndEnemies(Arena arena)
         {
-            var playerRectangle = new Rectangle(room.Player.PosX, room.Player.PosY, room.Player.HitboxWidth,
-                room.Player.HitboxHeight);
-            foreach (var enemy in room.AliveEnemiesInRoom)
+            var playerRectangle = new Rectangle(arena.Player.PosX, arena.Player.PosY, arena.Player.HitboxWidth,
+                arena.Player.HitboxHeight);
+            foreach (var enemy in arena.AliveEnemiesInRoom)
             {
                 var enemyRectangle = new Rectangle(enemy.PosX, enemy.PosY, enemy.HitboxWidth, enemy.HitboxHeight);
                 if (IsIntersection(playerRectangle, enemyRectangle))
                 {
-                    enemy.OnCollisionEnter(room.Player);
-                    room.Player.OnCollisionEnter(enemy);
+                    enemy.OnCollisionEnter(arena.Player);
+                    arena.Player.OnCollisionEnter(enemy);
                 }
             }
         }
