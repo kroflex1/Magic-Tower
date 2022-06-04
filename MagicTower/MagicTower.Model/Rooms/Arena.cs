@@ -6,11 +6,8 @@ using MagicTower.Model.Magic;
 
 namespace MagicTower.Model
 {
-    public class Arena
+    public class Arena : Room
     {
-        public readonly int Width;
-        public readonly int Height;
-        public Player Player { get; }
         public readonly List<MagicModels.Magic> MagicInRoom;
         public readonly List<Enemy> AliveEnemiesInRoom;
 
@@ -20,28 +17,25 @@ namespace MagicTower.Model
         private readonly List<MagicModels.Magic> destroyedMagic;
         private readonly List<Enemy> destroyedEnemies;
         private Random random;
-        
-        public Arena(int width, int height, Player player)
+
+        public Arena(int width, int height, Player player) : base(width, height, player)
         {
-            Width = width;
-            Height = height;
-
-            Player = player;
             Player.OnCreateNewMagic += SpawnMagic;
-            
-            SetAvailableTypesOfEnemies();
 
+            SetAvailableTypesOfEnemies();
             MagicInRoom = new List<MagicModels.Magic>();
             AliveEnemiesInRoom = new List<Enemy>();
+
             shouldAddToRoomMagic = new List<MagicModels.Magic>();
             shouldAddToRoomEnemies = new List<Enemy>();
+
             destroyedMagic = new List<MagicModels.Magic>();
             destroyedEnemies = new List<Enemy>();
 
             random = new Random();
         }
 
-        public void Update()
+        public override void Update()
         {
             AddShouldGameObjectsToRoom();
             ChangeGameObjectsPosition();
@@ -77,7 +71,8 @@ namespace MagicTower.Model
             for (int i = 0; i < numberOfEnemies; i++)
             {
                 var spawnPoint = GerRandomSpawnPointForEnemy();
-                var enemy = (Enemy)Activator.CreateInstance(typesOfEnemies[random.Next(0, typesOfEnemies.Count)], spawnPoint.X, spawnPoint.Y);
+                var enemy = (Enemy) Activator.CreateInstance(typesOfEnemies[random.Next(0, typesOfEnemies.Count)],
+                    spawnPoint.X, spawnPoint.Y);
                 SpawnEnemy(enemy);
             }
         }
@@ -87,21 +82,21 @@ namespace MagicTower.Model
             var border = 100;
             if (random.Next(0, 2) == 0)
             {
-                var x = random.Next(0, Width);
-                var y = random.GetRandomNumberFromTwoRange((-border*2, -border), (Height, Height + border));
+                var x = random.Next(0, width);
+                var y = random.GetRandomNumberFromTwoRange((-border * 2, -border), (height, height + border));
                 return (x, y);
             }
             else
             {
-                var x = random.GetRandomNumberFromTwoRange((-border*2, -border), (Width, Width + border));
-                var y =  random.Next(0, Height);
+                var x = random.GetRandomNumberFromTwoRange((-border * 2, -border), (width, width + border));
+                var y = random.Next(0, height);
                 return (x, y);
             }
         }
 
         private bool InBounds(int x, int y)
         {
-            if (x >= 0 && x <= Width && y >= 0 && y <= Height)
+            if (x >= 0 && x <= width && y >= 0 && y <= height)
                 return true;
             return false;
         }
@@ -112,7 +107,7 @@ namespace MagicTower.Model
             MoveGameObjectsFromListToAnother(shouldAddToRoomEnemies, AliveEnemiesInRoom);
         }
 
-        private void ChangeGameObjectsPosition()
+        protected override void ChangeGameObjectsPosition()
         {
             Player.Move();
             foreach (var magic in MagicInRoom)
@@ -161,7 +156,8 @@ namespace MagicTower.Model
 
     public static class RandomExpansion
     {
-        public static int GetRandomNumberFromTwoRange(this Random random, (int minValue, int maxValue) firstRange, (int minValue,int maxValue) secondRange)
+        public static int GetRandomNumberFromTwoRange(this Random random, (int minValue, int maxValue) firstRange,
+            (int minValue, int maxValue) secondRange)
         {
             if (firstRange.maxValue > secondRange.minValue)
                 throw new ArgumentException(

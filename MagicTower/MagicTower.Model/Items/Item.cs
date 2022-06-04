@@ -33,7 +33,7 @@ namespace MagicTower.Model.Items
 
         protected virtual void UpgradePlayer(Player player)
         {
-            var x = 5;
+            
         }
     }
 }

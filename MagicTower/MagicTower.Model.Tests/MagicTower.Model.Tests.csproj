@@ -48,6 +48,7 @@
         <Compile Include="DuplicateShereTests.cs" />
         <Compile Include="EnemyTests.cs" />
         <Compile Include="IceBallTests.cs" />
+        <Compile Include="ItemTests.cs" />
         <Compile Include="MagicTests.cs" />
         <Compile Include="PotionTests.cs" />
         <Compile Include="ScrollTests.cs" />

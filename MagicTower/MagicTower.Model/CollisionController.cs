@@ -65,21 +65,5 @@ namespace MagicTower.Model
             return !(firstRectangle.Bottom < secondRectangle.Top || firstRectangle.Right < secondRectangle.Left ||
                      secondRectangle.Bottom < firstRectangle.Top || secondRectangle.Right < firstRectangle.Left);
         }
-
-        public class Rectangle
-        {
-            public readonly int Left;
-            public readonly int Top;
-            public readonly int Right;
-            public readonly int Bottom;
-
-            public Rectangle(int x, int y, int width, int height)
-            {
-                Left = x;
-                Top = y;
-                Right = x + width;
-                Bottom = y + height;
-            }
-        }
     }
 }

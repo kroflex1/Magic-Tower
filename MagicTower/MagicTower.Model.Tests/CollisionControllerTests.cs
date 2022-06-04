@@ -14,8 +14,8 @@ namespace MagicTower.Model.Tests
         [Test]
         public void RectanglesIntersectionFromZeroPoint()
         {
-            var r1 = new CollisionController.Rectangle(0, 0, 5, 5);
-            var r2 = new CollisionController.Rectangle(0, 0, 3, 3);
+            var r1 = new Rectangle(0, 0, 5, 5);
+            var r2 = new Rectangle(0, 0, 3, 3);
             Assert.AreEqual(true, CollisionController.IsIntersection(r1, r2));
         }
 
@@ -26,8 +26,8 @@ namespace MagicTower.Model.Tests
         [TestCase(6, 6, 3, 3)]
         public void RectanglesIntersection(int x, int y, int width, int height)
         {
-            var r1 = new CollisionController.Rectangle(5, 5, 5, 5);
-            var r2 = new CollisionController.Rectangle(x, y, width, height);
+            var r1 = new Rectangle(5, 5, 5, 5);
+            var r2 = new Rectangle(x, y, width, height);
             Assert.AreEqual(true, CollisionController.IsIntersection(r1, r2));
         }
 
@@ -38,8 +38,8 @@ namespace MagicTower.Model.Tests
         [TestCase(5, 0, 3, 3)]
         public void RectanglesNotIntersection(int x, int y, int width, int height)
         {
-            var r1 = new CollisionController.Rectangle(5, 5, 5, 5);
-            var r2 = new CollisionController.Rectangle(x, y, width, height);
+            var r1 = new Rectangle(5, 5, 5, 5);
+            var r2 = new Rectangle(x, y, width, height);
             Assert.AreEqual(false, CollisionController.IsIntersection(r1, r2));
         }
 

@@ -61,10 +61,13 @@
         <Compile Include="MagicModels\FireBall.cs" />
         <Compile Include="MagicModels\IceBall.cs" />
         <Compile Include="MagicModels\Magic.cs" />
+        <Compile Include="Math\Rectangle.cs" />
+        <Compile Include="Math\Vector.cs" />
         <Compile Include="Player.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="Arena.cs" />
-        <Compile Include="Vector.cs" />
+        <Compile Include="Rooms\Arena.cs" />
+        <Compile Include="Rooms\Room.cs" />
+        <Compile Include="Rooms\TreasureRoom.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

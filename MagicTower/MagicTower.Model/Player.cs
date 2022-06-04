@@ -106,11 +106,6 @@ namespace MagicTower.Model
                 Enemy enemy = gameObject as Enemy;
                 GetDamaged(enemy.Damage);
             }
-
-            else if (gameObject is Item)
-            {
-                Item item = gameObject as Item;
-            }
         }
 
         public void Move()
