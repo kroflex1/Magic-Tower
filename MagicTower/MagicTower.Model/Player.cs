@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using MagicTower.Model.EnemiesModels;
+using MagicTower.Model.Items;
 using MagicTower.Model.Magic;
 using MagicTower.Model.MagicModels;
 
@@ -12,7 +13,8 @@ namespace MagicTower.Model
         public int PosY { get; private set; }
         public int HitboxWidth { get; }
         public int HitboxHeight { get; }
-
+        public Condition CurrentCondition { get; private set; }
+        
         public int CurrentHealth
         {
             get => currentHealth;
@@ -61,11 +63,12 @@ namespace MagicTower.Model
         private int currentMana;
         private int speed;
         private Type currentMagic;
+        private int magicDamageBonus;
         private readonly int windowWidth;
         private readonly int windowHeight;
 
-        public Player(int startPosX, int startPosY, int windowWidth, int windowHeight) : this(startPosX, startPosY, 32,
-            56, 10, 10, 10, windowWidth, windowHeight)
+        public Player(int startPosX, int startPosY, int windowWidth, int windowHeight) : this(startPosX, startPosY, 42,
+            58, 16, 10, 15, windowWidth, windowHeight)
         {
         }
 
@@ -90,6 +93,7 @@ namespace MagicTower.Model
 
             SetStartLearnedMagic();
             currentMagic = LearnedMagic[0];
+            magicDamageBonus = 0;
 
             this.windowWidth = windowWidth;
             this.windowHeight = windowHeight;
@@ -101,6 +105,11 @@ namespace MagicTower.Model
             {
                 Enemy enemy = gameObject as Enemy;
                 GetDamaged(enemy.Damage);
+            }
+
+            else if (gameObject is Artifact)
+            {
+                Artifact artifact = gameObject as Artifact;
             }
         }
 
@@ -121,6 +130,7 @@ namespace MagicTower.Model
             var newMagic = (MagicModels.Magic) Activator.CreateInstance(currentMagic, PosX, PosY, targetX, targetY);
             if (CurrentMana - newMagic.ManaCost >= 0 && OnCreateNewMagic != null)
             {
+                newMagic.Damage += magicDamageBonus;
                 CurrentMana -= newMagic.ManaCost;
                 OnCreateNewMagic(newMagic);
             }
@@ -143,6 +153,44 @@ namespace MagicTower.Model
             if (amountOfHealth < 0)
                 throw new ArgumentException("Прибавляемое здоровье не может быть меньше нуля");
             CurrentHealth += amountOfHealth;
+        }
+
+        public void RestoreMana(int amountOfMana)
+        {
+            if (amountOfMana < 0)
+                throw new ArgumentException("Прибавляемая мана не может быть меньше нуля");
+            CurrentMana += amountOfMana;
+        }
+
+        public void IncreaseMagicDamage(int plusDamage)
+        {
+            if (magicDamageBonus + plusDamage >= 5)
+                magicDamageBonus = 5;
+            magicDamageBonus += plusDamage;
+        }
+
+        public void IncreaseMaxHealth(int amountHP)
+        {
+            if (MaxHealth + amountHP > 24)
+                MaxHealth = 24;
+            else
+                MaxHealth += amountHP;
+        }
+
+        public void IncreaseSpeed(int amountSpeed)
+        {
+            if (speed + amountSpeed > 35)
+                speed = 35;
+            else
+                speed += amountSpeed;
+        }
+
+        public void IncreaseMaxMana(int amountMana)
+        {
+            if (MaxMana + amountMana > 20)
+                MaxMana = MaxMana;
+            else
+                MaxMana += amountMana;
         }
 
         private void PushOffFromOpponent(Enemy enemy)

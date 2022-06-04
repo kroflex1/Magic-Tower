@@ -6,6 +6,8 @@ namespace MagicTower.Model.Magic
         int PosY { get;}
         int HitboxWidth { get;  }
         int HitboxHeight { get;  }
+        Condition CurrentCondition { get; }
         void OnCollisionEnter(IGameObject gameObject);
+      
     }
 }

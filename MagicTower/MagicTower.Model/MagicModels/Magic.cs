@@ -9,7 +9,8 @@ namespace MagicTower.Model.MagicModels
         public int PosY { get; protected set; }
         public int HitboxWidth { get; }
         public int HitboxHeight { get; }
-        public Vector DirectionVector { get; protected set; }
+        public Condition CurrentCondition { get; protected set; }
+        public Vector DirectionVector { get; private set; }
 
         public int Speed
         {
@@ -40,8 +41,7 @@ namespace MagicTower.Model.MagicModels
                     manaCost = value;
             }
         }
-
-        public Condition CurrentCondition { get; protected set; }
+        
         public delegate void MagicHandler(Magic magic);
         public abstract event MagicHandler CreateNewMagic;
 

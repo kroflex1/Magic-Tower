@@ -49,6 +49,8 @@
         <Compile Include="EnemyTests.cs" />
         <Compile Include="IceBallTests.cs" />
         <Compile Include="MagicTests.cs" />
+        <Compile Include="PotionTests.cs" />
+        <Compile Include="ScrollTests.cs" />
         <Compile Include="TestEnemy.cs" />
         <Compile Include="TestMagic.cs" />
         <Compile Include="PlayerTests.cs" />

@@ -87,10 +87,7 @@ namespace MagicTower
         {
             if (mouse.X > gameModel.Player.PosX && playerView.imageDirection == Direction.Left
                 || mouse.X < gameModel.Player.PosX && playerView.imageDirection == Direction.Right)
-            {
                 playerView.FlipImage();
-                Invalidate();
-            }
         }
 
         protected override void OnMouseClick(MouseEventArgs e)

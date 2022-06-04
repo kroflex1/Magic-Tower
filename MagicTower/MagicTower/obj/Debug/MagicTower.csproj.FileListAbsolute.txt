@@ -17,5 +17,5 @@ C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\UI\
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\UI\Heart\ui_heart_half.png
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\UI\Mana\ui_empty_mana.png
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\UI\Mana\ui_full_mana.png
-C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Enemies\demon.png
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Enemies\littleDemon.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Enemies\demon.png

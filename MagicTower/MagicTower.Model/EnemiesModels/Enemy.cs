@@ -9,7 +9,8 @@ namespace MagicTower.Model.EnemiesModels
         public int PosY { get; private set; }
         public int HitboxWidth { get; private set; }
         public int HitboxHeight { get; private set; }
-        
+        public Condition CurrentCondition { get; private set; }
+
         public int Speed
         {
             get => speed;
@@ -33,8 +34,7 @@ namespace MagicTower.Model.EnemiesModels
                     throw new ArgumentException("Урон не может быть меньше нуля");
             }
         }
-
-        public Condition CurrentCondition { get; private set; }
+        
         public delegate void EnemyHandler(Enemy magic);
         public abstract event EnemyHandler CreateNewEnemy;
 

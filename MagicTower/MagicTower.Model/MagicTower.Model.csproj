@@ -47,9 +47,16 @@
         <Compile Include="Enums\Direction.cs" />
         <Compile Include="Enums\Effect.cs" />
         <Compile Include="Enums\MovementWeight.cs" />
+        <Compile Include="Enums\Upgrade.cs" />
         <Compile Include="Game.cs" />
-        <Compile Include="Interfaces\ICanSpawnMagic.cs" />
         <Compile Include="Interfaces\IGameObject.cs" />
+        <Compile Include="Items\Artifact.cs" />
+        <Compile Include="Items\EldenRing.cs" />
+        <Compile Include="Items\HealingPotion.cs" />
+        <Compile Include="Items\MagicMushroom.cs" />
+        <Compile Include="Items\ManaPotion.cs" />
+        <Compile Include="Items\Scroll.cs" />
+        <Compile Include="Items\ВragonsEye.cs" />
         <Compile Include="MagicModels\DuplicateSphere.cs" />
         <Compile Include="MagicModels\FireBall.cs" />
         <Compile Include="MagicModels\IceBall.cs" />

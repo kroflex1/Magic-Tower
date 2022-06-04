@@ -52,7 +52,7 @@ namespace MagicTower
                 if (i == 6)
                 {
                     currentStartPoint.X = 4;
-                    currentStartPoint.Y += heartStatus[0].Height + 32;
+                    currentStartPoint.Y += heartStatus[0].Height + heartStatus[0].Height/4;
                 }
                 else
                     currentStartPoint.X += distanceBetweenHearts;
