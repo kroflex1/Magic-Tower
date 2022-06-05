@@ -148,15 +148,21 @@
       <Content Include="Sprites\UI\Mana\ui_full_mana.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+      <Content Include="Sprites\UI\Spells\duplicateShereSpell.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Sprites\UI\Spells\fireSpell.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Sprites\UI\Spells\iceSpell.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\MagicTower.Model\MagicTower.Model.csproj">
         <Project>{375fbab4-240d-4a76-bbaa-edd1cc7cdced}</Project>
         <Name>MagicTower.Model</Name>
       </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Sprites\UI\Spells" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

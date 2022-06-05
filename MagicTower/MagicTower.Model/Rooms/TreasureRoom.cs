@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using MagicTower.Model.Items;
+using MagicTower.Model.MagicModels;
 
 namespace MagicTower.Model
 {
@@ -15,11 +16,14 @@ namespace MagicTower.Model
 
         private List<Type> typesOfArtifacts;
         private List<Type> typesOfMagicForScrolls;
+        private List<Type> bannedMagic;
 
         public TreasureRoom(int width, int height, Player player) : base(width, height, player)
         {
             SetAvailableTypesOfArtifacts();
+            SetBannedMagic();
             SetAvailableTypesOfMagicForScrolls();
+           
         }
 
         public void UpdateTreasures()
@@ -55,8 +59,16 @@ namespace MagicTower.Model
         {
             var magicForScroll = typeof(MagicModels.Magic);
             typesOfMagicForScrolls = Assembly.GetAssembly(magicForScroll).GetTypes()
-                .Where(type => type.IsSubclassOf(magicForScroll))
+                .Where(type => type.IsSubclassOf(magicForScroll) && !bannedMagic.Contains(type))
                 .ToList();
+        }
+
+        private void SetBannedMagic()
+        {
+            bannedMagic = new List<Type>()
+            {
+                typeof(IceShard)
+            };
         }
     }
 }
