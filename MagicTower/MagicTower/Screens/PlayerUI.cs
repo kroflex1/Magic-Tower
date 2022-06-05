@@ -77,6 +77,8 @@ namespace MagicTower
                 currentStartPoint.Y -= distanceBetweenMana;
             }
         }
+        
+       
 
         private Dictionary<int, Image> SetImagesForHeartStatus()
         {

@@ -10,8 +10,7 @@ namespace MagicTower.Model.Items
         {
             if (!magicType.IsSubclassOf(typeof(MagicModels.Magic)))
                 throw new ArgumentException();
-            else
-                magic = magicType;
+            magic = magicType;
         }
 
         protected override void UpgradePlayer(Player player)

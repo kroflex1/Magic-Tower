@@ -25,3 +25,4 @@ C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Ite
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Items\elden_Ring.png
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Items\magic_Mashroom.png
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Items\scroll.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Backgrounds\GameBackground.png

@@ -46,7 +46,7 @@
         <Compile Include="Enums\Condition.cs" />
         <Compile Include="Enums\Direction.cs" />
         <Compile Include="Enums\Effect.cs" />
-        <Compile Include="Enums\MovementWeight.cs" />
+        <Compile Include="Enums\DirectionWeight.cs" />
         <Compile Include="Enums\Upgrade.cs" />
         <Compile Include="Game.cs" />
         <Compile Include="Interfaces\IGameObject.cs" />

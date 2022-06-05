@@ -14,15 +14,11 @@ namespace MagicTower.Model
         public int HitboxWidth { get; }
         public int HitboxHeight { get; }
         public Condition CurrentCondition { get; private set; }
-        
+
         public int CurrentHealth
         {
             get => currentHealth;
-            private set
-            {
-                if (value > 0)
-                    currentHealth = value;
-            }
+            private set => currentHealth = value;
         }
 
         public int CurrentMana
@@ -45,8 +41,17 @@ namespace MagicTower.Model
             }
         }
 
-        public MovementWeight HorizontalMovement;
-        public MovementWeight VerticalMovement;
+        public bool IsAlive
+        {
+            get => CurrentHealth > 0;
+        }
+
+        public int CurrentRateOfFire { get; private set; }
+
+        public DirectionWeight HorizontalMoveDirection;
+        public DirectionWeight VerticalMoveDirection;
+        public DirectionWeight HorizontalAttackDirection;
+        public DirectionWeight VerticalAttackDirection;
         public int MaxHealth { get; private set; }
         public int MaxMana { get; private set; }
         public List<Type> LearnedMagic { get; private set; }
@@ -58,7 +63,6 @@ namespace MagicTower.Model
         public event PosHandler OnChangePosition;
         public event MagicHandler OnCreateNewMagic;
 
-
         private int currentHealth;
         private int currentMana;
         private int speed;
@@ -68,7 +72,7 @@ namespace MagicTower.Model
         private readonly int windowHeight;
 
         public Player(int startPosX, int startPosY, int windowWidth, int windowHeight) : this(startPosX, startPosY, 42,
-            58, 16, 10, 15, windowWidth, windowHeight)
+            58, 14, 10, 15, windowWidth, windowHeight)
         {
         }
 
@@ -88,12 +92,16 @@ namespace MagicTower.Model
             currentMana = maxMana;
 
             Speed = speed;
-            HorizontalMovement = MovementWeight.Neutral;
-            VerticalMovement = MovementWeight.Neutral;
+            HorizontalMoveDirection = DirectionWeight.Neutral;
+            VerticalMoveDirection = DirectionWeight.Neutral;
+
+            HorizontalAttackDirection = DirectionWeight.Neutral;
+            VerticalAttackDirection = DirectionWeight.Neutral;
 
             SetStartLearnedMagic();
             currentMagic = LearnedMagic[0];
             magicDamageBonus = 0;
+            UpdateRateOfFire();
 
             this.windowWidth = windowWidth;
             this.windowHeight = windowHeight;
@@ -110,19 +118,24 @@ namespace MagicTower.Model
 
         public void Move()
         {
-            if (InBounds(PosX + Speed * (int) HorizontalMovement, PosY + Speed * (int) VerticalMovement))
+            if (InBounds(PosX + Speed * (int) HorizontalMoveDirection, PosY + Speed * (int) VerticalMoveDirection))
             {
-                PosX += Speed * (int) HorizontalMovement;
-                PosY += Speed * (int) VerticalMovement;
+                PosX += Speed * (int) HorizontalMoveDirection;
+                PosY += Speed * (int) VerticalMoveDirection;
             }
 
             if (OnChangePosition != null)
                 OnChangePosition(PosX, PosY);
         }
 
-        public void AttackTo(int targetX, int targetY)
+        public void CreateMagic()
         {
-            var newMagic = (MagicModels.Magic) Activator.CreateInstance(currentMagic, PosX, PosY, targetX, targetY);
+            if (VerticalAttackDirection == DirectionWeight.Neutral &&
+                HorizontalAttackDirection == DirectionWeight.Neutral)
+                return;
+
+            var newMagic = (MagicModels.Magic) Activator.CreateInstance(currentMagic, PosX, PosY,
+                PosX + HorizontalAttackDirection, PosY + VerticalAttackDirection);
             if (CurrentMana - newMagic.ManaCost >= 0 && OnCreateNewMagic != null)
             {
                 newMagic.Damage += magicDamageBonus;
@@ -140,7 +153,10 @@ namespace MagicTower.Model
         public void ChangeCurrentMagic(int magicId)
         {
             if (magicId >= 0 && magicId < LearnedMagic.Count)
+            {
                 currentMagic = LearnedMagic[magicId];
+                UpdateRateOfFire();
+            }
         }
 
         public void Heal(int amountOfHealth)
@@ -166,16 +182,16 @@ namespace MagicTower.Model
 
         public void IncreaseMaxHealth(int amountHP)
         {
-            if (MaxHealth + amountHP > 24)
-                MaxHealth = 24;
+            if (MaxHealth + amountHP > 28)
+                MaxHealth = 28;
             else
                 MaxHealth += amountHP;
         }
 
         public void IncreaseSpeed(int amountSpeed)
         {
-            if (speed + amountSpeed > 35)
-                speed = 35;
+            if (speed + amountSpeed > 45)
+                speed = 45;
             else
                 speed += amountSpeed;
         }
@@ -186,12 +202,6 @@ namespace MagicTower.Model
                 MaxMana = MaxMana;
             else
                 MaxMana += amountMana;
-        }
-
-        private void PushOffFromOpponent(Enemy enemy)
-        {
-            var differenceByX = enemy.PosX - PosX;
-            var differenceByY = enemy.PosY - PosY;
         }
 
         private void GetDamaged(int amountOfDamage)
@@ -214,8 +224,12 @@ namespace MagicTower.Model
             {
                 typeof(FireBall),
                 typeof(IceBall),
-                typeof(DuplicateSphere)
             };
+        }
+
+        private void UpdateRateOfFire()
+        {
+            CurrentRateOfFire = ((MagicModels.Magic) Activator.CreateInstance(currentMagic, 0, 0, 0, 0)).RateOfFire;
         }
     }
 }

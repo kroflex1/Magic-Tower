@@ -47,7 +47,6 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="GameObjectsView\DrawController.cs" />
         <Compile Include="GameObjectsView\EnemyView.cs" />
         <Compile Include="GameObjectsView\GameObjectView.cs" />
         <Compile Include="GameObjectsView\ItemView.cs" />
@@ -98,7 +97,9 @@
         <None Include="App.config" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="Sprites\Backgrounds\GameBackground.png" />
+      <Content Include="Sprites\Backgrounds\GameBackground.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <Content Include="Sprites\Backgrounds\PauseBackground.jpg" />
       <Content Include="Sprites\Backgrounds\StartScreenBackground.jpg" />
       <Content Include="Sprites\Enemies\littleDemon.png">
@@ -153,6 +154,9 @@
         <Project>{375fbab4-240d-4a76-bbaa-edd1cc7cdced}</Project>
         <Name>MagicTower.Model</Name>
       </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Sprites\UI\Spells" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

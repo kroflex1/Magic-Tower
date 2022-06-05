@@ -73,7 +73,7 @@ namespace MagicTower.Model.Tests
             var room = GetRoomPresetWithEnemyAndPlayer(0, 0, 54, 0);
             var playerHealthBeforeDamage = room.Player.CurrentHealth;
             room.Player.Speed = room.Player.HitboxWidth;
-            room.Player.HorizontalMovement = MovementWeight.Positive;
+            room.Player.HorizontalMoveDirection = DirectionWeight.Positive;
             room.Player.Move();
 
             CollisionController.CheckGameObjectsForCollisions(room);

@@ -17,12 +17,12 @@ namespace MagicTower
         {
         }
         
-        public override void Draw(Graphics e)
+        public override void Draw(Graphics graphics)
         {
             foreach (var magic in gameModel.CurrentRoom.MagicInRoom)
             {
                 var pos = new Point(magic.PosX, magic.PosY);
-                e.DrawImage(imagesForGameObjects[magic.GetType()], pos);
+                graphics.DrawImage(imagesForGameObjects[magic.GetType()], pos);
             }
         }
 

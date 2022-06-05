@@ -10,6 +10,7 @@ namespace MagicTower
     {
         public Timer TimerUpdate { get; private set; }
         public Timer TimerWave { get; private set; }
+        private Timer timeBetweenShots;
 
         private Game gameModel;
         private PlayerView playerView;
@@ -19,6 +20,7 @@ namespace MagicTower
         private PlayerUI playerUi;
         private Label scoreLabel;
         private PauseScreen pauseScreen;
+        private StartScreen menuScreen;
 
         public GameScreen()
         {
@@ -32,9 +34,21 @@ namespace MagicTower
             SetScoreLabel();
         }
 
+        public void RestartGame()
+        {
+            gameModel.Restart();
+            TimerUpdate.Start();
+            TimerWave.Start();
+        }
+
         public void SetPauseScreen(PauseScreen pauseScreen)
         {
             this.pauseScreen = pauseScreen;
+        }
+
+        public void SetStartScreen(StartScreen startScreen)
+        {
+            menuScreen = startScreen;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -54,38 +68,20 @@ namespace MagicTower
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.A)
-                gameModel.Player.HorizontalMovement = MovementWeight.Negative;
-            else if (e.KeyCode == Keys.D)
-                gameModel.Player.HorizontalMovement = MovementWeight.Positive;
-            else if (e.KeyCode == Keys.W)
-                gameModel.Player.VerticalMovement = MovementWeight.Negative;
-            else if (e.KeyCode == Keys.S)
-                gameModel.Player.VerticalMovement = MovementWeight.Positive;
-            else if (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9)
-                gameModel.Player.ChangeCurrentMagic(e.KeyData.ToString()[1] - '0' - 1);
+            CheckForStartPlayerMovement(e);
+            CheckForStartPlayerAttack(e);
 
+            if (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9)
+                gameModel.Player.ChangeCurrentMagic(e.KeyData.ToString()[1] - '0' - 1);
             else if (e.KeyCode == Keys.Escape)
-            {
-                TimerUpdate.Stop();
-                TimerWave.Stop();
-                Hide();
-                pauseScreen.Show();
-            }
+                OpenPauseScreen();
         }
 
         protected override void OnKeyUp(KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.A)
-                gameModel.Player.HorizontalMovement = MovementWeight.Neutral;
-            else if (e.KeyCode == Keys.D)
-                gameModel.Player.HorizontalMovement = MovementWeight.Neutral;
-            else if (e.KeyCode == Keys.W)
-                gameModel.Player.VerticalMovement = MovementWeight.Neutral;
-            else if (e.KeyCode == Keys.S)
-                gameModel.Player.VerticalMovement = MovementWeight.Neutral;
+            CheckForStopPlayerMovement(e);
+            CheckForStopPlayerAttack(e);
         }
-
 
         protected override void OnMouseMove(MouseEventArgs mouse)
         {
@@ -94,23 +90,20 @@ namespace MagicTower
                 playerView.FlipImage();
         }
 
-        protected override void OnMouseClick(MouseEventArgs e)
-        {
-            gameModel.SpawnMagic(e.X, e.Y);
-        }
-
-        private void UpdateScoreView()
-        {
-            scoreLabel.Text = "Score:" + gameModel.GetScore();
-        }
-
         private void SetTimers()
         {
             TimerUpdate = new Timer();
             TimerUpdate.Interval = 60;
-            TimerUpdate.Tick += (sender, args) => gameModel.Update();
             TimerUpdate.Tick += (sender, args) =>
             {
+                if (!gameModel.Player.IsAlive)
+                {
+                    TimerUpdate.Stop();
+                    TimerWave.Stop();
+                    ShowGameOver();
+                }
+                gameModel.SpawnMagic();
+                gameModel.Update();
                 Invalidate();
                 UpdateScoreView();
             };
@@ -118,11 +111,116 @@ namespace MagicTower
             TimerWave = new Timer();
             TimerWave.Interval = gameModel.IntervalBetweenWaves;
             TimerWave.Tick += (sender, args) => gameModel.SummonWaveOfEnemies();
+
+            // timeBetweenShots = new Timer();
+            // timeBetweenShots.Interval = gameModel.CurrentRateOfFire;
+            // timeBetweenShots.Tick += (sender, args) => gameModel.CanPlayerShoot = true;
+            // timeBetweenShots.Start();
+        }
+
+        private void CheckForStartPlayerMovement(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A)
+                gameModel.Player.HorizontalMoveDirection = DirectionWeight.Negative;
+            else if (e.KeyCode == Keys.D)
+                gameModel.Player.HorizontalMoveDirection = DirectionWeight.Positive;
+            else if (e.KeyCode == Keys.W)
+                gameModel.Player.VerticalMoveDirection = DirectionWeight.Negative;
+            else if (e.KeyCode == Keys.S)
+                gameModel.Player.VerticalMoveDirection = DirectionWeight.Positive;
+        }
+
+        private void CheckForStartPlayerAttack(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+                gameModel.Player.VerticalAttackDirection = DirectionWeight.Negative;
+            else if (e.KeyCode == Keys.Down)
+                gameModel.Player.VerticalAttackDirection = DirectionWeight.Positive;
+            else if (e.KeyCode == Keys.Left)
+                gameModel.Player.HorizontalAttackDirection = DirectionWeight.Negative;
+            else if (e.KeyCode == Keys.Right)
+                gameModel.Player.HorizontalAttackDirection = DirectionWeight.Positive;
+        }
+
+        private void CheckForStopPlayerMovement(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A)
+                gameModel.Player.HorizontalMoveDirection = DirectionWeight.Neutral;
+            else if (e.KeyCode == Keys.D)
+                gameModel.Player.HorizontalMoveDirection = DirectionWeight.Neutral;
+            else if (e.KeyCode == Keys.W)
+                gameModel.Player.VerticalMoveDirection = DirectionWeight.Neutral;
+            else if (e.KeyCode == Keys.S)
+                gameModel.Player.VerticalMoveDirection = DirectionWeight.Neutral;
+        }
+
+        private void CheckForStopPlayerAttack(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+                gameModel.Player.VerticalAttackDirection = DirectionWeight.Neutral;
+            else if (e.KeyCode == Keys.Down)
+                gameModel.Player.VerticalAttackDirection = DirectionWeight.Neutral;
+            else if (e.KeyCode == Keys.Left)
+                gameModel.Player.HorizontalAttackDirection = DirectionWeight.Neutral;
+            else if (e.KeyCode == Keys.Right)
+                gameModel.Player.HorizontalAttackDirection = DirectionWeight.Neutral;
+        }
+
+        private void OpenPauseScreen()
+        {
+            TimerUpdate.Stop();
+            TimerWave.Stop();
+            Hide();
+            pauseScreen.Show();
+        }
+
+        private void OpenMenuScreen()
+        {
+            Hide();
+            menuScreen.Show();
+        }
+
+        private void ShowGameOver()
+        {
+            var gameOverLabel = new Label()
+            {
+                Text = "GameOver",
+                Location = new Point(Width / 2, Height / 2)
+            };
+
+            var menuButton = new Button()
+            {
+                Text = "Menu",
+                Location = new Point(gameOverLabel.Left, gameOverLabel.Bottom + 20),
+            };
+            menuButton.Click += (sender, args) => OpenMenuScreen();
+
+            var restartGameButton = new Button()
+            {
+                Text = "Restart",
+                Location = new Point(gameOverLabel.Left, menuButton.Bottom + 20),
+            };
+            restartGameButton.Click += (sender, args) =>
+            {
+                Controls.Remove(gameOverLabel);
+                Controls.Remove(menuButton);
+                Controls.Remove(restartGameButton);
+                RestartGame();
+            };
+
+            Controls.Add(gameOverLabel);
+            Controls.Add(restartGameButton);
+            Controls.Add(menuButton);
+        }
+
+        private void UpdateScoreView()
+        {
+            scoreLabel.Text = "Score:" + gameModel.GetScore();
         }
 
         private void SetViewObjects()
         {
-            playerView = new PlayerView(gameModel.Player);
+            playerView = new PlayerView(gameModel);
             itemView = new ItemView(gameModel);
             magicView = new MagicView(gameModel);
             enemyView = new EnemyView(gameModel);
@@ -146,9 +244,7 @@ namespace MagicTower
             Size = Screen.PrimaryScreen.Bounds.Size;
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
-            BackgroundImage =
-                Image.FromFile(
-                    @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\Backgrounds\GameBackground.png");
+            BackgroundImage = Image.FromFile(@"Sprites\Backgrounds\GameBackground.png");
         }
     }
 }

@@ -12,65 +12,65 @@ namespace MagicTower.Model.Tests
         private const int roomWidth = 1920;
         private const int roomHeight = 1080;
 
-        [TestCase(MovementWeight.Positive, 1, 1, 2, 1)]
-        [TestCase(MovementWeight.Negative, 1, 1, 0, 1)]
-        [TestCase(MovementWeight.Neutral, 1, 1, 1, 1)]
-        public void PlayerShouldGoHorizontalCorrect(MovementWeight movementWeight, int startX, int startY, int endX,
+        [TestCase(DirectionWeight.Positive, 1, 1, 2, 1)]
+        [TestCase(DirectionWeight.Negative, 1, 1, 0, 1)]
+        [TestCase(DirectionWeight.Neutral, 1, 1, 1, 1)]
+        public void PlayerShouldGoHorizontalCorrect(DirectionWeight directionWeight, int startX, int startY, int endX,
             int endY)
         {
             var player = new Player(startX, startY, roomWidth, roomHeight);
             player.Speed = 1;
-            player.HorizontalMovement = movementWeight;
+            player.HorizontalMoveDirection = directionWeight;
             player.Move();
             Assert.AreEqual((endX, endY), (player.PosX, player.PosY));
         }
 
-        [TestCase(MovementWeight.Positive, 1, 1, 1, 2)]
-        [TestCase(MovementWeight.Negative, 1, 1, 1, 0)]
-        [TestCase(MovementWeight.Neutral, 1, 1, 1, 1)]
-        public void PlayerShouldGoVerticalCorrect(MovementWeight movementWeight, int startX, int startY, int endX,
+        [TestCase(DirectionWeight.Positive, 1, 1, 1, 2)]
+        [TestCase(DirectionWeight.Negative, 1, 1, 1, 0)]
+        [TestCase(DirectionWeight.Neutral, 1, 1, 1, 1)]
+        public void PlayerShouldGoVerticalCorrect(DirectionWeight directionWeight, int startX, int startY, int endX,
             int endY)
         {
             var player = new Player(startX, startY, roomWidth, roomHeight);
             player.Speed = 1;
-            player.VerticalMovement = movementWeight;
+            player.VerticalMoveDirection = directionWeight;
             player.Move();
             Assert.AreEqual((endX, endY), (player.PosX, player.PosY));
         }
 
-        [TestCase(MovementWeight.Positive, MovementWeight.Positive, 1, 1, 2, 2)]
-        [TestCase(MovementWeight.Positive, MovementWeight.Negative, 1, 1, 2, 0)]
-        [TestCase(MovementWeight.Negative, MovementWeight.Positive, 1, 1, 0, 2)]
-        [TestCase(MovementWeight.Negative, MovementWeight.Negative, 1, 1, 0, 0)]
-        [TestCase(MovementWeight.Neutral, MovementWeight.Neutral, 1, 1, 1, 1)]
-        public void PlayerShouldGoDiagonallyVCorrect(MovementWeight horizontalMovementWeight,
-            MovementWeight verticalMovementWeight, int startX, int startY, int endX,
+        [TestCase(DirectionWeight.Positive, DirectionWeight.Positive, 1, 1, 2, 2)]
+        [TestCase(DirectionWeight.Positive, DirectionWeight.Negative, 1, 1, 2, 0)]
+        [TestCase(DirectionWeight.Negative, DirectionWeight.Positive, 1, 1, 0, 2)]
+        [TestCase(DirectionWeight.Negative, DirectionWeight.Negative, 1, 1, 0, 0)]
+        [TestCase(DirectionWeight.Neutral, DirectionWeight.Neutral, 1, 1, 1, 1)]
+        public void PlayerShouldGoDiagonallyVCorrect(DirectionWeight horizontalDirectionWeight,
+            DirectionWeight verticalDirectionWeight, int startX, int startY, int endX,
             int endY)
         {
             var player = new Player(startX, startY, roomWidth, roomHeight);
             player.Speed = 1;
-            player.HorizontalMovement = horizontalMovementWeight;
-            player.VerticalMovement = verticalMovementWeight;
+            player.HorizontalMoveDirection = horizontalDirectionWeight;
+            player.VerticalMoveDirection = verticalDirectionWeight;
             player.Move();
             Assert.AreEqual((endX, endY), (player.PosX, player.PosY));
         }
 
 
-        [TestCase(MovementWeight.Negative, MovementWeight.Neutral, 0, 0)]
-        [TestCase(MovementWeight.Negative, MovementWeight.Negative, 0, 0)]
-        [TestCase(MovementWeight.Positive, MovementWeight.Neutral, roomWidth, 0)]
-        [TestCase(MovementWeight.Positive, MovementWeight.Neutral, roomWidth, roomHeight)]
-        [TestCase(MovementWeight.Positive, MovementWeight.Positive, roomWidth, 0)]
-        [TestCase(MovementWeight.Positive, MovementWeight.Negative, roomWidth, roomHeight)]
-        [TestCase(MovementWeight.Neutral, MovementWeight.Negative, 0, 0)]
-        [TestCase(MovementWeight.Negative, MovementWeight.Negative, 0, 0)]
-        [TestCase(MovementWeight.Neutral, MovementWeight.Positive, 0, roomHeight)]
-        public void PlayerCantGoToBeyondBounds(MovementWeight horizontalMovementWeight,
-            MovementWeight verticalMovementWeight, int startX, int startY)
+        [TestCase(DirectionWeight.Negative, DirectionWeight.Neutral, 0, 0)]
+        [TestCase(DirectionWeight.Negative, DirectionWeight.Negative, 0, 0)]
+        [TestCase(DirectionWeight.Positive, DirectionWeight.Neutral, roomWidth, 0)]
+        [TestCase(DirectionWeight.Positive, DirectionWeight.Neutral, roomWidth, roomHeight)]
+        [TestCase(DirectionWeight.Positive, DirectionWeight.Positive, roomWidth, 0)]
+        [TestCase(DirectionWeight.Positive, DirectionWeight.Negative, roomWidth, roomHeight)]
+        [TestCase(DirectionWeight.Neutral, DirectionWeight.Negative, 0, 0)]
+        [TestCase(DirectionWeight.Negative, DirectionWeight.Negative, 0, 0)]
+        [TestCase(DirectionWeight.Neutral, DirectionWeight.Positive, 0, roomHeight)]
+        public void PlayerCantGoToBeyondBounds(DirectionWeight horizontalDirectionWeight,
+            DirectionWeight verticalDirectionWeight, int startX, int startY)
         {
             var player = new Player(startX, startY, roomWidth, roomHeight);
-            player.HorizontalMovement = horizontalMovementWeight;
-            player.VerticalMovement = verticalMovementWeight;
+            player.HorizontalMoveDirection = horizontalDirectionWeight;
+            player.VerticalMoveDirection = verticalDirectionWeight;
             player.Move();
             Assert.AreEqual((startX, startY), (player.PosX, player.PosY));
         }
@@ -94,6 +94,7 @@ namespace MagicTower.Model.Tests
             Assert.AreEqual(player.LearnedMagic[player.LearnedMagic.Count - 1], typeof(TestMagic));
         }
 
+        /*
         [Test]
         public void PlayerLosesManaWhenCreatedMagic()
         {
@@ -101,7 +102,7 @@ namespace MagicTower.Model.Tests
             var room = new Arena(roomWidth, roomHeight, player);
             var iceBall = new IceBall(0, 0, 1, 1);
             player.ChangeCurrentMagic(1);
-            player.AttackTo(5, 5);
+            player.CreateMagic(5, 5);
             Assert.AreEqual(player.MaxMana  - iceBall.ManaCost, player.CurrentMana);
         }
 
@@ -112,10 +113,10 @@ namespace MagicTower.Model.Tests
             var room = new Arena(roomWidth, roomHeight, player);
             player.ChangeCurrentMagic(1);
             for (int i = 0; i < player.MaxMana; i++)
-                player.AttackTo(5, 5);
+                player.CreateMagic(5, 5);
             
             Assert.AreEqual(0, player.CurrentMana);
-        }
+        }*/
 
         [Test]
         public void CorrectGetDamage()

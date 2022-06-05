@@ -99,7 +99,8 @@ namespace MagicTower.Model.EnemiesModels
             if (CreateNewItem != null)
             {
                 var typeOfItem = fallingItemsAfterDeath[random.Next(0, fallingItemsAfterDeath.Count)];
-                CreateNewItem((Item)Activator.CreateInstance(typeOfItem, PosX, PosY));
+                if(random.Next(0,10) <=2)
+                    CreateNewItem((Item)Activator.CreateInstance(typeOfItem, PosX, PosY));
             }
 
             CurrentCondition = Condition.Destroyed;

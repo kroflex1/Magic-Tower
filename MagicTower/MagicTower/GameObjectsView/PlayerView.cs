@@ -7,25 +7,24 @@ using MagicTower.Model;
 
 namespace MagicTower
 {
-    public class PlayerView
+    public class PlayerView : GameObjectView
     {
         public Direction imageDirection { get; private set; }
         private Image playerSprite;
         private Player player;
 
-        public PlayerView(Player player)
+        public PlayerView(Game gameModel) : base(gameModel)
         {
-            this.player = player;
-            var pathToImage = @"Sprites\player.png";
-            playerSprite = Image.FromFile(pathToImage);
+            playerSprite = Image.FromFile(@"Sprites\player.png");
             imageDirection = Direction.Right;
         }
 
-        public void Draw(Graphics e)
+        public override void Draw(Graphics graphics)
         {
-            e.DrawImage(playerSprite, new Point(player.PosX, player.PosY));
+            graphics.DrawImage(playerSprite, new Point(gameModel.Player.PosX, gameModel.Player.PosY));
         }
-
+        
+        
         public void FlipImage()
         {
             if (imageDirection == Direction.Right)

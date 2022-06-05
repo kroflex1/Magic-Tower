@@ -13,7 +13,7 @@ namespace MagicTower.Model.Items
         protected override void UpgradePlayer(Player player)
         {
             player.IncreaseMaxHealth(AmountIncreasedMaxHealth);
-            player.IncreaseMaxHealth(AmountIncreasedMaxMana);
+            player.IncreaseMaxMana(AmountIncreasedMaxMana);
             player.IncreaseMagicDamage(AmountIncreasedBonusDamage);
         }
     }

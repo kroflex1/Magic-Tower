@@ -30,6 +30,7 @@ namespace MagicTower
             startScreen.SetGameScreen(gameScreen);
             pauseScreen.SetStartAndGameScreen(startScreen, gameScreen);
             gameScreen.SetPauseScreen(pauseScreen);
+            gameScreen.SetStartScreen(startScreen);
         }
     }
 }

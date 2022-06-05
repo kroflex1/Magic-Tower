@@ -1,6 +1,6 @@
 namespace MagicTower.Model
 {
-    public enum MovementWeight
+    public enum DirectionWeight
     {
         Positive = 1,
         Negative = -1,

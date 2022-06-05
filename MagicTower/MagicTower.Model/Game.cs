@@ -6,10 +6,11 @@ namespace MagicTower.Model
 {
     public class Game
     {
-        public Player Player { get; }
+        public Player Player { get; private set; }
         public Room CurrentRoom { get; private set; }
         public int IntervalBetweenWaves { get; private set; }
-        
+
+        public int CurrentRateOfFire { get => Player.CurrentRateOfFire; }
         
         private int[] windowSize;
         private Arena arena;
@@ -27,9 +28,9 @@ namespace MagicTower.Model
             treasureRoom = new TreasureRoom(windowSize[0], windowSize[1], Player);
             CurrentRoom = arena;
 
-            IntervalBetweenWaves = 3000;
+            IntervalBetweenWaves = 2000;
             currentDifficulty = 1;
-            scoreForTreasureRoom = 200;
+            scoreForTreasureRoom = 400;
         }
 
         public void Update()
@@ -60,9 +61,21 @@ namespace MagicTower.Model
             return arena.Score;
         }
 
-        public void SpawnMagic(int targetX, int targetY)
+        public void SpawnMagic()
         {
-            Player.AttackTo(targetX, targetY);
+            Player.CreateMagic();
+        }
+
+        public void Restart()
+        {
+            Player = new Player(600, 500,windowSize[0] , windowSize[1]);
+            arena = new Arena(windowSize[0], windowSize[1], Player);
+            treasureRoom = new TreasureRoom(windowSize[0], windowSize[1], Player);
+            CurrentRoom = arena;
+
+            IntervalBetweenWaves = 2000;
+            currentDifficulty = 1;
+            scoreForTreasureRoom = 400;
         }
     }
 }
