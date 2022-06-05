@@ -1,10 +1,10 @@
 namespace MagicTower.Model.Items
 {
-    public class ВragonsEye:Item
+    public class DragonsEye:Item
     {
 
         private const int AmountDamageBonus = 3;
-        public ВragonsEye(int posX, int posY, int hitboxWidth, int hitboxHeight) : base(posX, posY, hitboxWidth, hitboxHeight)
+        public DragonsEye(int posX, int posY) : base(posX, posY, 64, 64)
         {
         }
 

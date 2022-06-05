@@ -5,7 +5,7 @@ namespace MagicTower.Model.EnemiesModels
 {
     public class Demon : Enemy
     {
-        public override event EnemyHandler CreateNewEnemy;
+        public override event EnemySpawnHandler CreateNewEnemy;
 
         public Demon(int posX, int posY) : base(posX, posY,
             74, 89, 6, 5, 2)

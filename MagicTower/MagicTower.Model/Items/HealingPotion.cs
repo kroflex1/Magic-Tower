@@ -4,8 +4,8 @@ namespace MagicTower.Model.Items
     {
         private const int AmountOfHealth = 4;
 
-        public HealingPotion(int posX, int posY, int hitboxWidth, int hitboxHeight) : base(posX, posY, hitboxWidth,
-            hitboxHeight)
+        public HealingPotion(int posX, int posY) : base(posX, posY, 32,
+            32)
         {
         }
 

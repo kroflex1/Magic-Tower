@@ -56,7 +56,7 @@
         <Compile Include="Items\MagicMushroom.cs" />
         <Compile Include="Items\ManaPotion.cs" />
         <Compile Include="Items\Scroll.cs" />
-        <Compile Include="Items\ВragonsEye.cs" />
+        <Compile Include="Items\DragonsEye.cs" />
         <Compile Include="MagicModels\DuplicateSphere.cs" />
         <Compile Include="MagicModels\FireBall.cs" />
         <Compile Include="MagicModels\IceBall.cs" />

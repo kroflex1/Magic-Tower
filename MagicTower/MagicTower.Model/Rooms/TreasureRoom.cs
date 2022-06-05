@@ -1,51 +1,62 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using MagicTower.Model.Items;
 
 namespace MagicTower.Model
 {
-    public class TreasureRoom:Room
+    public class TreasureRoom : Room
     {
-        private Item artifact;
-        private Scroll scroll;
-        private Rectangle artifactRectangle;
-        private Rectangle scrollRectangle;
-        
+        public bool IsEmpty
+        {
+            get => ItemsInRoom.Count == 0;
+        }
+
+        private List<Type> typesOfArtifacts;
+        private List<Type> typesOfMagicForScrolls;
+
         public TreasureRoom(int width, int height, Player player) : base(width, height, player)
         {
-            
+            SetAvailableTypesOfArtifacts();
+            SetAvailableTypesOfMagicForScrolls();
         }
 
-        public override void Update()
+        public void UpdateTreasures()
         {
-            ChangeGameObjectsPosition();
+            SpawnRandomArtifact();
+            SpawnRandomScroll();
         }
 
-        public void UpdateContent()
+        private void SpawnRandomArtifact()
         {
-            
+            var artifactType = typesOfArtifacts[new Random().Next(0, typesOfArtifacts.Count)];
+            SpawnItem((Item) Activator.CreateInstance(artifactType, width / 2, height / 2));
         }
 
-        private void CheckForCollisions()
+        private void SpawnRandomScroll()
         {
-            var playerRectangle = new Rectangle(Player.PosX, Player.PosY, Player.HitboxWidth, Player.HitboxHeight);
-            if (CollisionController.IsIntersection(playerRectangle, artifactRectangle))
+            var magicForScroll = typesOfMagicForScrolls[new Random().Next(0, typesOfMagicForScrolls.Count)];
+            var scroll = new Scroll(width / 2 + 64, height / 2, magicForScroll);
+            SpawnItem(scroll);
+        }
+
+        private void SetAvailableTypesOfArtifacts()
+        {
+            typesOfArtifacts = new List<Type>()
             {
-                artifact.OnCollisionEnter(Player);
-                Player.OnCollisionEnter(artifact);
-            }
-            else if (CollisionController.IsIntersection(playerRectangle, scrollRectangle))
-            {
-                scroll.OnCollisionEnter(Player);
-                Player.OnCollisionEnter(scroll);
-            }
+                typeof(DragonsEye),
+                typeof(MagicMushroom),
+                typeof(EldenRing)
+            };
         }
 
-        private void DeleteTakenItems()
+        private void SetAvailableTypesOfMagicForScrolls()
         {
-            if (artifact.CurrentCondition == Condition.Destroyed)
-                artifact = null;
-            if (scroll.CurrentCondition == Condition.Destroyed)
-                scroll = null;
+            var magicForScroll = typeof(MagicModels.Magic);
+            typesOfMagicForScrolls = Assembly.GetAssembly(magicForScroll).GetTypes()
+                .Where(type => type.IsSubclassOf(magicForScroll))
+                .ToList();
         }
     }
-    
 }

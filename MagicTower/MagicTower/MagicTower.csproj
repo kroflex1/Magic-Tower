@@ -49,6 +49,8 @@
     <ItemGroup>
         <Compile Include="GameObjectsView\DrawController.cs" />
         <Compile Include="GameObjectsView\EnemyView.cs" />
+        <Compile Include="GameObjectsView\GameObjectView.cs" />
+        <Compile Include="GameObjectsView\ItemView.cs" />
         <Compile Include="GameObjectsView\MagicView.cs" />
         <Compile Include="GameObjectsView\PlayerView.cs" />
         <Compile Include="Program.cs" />
@@ -103,6 +105,24 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
       <Content Include="Sprites\Enemies\demon.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Sprites\Items\dragons_Eye.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Sprites\Items\elden_Ring.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Sprites\Items\health_Potion.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Sprites\Items\magic_Mashroom.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Sprites\Items\mana_Potion.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Sprites\Items\scroll.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
       <Content Include="Sprites\MagicSprites\DuplicateSphere.png" />

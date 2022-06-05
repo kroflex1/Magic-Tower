@@ -8,17 +8,18 @@ namespace MagicTower
 {
     public partial class GameScreen : Form
     {
-        
         public Timer TimerUpdate { get; private set; }
         public Timer TimerWave { get; private set; }
 
         private Game gameModel;
         private PlayerView playerView;
+        private ItemView itemView;
         private MagicView magicView;
         private EnemyView enemyView;
         private PlayerUI playerUi;
+        private Label scoreLabel;
         private PauseScreen pauseScreen;
-        
+
         public GameScreen()
         {
             InitializeComponent();
@@ -27,15 +28,8 @@ namespace MagicTower
             gameModel = new Game(Width, Height);
             playerUi = new PlayerUI(Width, Height, gameModel.Player);
             SetViewObjects();
-            
-            TimerUpdate = new Timer();
-            TimerUpdate.Interval = 35;
-            TimerUpdate.Tick += (sender, args) => gameModel.Update();
-            TimerUpdate.Tick += (sender, args) => Invalidate();
-
-            TimerWave = new Timer();
-            TimerWave.Interval = gameModel.IntervalBetweenWaves;
-            TimerWave.Tick += (sender, args) => gameModel.SummonWaveOfEnemies();
+            SetTimers();
+            SetScoreLabel();
         }
 
         public void SetPauseScreen(PauseScreen pauseScreen)
@@ -51,10 +45,11 @@ namespace MagicTower
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            playerUi.Draw(e.Graphics);
-            playerView.Draw(e.Graphics);
+            itemView.Draw(e.Graphics);
             magicView.Draw(e.Graphics);
             enemyView.Draw(e.Graphics);
+            playerView.Draw(e.Graphics);
+            playerUi.Draw(e.Graphics);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -104,11 +99,46 @@ namespace MagicTower
             gameModel.SpawnMagic(e.X, e.Y);
         }
 
+        private void UpdateScoreView()
+        {
+            scoreLabel.Text = "Score:" + gameModel.GetScore();
+        }
+
+        private void SetTimers()
+        {
+            TimerUpdate = new Timer();
+            TimerUpdate.Interval = 60;
+            TimerUpdate.Tick += (sender, args) => gameModel.Update();
+            TimerUpdate.Tick += (sender, args) =>
+            {
+                Invalidate();
+                UpdateScoreView();
+            };
+
+            TimerWave = new Timer();
+            TimerWave.Interval = gameModel.IntervalBetweenWaves;
+            TimerWave.Tick += (sender, args) => gameModel.SummonWaveOfEnemies();
+        }
+
         private void SetViewObjects()
         {
             playerView = new PlayerView(gameModel.Player);
-            magicView = new MagicView(gameModel.Arena);
-            enemyView = new EnemyView(gameModel.Arena);
+            itemView = new ItemView(gameModel);
+            magicView = new MagicView(gameModel);
+            enemyView = new EnemyView(gameModel);
+        }
+
+        private void SetScoreLabel()
+        {
+            scoreLabel = new Label()
+            {
+                Text = "Score:" + gameModel.GetScore(),
+                AutoSize = false,
+                TextAlign = ContentAlignment.TopCenter,
+                Dock = DockStyle.None,
+            };
+            scoreLabel.Location = new Point(Width / 2 - scoreLabel.Width / 2, 10);
+            Controls.Add(scoreLabel);
         }
 
         private void SetWindowConfigurations()

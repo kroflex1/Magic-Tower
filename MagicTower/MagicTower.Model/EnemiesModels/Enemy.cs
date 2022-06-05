@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using MagicTower.Model.Items;
 using MagicTower.Model.Magic;
 
 namespace MagicTower.Model.EnemiesModels
@@ -34,12 +36,15 @@ namespace MagicTower.Model.EnemiesModels
                     throw new ArgumentException("Урон не может быть меньше нуля");
             }
         }
-        
+
         public int Score { get; protected set; }
-        
-        public delegate void EnemyHandler(Enemy magic);
-        public abstract event EnemyHandler CreateNewEnemy;
-        
+
+        public delegate void EnemySpawnHandler(Enemy magic);
+        public abstract event EnemySpawnHandler CreateNewEnemy;
+        public delegate void ItemHandler(Item item);
+        public  event ItemHandler CreateNewItem;
+
+        private List<Type> fallingItemsAfterDeath;
         private int health;
         private int speed;
         private int damage;
@@ -51,24 +56,25 @@ namespace MagicTower.Model.EnemiesModels
         {
             PosX = posX;
             PosY = posY;
-            
+
             HitboxHeight = hitboxHeight;
             HitboxWidth = hitboxWidth;
-            
+
             this.health = health;
             Speed = speed;
             Damage = damage;
             CurrentCondition = Condition.Alive;
+            SetFallingItemsAfterDeath();
         }
 
         public void Move()
         {
-            if (PosX != playerPosX|| PosY != playerPosY)
+            if (PosX != playerPosX || PosY != playerPosY)
             {
                 var directionVectorToTarget = new Vector(PosX, PosY, playerPosX, playerPosY);
                 directionVectorToTarget.SetLength(Speed);
                 PosX += directionVectorToTarget.X;
-                PosY += directionVectorToTarget.Y; 
+                PosY += directionVectorToTarget.Y;
             }
         }
 
@@ -86,17 +92,33 @@ namespace MagicTower.Model.EnemiesModels
                 GetDamaged(magic.Damage);
             }
         }
-        
+
+        protected  virtual void Die()
+        {
+            var random = new Random();
+            if (CreateNewItem != null)
+            {
+                var typeOfItem = fallingItemsAfterDeath[random.Next(0, fallingItemsAfterDeath.Count)];
+                CreateNewItem((Item)Activator.CreateInstance(typeOfItem, PosX, PosY));
+            }
+
+            CurrentCondition = Condition.Destroyed;
+        }
+
         private void GetDamaged(int amountOfDamage)
         {
             health -= amountOfDamage;
             if (health <= 0)
                 Die();
         }
-        
-        protected virtual void Die()
+
+        private void SetFallingItemsAfterDeath()
         {
-            CurrentCondition = Condition.Destroyed;
+            fallingItemsAfterDeath = new List<Type>()
+            {
+                typeof(HealingPotion),
+                typeof(ManaPotion)
+            };
         }
     }
 }

@@ -8,31 +8,27 @@ using MagicTower.Model.Magic;
 
 namespace MagicTower
 {
-    public class EnemyView
+    public class EnemyView:GameObjectView
     {
-        private Arena _arena;
-        private Dictionary<Type, Image> imagesForEnemies;
 
-        public EnemyView(Arena arena)
+        public EnemyView(Game gameModel) : base(gameModel)
         {
-            this._arena = arena;
-            SetImagesForMagic();
         }
 
-        public void Draw(Graphics e)
+        public override void Draw(Graphics e)
         {
-            foreach (var enemy in _arena.AliveEnemiesInRoom)
+            foreach (var enemy in gameModel.CurrentRoom.AliveEnemiesInRoom)
             {
                 var pos = new Point(enemy.PosX, enemy.PosY);
-                e.DrawImage(imagesForEnemies[enemy.GetType()], pos);
+                e.DrawImage(imagesForGameObjects[enemy.GetType()], pos);
             }
         }
 
-        private void SetImagesForMagic()
+        protected override void SetImagesForGameObjects()
         {
-            imagesForEnemies = new Dictionary<Type, Image>();
-            imagesForEnemies[typeof(Demon)] = Image.FromFile(@"Sprites/Enemies/demon.png");
-            imagesForEnemies[typeof(LittleDemon)] = Image.FromFile(@"Sprites/Enemies/littleDemon.png");
+            imagesForGameObjects = new Dictionary<Type, Image>();
+            imagesForGameObjects[typeof(Demon)] = Image.FromFile(@"Sprites/Enemies/demon.png");
+            imagesForGameObjects[typeof(LittleDemon)] = Image.FromFile(@"Sprites/Enemies/littleDemon.png");
         }
     }
 }

@@ -6,7 +6,7 @@ namespace MagicTower.Model.Items
         private const int AmountIncreasedMaxMana = 3;
         private const int AmountIncreasedBonusDamage = 2;
 
-        public EldenRing(int posX, int posY) : base(posX, posY, 32, 32)
+        public EldenRing(int posX, int posY) : base(posX, posY, 64, 64)
         {
         }
 

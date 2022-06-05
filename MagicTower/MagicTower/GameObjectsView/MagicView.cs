@@ -8,40 +8,40 @@ using MagicTower.Model.MagicModels;
 
 namespace MagicTower
 {
-    public class MagicView
+    public class MagicView : GameObjectView
     {
-        private Arena _arena;
-        private Dictionary<Type, Image> imagesForMagic;
 
-        public MagicView(Arena arena)
+        
+
+        public MagicView(Game gameModel) : base(gameModel)
         {
-            this._arena = arena;
-            SetImagesForMagic();
         }
-
-        public void Draw(Graphics e)
+        
+        public override void Draw(Graphics e)
         {
-            foreach (var magic in _arena.MagicInRoom)
+            foreach (var magic in gameModel.CurrentRoom.MagicInRoom)
             {
                 var pos = new Point(magic.PosX, magic.PosY);
-                e.DrawImage(imagesForMagic[magic.GetType()], pos);
+                e.DrawImage(imagesForGameObjects[magic.GetType()], pos);
             }
         }
 
-        private void SetImagesForMagic()
+        protected override void SetImagesForGameObjects()
         {
-            imagesForMagic = new Dictionary<Type, Image>();
-            imagesForMagic[typeof(FireBall)] =
+            imagesForGameObjects = new Dictionary<Type, Image>();
+            imagesForGameObjects[typeof(FireBall)] =
                 Image.FromFile(
                     @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\MagicSprites\fireBall.png");
-            imagesForMagic[typeof(IceBall)] =
+            imagesForGameObjects[typeof(IceBall)] =
                 Image.FromFile(
                     @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\MagicSprites\IceBall.png");
-            imagesForMagic[typeof(IceShard)] =
+            imagesForGameObjects[typeof(IceShard)] =
                 Image.FromFile(
                     @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\MagicSprites\IceShard.png");
-            imagesForMagic[typeof(DuplicateSphere)] = Image.FromFile(
+            imagesForGameObjects[typeof(DuplicateSphere)] = Image.FromFile(
                 @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\MagicSprites\DuplicateSphere.png");
         }
+
+     
     }
 }

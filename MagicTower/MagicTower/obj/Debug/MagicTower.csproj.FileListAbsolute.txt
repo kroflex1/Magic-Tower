@@ -19,3 +19,9 @@ C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\UI\
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\UI\Mana\ui_full_mana.png
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Enemies\littleDemon.png
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Enemies\demon.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Items\health_Potion.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Items\mana_Potion.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Items\dragons_Eye.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Items\elden_Ring.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Items\magic_Mashroom.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Items\scroll.png
