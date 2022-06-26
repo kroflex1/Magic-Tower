@@ -55,14 +55,10 @@ namespace MagicTower.Model
         public int MaxHealth { get; private set; }
         public int MaxMana { get; private set; }
         public List<Type> LearnedMagic { get; private set; }
-
         public delegate void PosHandler(int playerPosX, int playerPosY);
-
-        public delegate void MagicHandler(MagicModels.Magic magic);
-
         public event PosHandler OnChangePosition;
-        public event MagicHandler OnCreateNewMagic;
-
+        
+        
         private int currentHealth;
         private int currentMana;
         private int speed;
@@ -128,20 +124,22 @@ namespace MagicTower.Model
                 OnChangePosition(PosX, PosY);
         }
 
-        public void CreateMagic()
+        public MagicModels.Magic CreateMagic()
         {
             if (VerticalAttackDirection == DirectionWeight.Neutral &&
                 HorizontalAttackDirection == DirectionWeight.Neutral)
-                return;
+                return null;
 
             var newMagic = (MagicModels.Magic) Activator.CreateInstance(currentMagic, PosX, PosY,
                 PosX + HorizontalAttackDirection, PosY + VerticalAttackDirection);
-            if (CurrentMana - newMagic.ManaCost >= 0 && OnCreateNewMagic != null)
+            if (CurrentMana - newMagic.ManaCost >= 0)
             {
                 newMagic.Damage += magicDamageBonus;
                 CurrentMana -= newMagic.ManaCost;
-                OnCreateNewMagic(newMagic);
+                return newMagic;
             }
+
+            return null;
         }
 
         public void LearnNewMagic(Type newMagicType)

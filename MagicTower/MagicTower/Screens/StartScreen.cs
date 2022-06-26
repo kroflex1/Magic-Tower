@@ -6,11 +6,16 @@ namespace MagicTower
     public partial class StartScreen : Form
     {
         private GameScreen gameScreen;
+        private Button startGameButton;
+        private Button tutorialButton;
+        private Button exitButton;
+
         public StartScreen()
         {
             InitializeComponent();
             SetWindowConfigurations();
-            var startGameButton = new Button()
+            
+            startGameButton = new Button()
             {
                 Location = new Point(Width / 2, Height / 2),
                 Text = "Play"
@@ -20,18 +25,25 @@ namespace MagicTower
                 Hide();
                 gameScreen.Show();
                 gameScreen.TimerUpdate.Start();
-                gameScreen.TimerWave.Start();   
+                gameScreen.TimerWave.Start();
             };
-            
-            
-            var exitButton = new Button()
+
+            tutorialButton = new Button()
             {
                 Location = new Point(startGameButton.Left, startGameButton.Bottom + 5),
+                Text = "Tutorial"
+            };
+            tutorialButton.Click += (sender, args) => { ShowTutorial(); };
+
+            exitButton = new Button()
+            {
+                Location = new Point(startGameButton.Left, tutorialButton.Bottom + 5),
                 Text = "Exit",
             };
             exitButton.Click += (sender, args) => { Application.Exit(); };
-            
+
             Controls.Add(startGameButton);
+            Controls.Add(tutorialButton);
             Controls.Add(exitButton);
         }
 
@@ -45,8 +57,31 @@ namespace MagicTower
             Size = Screen.PrimaryScreen.Bounds.Size;
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
-            BackgroundImage = Image.FromFile(@"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\Backgrounds\StartScreenBackground.jpg");
+            BackgroundImage = Image.FromFile(@"Sprites\Backgrounds\StartScreenBackground.jpg");
         }
-        
+
+        private void ShowTutorial()
+        {
+            BackgroundImage = Image.FromFile(@"Sprites\Backgrounds\tutorial.png");
+            Controls.Remove(startGameButton);
+            Controls.Remove(tutorialButton);
+            Controls.Remove(exitButton);
+            
+            var closeTutorialButton = new Button()
+            {
+                Text = "Close",
+            };
+            closeTutorialButton.Location = new Point(Width - closeTutorialButton.Width, 0);
+            closeTutorialButton.Click += (sender, args) =>
+            {
+                Controls.Remove(closeTutorialButton);
+                Controls.Add(startGameButton);
+                Controls.Add(tutorialButton);
+                Controls.Add(exitButton);
+                BackgroundImage = Image.FromFile(@"Sprites\Backgrounds\StartScreenBackground.jpg");
+            };
+
+            Controls.Add(closeTutorialButton);
+        }
     }
 }

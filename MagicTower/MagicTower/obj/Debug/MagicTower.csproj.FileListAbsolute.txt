@@ -29,3 +29,10 @@ C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Bac
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\UI\Spells\fireSpell.png
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\UI\Spells\iceSpell.png
 C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\UI\Spells\duplicateShereSpell.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Backgrounds\PauseBackground.jpg
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Backgrounds\StartScreenBackground.jpg
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\Backgrounds\tutorial.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\MagicSprites\DuplicateSphere.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\MagicSprites\fireBall.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\MagicSprites\IceBall.png
+C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\bin\Debug\Sprites\MagicSprites\IceShard.png

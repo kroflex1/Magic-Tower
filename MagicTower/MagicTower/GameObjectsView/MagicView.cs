@@ -29,17 +29,10 @@ namespace MagicTower
         protected override void SetImagesForGameObjects()
         {
             imagesForGameObjects = new Dictionary<Type, Image>();
-            imagesForGameObjects[typeof(FireBall)] =
-                Image.FromFile(
-                    @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\MagicSprites\fireBall.png");
-            imagesForGameObjects[typeof(IceBall)] =
-                Image.FromFile(
-                    @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\MagicSprites\IceBall.png");
-            imagesForGameObjects[typeof(IceShard)] =
-                Image.FromFile(
-                    @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\MagicSprites\IceShard.png");
-            imagesForGameObjects[typeof(DuplicateSphere)] = Image.FromFile(
-                @"C:\Users\Kroflex\Desktop\Magic-Tower\MagicTower\MagicTower\Sprites\MagicSprites\DuplicateSphere.png");
+            imagesForGameObjects[typeof(FireBall)] = Image.FromFile(@"Sprites\MagicSprites\fireBall.png");
+            imagesForGameObjects[typeof(IceBall)] = Image.FromFile(@"Sprites\MagicSprites\IceBall.png");
+            imagesForGameObjects[typeof(IceShard)] = Image.FromFile(@"Sprites\MagicSprites\IceShard.png");
+            imagesForGameObjects[typeof(DuplicateSphere)] = Image.FromFile(@"Sprites\MagicSprites\DuplicateSphere.png");
         }
 
      

@@ -100,8 +100,15 @@
       <Content Include="Sprites\Backgrounds\GameBackground.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
-      <Content Include="Sprites\Backgrounds\PauseBackground.jpg" />
-      <Content Include="Sprites\Backgrounds\StartScreenBackground.jpg" />
+      <Content Include="Sprites\Backgrounds\PauseBackground.jpg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Sprites\Backgrounds\StartScreenBackground.jpg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Sprites\Backgrounds\tutorial.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <Content Include="Sprites\Enemies\littleDemon.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
@@ -126,10 +133,18 @@
       <Content Include="Sprites\Items\scroll.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
-      <Content Include="Sprites\MagicSprites\DuplicateSphere.png" />
-      <Content Include="Sprites\MagicSprites\fireBall.png" />
-      <Content Include="Sprites\MagicSprites\IceBall.png" />
-      <Content Include="Sprites\MagicSprites\IceShard.png" />
+      <Content Include="Sprites\MagicSprites\DuplicateSphere.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Sprites\MagicSprites\fireBall.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Sprites\MagicSprites\IceBall.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Sprites\MagicSprites\IceShard.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <Content Include="Sprites\player.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>

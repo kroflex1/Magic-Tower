@@ -29,7 +29,7 @@ namespace MagicTower.Model
             CurrentRoom = arena;
 
             IntervalBetweenWaves = 2000;
-            currentDifficulty = 1;
+            currentDifficulty = 2;
             scoreForTreasureRoom = 400;
         }
 
@@ -63,7 +63,9 @@ namespace MagicTower.Model
 
         public void SpawnMagic()
         {
-            Player.CreateMagic();
+            var newMagic = Player.CreateMagic();
+            if(newMagic != null)
+                CurrentRoom.SpawnMagic(Player.CreateMagic());
         }
 
         public void Restart()
@@ -74,7 +76,7 @@ namespace MagicTower.Model
             CurrentRoom = arena;
 
             IntervalBetweenWaves = 2000;
-            currentDifficulty = 1;
+            currentDifficulty = 2;
             scoreForTreasureRoom = 400;
         }
     }

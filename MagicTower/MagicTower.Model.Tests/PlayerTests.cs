@@ -94,7 +94,7 @@ namespace MagicTower.Model.Tests
             Assert.AreEqual(player.LearnedMagic[player.LearnedMagic.Count - 1], typeof(TestMagic));
         }
 
-        /*
+      
         [Test]
         public void PlayerLosesManaWhenCreatedMagic()
         {
@@ -102,7 +102,8 @@ namespace MagicTower.Model.Tests
             var room = new Arena(roomWidth, roomHeight, player);
             var iceBall = new IceBall(0, 0, 1, 1);
             player.ChangeCurrentMagic(1);
-            player.CreateMagic(5, 5);
+            player.HorizontalAttackDirection = DirectionWeight.Positive;
+            player.CreateMagic();
             Assert.AreEqual(player.MaxMana  - iceBall.ManaCost, player.CurrentMana);
         }
 
@@ -112,11 +113,12 @@ namespace MagicTower.Model.Tests
             var player = new Player(0, 0,  roomWidth, roomHeight);
             var room = new Arena(roomWidth, roomHeight, player);
             player.ChangeCurrentMagic(1);
+            player.HorizontalAttackDirection = DirectionWeight.Positive;
             for (int i = 0; i < player.MaxMana; i++)
-                player.CreateMagic(5, 5);
+                player.CreateMagic();
             
             Assert.AreEqual(0, player.CurrentMana);
-        }*/
+        }
 
         [Test]
         public void CorrectGetDamage()

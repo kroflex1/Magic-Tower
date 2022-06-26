@@ -111,11 +111,6 @@ namespace MagicTower
             TimerWave = new Timer();
             TimerWave.Interval = gameModel.IntervalBetweenWaves;
             TimerWave.Tick += (sender, args) => gameModel.SummonWaveOfEnemies();
-
-            // timeBetweenShots = new Timer();
-            // timeBetweenShots.Interval = gameModel.CurrentRateOfFire;
-            // timeBetweenShots.Tick += (sender, args) => gameModel.CanPlayerShoot = true;
-            // timeBetweenShots.Start();
         }
 
         private void CheckForStartPlayerMovement(KeyEventArgs e)
@@ -193,13 +188,21 @@ namespace MagicTower
                 Text = "Menu",
                 Location = new Point(gameOverLabel.Left, gameOverLabel.Bottom + 20),
             };
-            menuButton.Click += (sender, args) => OpenMenuScreen();
-
+            
             var restartGameButton = new Button()
             {
                 Text = "Restart",
                 Location = new Point(gameOverLabel.Left, menuButton.Bottom + 20),
             };
+            
+            menuButton.Click += (sender, args) =>
+            {
+                OpenMenuScreen();
+                Controls.Remove(gameOverLabel);
+                Controls.Remove(menuButton);
+                Controls.Remove(restartGameButton);
+            };
+            
             restartGameButton.Click += (sender, args) =>
             {
                 Controls.Remove(gameOverLabel);

@@ -29,8 +29,6 @@ namespace MagicTower.Model
             this.height = height;
             Player = player;
             
-            Player.OnCreateNewMagic += SpawnMagic;
-            
             ItemsInRoom = new List<Item>();
             MagicInRoom = new List<MagicModels.Magic>();
             AliveEnemiesInRoom = new List<Enemy>();
